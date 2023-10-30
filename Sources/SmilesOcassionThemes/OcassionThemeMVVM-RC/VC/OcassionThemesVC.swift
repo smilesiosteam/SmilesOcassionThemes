@@ -37,12 +37,12 @@ public class OcassionThemesVC: UIViewController {
     var dataSource: SectionedTableViewDataSource?
     var sections = [SmilesExplorerSubscriptionUpgradeSectionData]()
     var smilesExplorerSections: GetSectionsResponseModel?
-    let categoryId: Int
-    private let isGuestUser: Bool
-    private var isUserSubscribed: Bool?
+    let categoryId: Int = -1
+    private let isGuestUser: Bool = false
+    private var isUserSubscribed: Bool? = false
     var subscriptionType: ExplorerPackage?
     private var voucherCode: String?
-    public var delegate:SmilesExplorerHomeDelegate? = nil
+    public var delegate:SmilesOccasionThemesHomeDelegate?
     private var selectedIndexPath: IndexPath?
     var mutatingSectionDetails = [SectionDetailDO]()
     private var offerFavoriteOperation = 0
@@ -80,34 +80,18 @@ public class OcassionThemesVC: UIViewController {
     public var savedFilters: [RestaurantRequestFilter]?
     public var restaurantSortingResponseModel: GetSortingListResponseModel?
     public var selectedSortingTableViewCellModel: FilterDO?
-    
-    
     private var onFilterClick:(() -> Void)?
-    
-    
     public var filtersList: [RestaurantRequestFilter]?
-    
     public var selectedSort: String?
     private var rewardPoint: Int?
     private var rewardPointIcon: String?
     private var personalizationEventSource: String?
     private var platinumLimiReached: Bool?
-
-    
     var restaurants = [Restaurant]()
 
     
-    public init(categoryId: Int, isGuestUser: Bool, isUserSubscribed: Bool? = nil, subscriptionType: ExplorerPackage? = nil, voucherCode: String? = nil, delegate:SmilesExplorerHomeDelegate, rewardPoint: Int, rewardPointIcon: String,personalizationEventSource: String?,platinumLimiReached: Bool?) {
-        self.platinumLimiReached = platinumLimiReached
-        self.personalizationEventSource =  personalizationEventSource
-        self.categoryId = categoryId
-        self.isGuestUser = isGuestUser
-        self.isUserSubscribed = isUserSubscribed
-        self.subscriptionType = subscriptionType
-        self.voucherCode = voucherCode
+    public init(delegate: SmilesOccasionThemesHomeDelegate?) {
         self.delegate = delegate
-        self.rewardPointIcon = rewardPointIcon
-        self.rewardPoint = rewardPoint
         super.init(nibName: "OcassionThemesVC", bundle: Bundle.module)
     }
     

@@ -12,7 +12,7 @@ public enum SmilesExplorerHomeNavigationType {
     case payment, withTextPromo, withQRPromo, freeTicket
 }
 
-public protocol SmilesExplorerHomeDelegate {
+public protocol SmilesOccasionThemesHomeDelegate {
     
     func proceedToPayment(params: SmilesExplorerPaymentParams, navigationType:SmilesExplorerHomeNavigationType)
     func handleDeepLinkRedirection(redirectionUrl: String)
