@@ -29,7 +29,7 @@ extension OcassionThemesVC: UITableViewDelegate {
                 if let dataSource = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<OfferDO>)) {
                     if !dataSource.isDummy {
                         let offer = dataSource.models?[safe: indexPath.row] as? OfferDO
-                        self.delegate?.proceedToOfferDetails(offer: offer)
+                     //   self.delegate?.proceedToOfferDetails(offer: offer)
                     }
                 }
                 break

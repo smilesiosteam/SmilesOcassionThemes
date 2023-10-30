@@ -531,7 +531,7 @@ extension OcassionThemesVC {
         if  !self.offers.isEmpty {
             if let storiesIndex = getSectionIndex(for: .stories) {
                 self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forStories: exclusiveOffersResponse, data: self.smilesExplorerSections?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
-                    self?.delegate?.navigateToStoriesWebView(objStory: story)
+                   // self?.delegate?.navigateToStoriesWebView(objStory: story)
                 })
                 self.configureDataSource()
             }
