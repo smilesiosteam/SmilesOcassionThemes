@@ -44,7 +44,7 @@ let package = Package(
                 .product(name: "SmilesStoriesManager", package: "SmilesStoriesManager")
             ],
             resources: [
-                
+                .process("Resources")
             ]),
     ],swiftLanguageVersions: [.v5]
 )
