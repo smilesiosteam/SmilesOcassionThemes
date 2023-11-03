@@ -24,25 +24,23 @@ public class OcassionThemesVC: UIViewController {
     
     @IBOutlet weak var topHeaderView: AppHeaderView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var upgradeNowButton: UIButton!
-    
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
-    
-  public  var input: PassthroughSubject<OcassionThemesVCModel.Input, Never> = .init()
+    public  var input: PassthroughSubject<OccasionThemesViewModel.Input, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
-    private lazy var viewModel: OcassionThemesVCModel = {
-        return OcassionThemesVCModel()
+    private lazy var viewModel: OccasionThemesViewModel = {
+        return OccasionThemesViewModel()
     }()
     
     var dataSource: SectionedTableViewDataSource?
-    var sections = [SmilesExplorerSubscriptionUpgradeSectionData]()
+    var sections =  [TableSectionData<OccasionThemesSectionIdentifier>]()
+    //[OccasionThemesSectionData]()
     var smilesExplorerSections: GetSectionsResponseModel?
-    let categoryId: Int
-    private let isGuestUser: Bool
-    private var isUserSubscribed: Bool?
+    let themeid: Int = 1
+    private let isGuestUser: Bool = false
+    private var isUserSubscribed: Bool? = false
     var subscriptionType: ExplorerPackage?
     private var voucherCode: String?
-    public var delegate:SmilesExplorerHomeDelegate? = nil
+    public var delegate:SmilesOccasionThemesHomeDelegate?
     private var selectedIndexPath: IndexPath?
     var mutatingSectionDetails = [SectionDetailDO]()
     private var offerFavoriteOperation = 0
@@ -59,11 +57,7 @@ public class OcassionThemesVC: UIViewController {
     
     //var categoryId = 0
     public   var offersCategoryId = 0
-    public  var sortOfferBy: String?
-    public  var sortingType: String?
-    public  var lastSortCriteria: String?
-    public  var arraySelectedSubCategoryPaths: [IndexPath] = []
-    public  var arraySelectedSubCategoryTypes: [String] = []
+    
     
    public var selectedSortTypeIndex: Int?
    public var didSelectFilterOrSort = false
@@ -80,34 +74,18 @@ public class OcassionThemesVC: UIViewController {
     public var savedFilters: [RestaurantRequestFilter]?
     public var restaurantSortingResponseModel: GetSortingListResponseModel?
     public var selectedSortingTableViewCellModel: FilterDO?
-    
-    
     private var onFilterClick:(() -> Void)?
-    
-    
     public var filtersList: [RestaurantRequestFilter]?
-    
     public var selectedSort: String?
     private var rewardPoint: Int?
     private var rewardPointIcon: String?
     private var personalizationEventSource: String?
     private var platinumLimiReached: Bool?
-
-    
     var restaurants = [Restaurant]()
 
     
-    public init(categoryId: Int, isGuestUser: Bool, isUserSubscribed: Bool? = nil, subscriptionType: ExplorerPackage? = nil, voucherCode: String? = nil, delegate:SmilesExplorerHomeDelegate, rewardPoint: Int, rewardPointIcon: String,personalizationEventSource: String?,platinumLimiReached: Bool?) {
-        self.platinumLimiReached = platinumLimiReached
-        self.personalizationEventSource =  personalizationEventSource
-        self.categoryId = categoryId
-        self.isGuestUser = isGuestUser
-        self.isUserSubscribed = isUserSubscribed
-        self.subscriptionType = subscriptionType
-        self.voucherCode = voucherCode
+    public init(delegate: SmilesOccasionThemesHomeDelegate?) {
         self.delegate = delegate
-        self.rewardPointIcon = rewardPointIcon
-        self.rewardPoint = rewardPoint
         super.init(nibName: "OcassionThemesVC", bundle: Bundle.module)
     }
     
@@ -119,23 +97,12 @@ public class OcassionThemesVC: UIViewController {
         
         setupTableView()
         bind(to: viewModel)
+        getSections()
         
-        if let isUserSubscribed {
-            getSections(isSubscribed: isUserSubscribed, explorerPackageType: subscriptionType ?? .gold, freeTicketAvailed: self.voucherCode != nil ? true:false,platinumLimiReached: platinumLimiReached)
-        } else {
-            self.input.send(.getRewardPoints)
-        }
-        
-        selectedLocation = LocationStateSaver.getLocationInfo()?.locationId
-        if self.subscriptionType == .platinum || self.platinumLimiReached == true{
-            self.upgradeNowButton.isHidden = true
-        }else{
-            self.upgradeNowButton.isHidden = false
-            self.upgradeNowButton.fontTextStyle = .smilesHeadline4
-            self.upgradeNowButton.backgroundColor = .appRevampPurpleMainColor
-            self.upgradeNowButton.setTitle("Upgrade Now".localizedString, for: .normal)
-        }
+//        selectedLocation = LocationStateSaver.getLocationInfo()?.locationId
+       
         self.setupHeaderView(headerTitle: "")
+        
         let imageName = AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow"
         self.topHeaderView.setCustomImageForBackButton(imageName: imageName)
     }
@@ -160,13 +127,15 @@ public class OcassionThemesVC: UIViewController {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 1
         tableView.delegate = self
-        let customizable: CellRegisterable? = SmilesExplorerSubscriptionUpgradeCellRegistration()
+        
+        let customizable: CellRegisterable? = OccasionThemesCellRegistration()
         customizable?.register(for: self.tableView)
         self.tableView.backgroundColor = .white
         // ----- Tableview section header hide in case of tableview mode Plain ---
         let dummyViewHeight = CGFloat(150)
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
         self.tableView.contentInset = UIEdgeInsets(top: -dummyViewHeight, left: 0, bottom: 0, right: 0)
+        
         // ----- Tableview section header hide in case of tableview mode Plain ---
     }
     
@@ -187,7 +156,7 @@ public class OcassionThemesVC: UIViewController {
         ])
         imageView.tintColor = .black
         var toptitle: String = "Smiles Tourist"
-        if let topPlaceholderSection = self.smilesExplorerSections?.sectionDetails?.first(where: { $0.sectionIdentifier == SmilesExplorerSubscriptionUpgradeSectionIdentifier.topPlaceholder.rawValue }) {
+        if let topPlaceholderSection = self.smilesExplorerSections?.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue }) {
             imageView.sd_setImage(with: URL(string: topPlaceholderSection.iconUrl ?? "")) { image, _, _, _ in
                 imageView.image = image?.withRenderingMode(.alwaysTemplate)
                 toptitle = topPlaceholderSection.title ?? toptitle
@@ -237,7 +206,7 @@ public class OcassionThemesVC: UIViewController {
         }
     }
 
-    func getSectionIndex(for identifier: SmilesExplorerSubscriptionUpgradeSectionIdentifier) -> Int? {
+    func getSectionIndex(for identifier: OccasionThemesSectionIdentifier) -> Int? {
         return sections.first(where: { obj in
             return obj.identifier == identifier
         })?.index
@@ -294,23 +263,6 @@ public class OcassionThemesVC: UIViewController {
         //self?.adjustTopHeader(scrollView)
 
     }
-    public func configureFiltersData() {
-        
-        if let filtersSavedList = self.filtersSavedList {
-            arraySelectedSubCategoryTypes = []
-            arraySelectedSubCategoryPaths = []
-
-            for filter in filtersSavedList {
-                arraySelectedSubCategoryTypes.append(filter.filterValue ?? "")
-                arraySelectedSubCategoryPaths.append(filter.indexPath ?? IndexPath())
-            }
-        }
-        //showShimmer(identifier: .OFFERLISTING)
-        //TODO: Need to send selected filters in below api
-        self.input.send(.getBogoOffers(categoryId: self.categoryId, tag: .exclusiveDealsBogoOffers, pageNo: 1))
-       // self.input.send(.getOffersCategoryList(pageNo: 1, categoryId: "\(self.offersCategoryId)", searchByLocation: false, sortingType: sortingType, subCategoryTypeIdsList: arraySelectedSubCategoryTypes))
-        
-    }
 }
 
 
@@ -357,8 +309,8 @@ extension OcassionThemesVC: AppHeaderDelegate {
 
 extension OcassionThemesVC {
     // MARK: - Get Sections Api Calls
-    private func getSections(isSubscribed: Bool, explorerPackageType: ExplorerPackage,freeTicketAvailed:Bool,platinumLimiReached: Bool? = nil) {
-        self.input.send(.getSections(categoryID: categoryId, type: isSubscribed ? "SUBSCRIBED" : "UNSUBSCRIBED", explorerPackageType: explorerPackageType, freeTicketAvailed: freeTicketAvailed,platinumLimiReached: platinumLimiReached))
+    private func getSections() {
+        self.input.send(.getSections(themeId: self.themeid))
     }
     
     
@@ -372,22 +324,23 @@ extension OcassionThemesVC {
                 guard let sectionIdentifier = element.sectionIdentifier, !sectionIdentifier.isEmpty else {
                     return
                 }
-                if let section = SmilesExplorerSubscriptionUpgradeSectionIdentifier(rawValue: sectionIdentifier), section != .topPlaceholder {
-                    sections.append(SmilesExplorerSubscriptionUpgradeSectionData(index: index, identifier: section))
+                if let section = OccasionThemesSectionIdentifier(rawValue: sectionIdentifier), section != .topPlaceholder {
+                                    sections.append(TableSectionData(index: index, identifier: section))
                 }
-                switch SmilesExplorerSubscriptionUpgradeSectionIdentifier(rawValue: sectionIdentifier) {
+                
+                switch OccasionThemesSectionIdentifier(rawValue: sectionIdentifier) {
                     
-                case .upgradeBanner:
-                    if let bannerIndex = getSectionIndex(for: .upgradeBanner) {
+                case .topPlaceholder:
+                    if let bannerIndex = getSectionIndex(for: .topPlaceholder) {
                         guard let bannerSectionData = self.smilesExplorerSections?.sectionDetails?[bannerIndex] else {return}
                         self.configureUpgardeBanner(with: bannerSectionData, index: bannerIndex)
                     }
+                case .themeItemCategories:
                     
-                case .freetickets:
-                    if let bannerIndex = getSectionIndex(for: .freetickets) {
-                        guard let bannerSectionData = self.smilesExplorerSections?.sectionDetails?[bannerIndex] else {return}
-                        self.configureUpgardeBanner(with: bannerSectionData, index: bannerIndex)
+                    if let response = OfferDO.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forBogoOffers: [response], data:"#FFFFFF", isDummy: true, completion:nil)
                     }
+                    //self.input.send(.getBogoOffers(categoryId: self.categoryId, tag: .exclusiveDealsBogoOffers, pageNo: 1))
                     break
                 case .stories:
                     
@@ -395,15 +348,23 @@ extension OcassionThemesVC {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: response, data:"#FFFFFF", isDummy: true, onClick:nil)
                     }
                     
-                    self.input.send(.getExclusiveDealsStories(categoryId: self.categoryId, tag: .exclusiveDealsStories, pageNo: 1))
+                    self.input.send(.getStories(themeid: self.themeid, tag: .exclusiveDealsStories, pageNo: 1))
                     
                     break
-                case .offerListing:
+                case .topCollections:
                     
-                    if let response = OfferDO.fromModuleFile() {
-                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forBogoOffers: [response], data:"#FFFFFF", isDummy: true, completion:nil)
+                    if let response = ExplorerOfferResponse.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: response, data:"#FFFFFF", isDummy: true, onClick:nil)
                     }
-                    self.input.send(.getBogoOffers(categoryId: self.categoryId, tag: .exclusiveDealsBogoOffers, pageNo: 1))
+                    
+                    //self.input.send(.getExclusiveDealsStories(categoryId: self.categoryId, tag: .exclusiveDealsStories, pageNo: 1))
+                    
+                    break
+                case .topBrands:
+                    
+                    if let response = ExplorerOfferResponse.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: response, data:"#FFFFFF", isDummy: true, onClick:nil)
+                    }
                     break
                     
                 default: break
@@ -423,7 +384,7 @@ extension OcassionThemesVC {
         
         
         
-        if let topPlaceholderSection = sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == SmilesExplorerSubscriptionUpgradeSectionIdentifier.topPlaceholder.rawValue }) {
+        if let topPlaceholderSection = sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue }) {
             
                 setupHeaderView(headerTitle: topPlaceholderSection.title)
                 
@@ -433,11 +394,7 @@ extension OcassionThemesVC {
                 }
                 let imageName = AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow"
                 self.topHeaderView.setCustomImageForBackButton(imageName: imageName)
-            if self.subscriptionType == .platinum || self.platinumLimiReached == true{
-                self.upgradeNowButton.isHidden = true
-            }else{
-                self.upgradeNowButton.isHidden = false
-            }
+            
             self.configureDataSource()
             homeAPICalls()
             
@@ -445,10 +402,6 @@ extension OcassionThemesVC {
         
     }
     
-    func updateOfferWishlistStatus(isFavorite: Bool, offerId: String) {
-        offerFavoriteOperation = isFavorite ? 1 : 2
-        input.send(.updateOfferWishlistStatus(operation: offerFavoriteOperation, offerId: offerId))
-    }
 }
 
 
@@ -457,8 +410,8 @@ extension OcassionThemesVC {
     
     // MARK: - Section Data
     
-    func bind(to viewModel: OcassionThemesVCModel) {
-        input = PassthroughSubject<OcassionThemesVCModel.Input, Never>()
+    func bind(to viewModel: OccasionThemesViewModel) {
+        input = PassthroughSubject<OccasionThemesViewModel.Input, Never>()
         let output = viewModel.transform(input: input.eraseToAnyPublisher())
         output
             .sink { [weak self] event in
@@ -469,58 +422,12 @@ extension OcassionThemesVC {
                 case .fetchSectionsDidFail(error: let error):
                     debugPrint(error.localizedDescription)
                     
-                case .fetchRewardPointsDidSucceed(response: let response, _):
-                    self?.isUserSubscribed = response.explorerSubscriptionStatus
-                    self?.getSections(isSubscribed: response.explorerSubscriptionStatus ?? false, explorerPackageType: response.explorerPackageType ?? .gold, freeTicketAvailed: response.explorerVoucherCode != nil ? true:false)
-                    self?.subscriptionType = response.explorerPackageType
-                    self?.voucherCode = response.explorerVoucherCode
-                    if response.explorerPackageType ?? .gold == .platinum {
-                        self?.upgradeNowButton.isHidden = true
-                    }
-                    
-                case .fetchRewardPointsDidFail(error: let error):
-                    debugPrint(error.localizedDescription)
-                    
-                case .fetchFiltersDataSuccess(let filters):
-                    self?.filtersData = filters
-                    break
-                case .fetchAllSavedFiltersSuccess(let filtersList, let savedFilters):
-                                        self?.savedFilters = filtersList
-                                        self?.filtersSavedList = savedFilters
-                                        self?.offers.removeAll()
-                                        self?.configureDataSource()
-                                        self?.configureFiltersData()
-                    break
-                    
-                case .fetchSavedFiltersAfterSuccess(let filtersSavedList):
-                    self?.filtersSavedList = filtersSavedList
-                    break
-                    
-                    
-                case .fetchContentForSortingItems(_):
-                    //                    self?.sortingListRowModels = baseRowModels
-                    break
-                case .updateWishlistStatusDidSucceed(let updateWishlistResponse):
-                    self?.configureWishListData(with: updateWishlistResponse)
-                    
-                    //                case .updateWishlistStatusDidFail(let error):
-                    //                    print(error.localizedDescription)
-                    
-                    
-                case .fetchExclusiveOffersStoriesDidSucceed(let exclusiveOffersStories):
+                case .fetchStoriesDidSucceed(let exclusiveOffersStories):
                     self?.configureExclusiveOffersStories(with: exclusiveOffersStories)
                     
-                case .fetchExclusiveOffersStoriesDidFail(let error):
+                case .fetchStoriesDidFail(let error):
                     debugPrint(error.localizedDescription)
                     self?.configureHideSection(for: .stories, dataSource: ExplorerOfferResponse.self)
-                case .fetchBogoOffersDidSucceed(response: let bogoOffers):
-                    SmilesLoader.dismiss(from: self?.view ?? UIView())
-                    self?.configureBogoOffers(with: bogoOffers)
-                    
-                case .fetchBogoOffersDidFail(error: let error):
-                    self?.configureHideSection(for: .offerListing, dataSource: OfferDO.self)
-                    debugPrint(error.localizedDescription)
-                default: break
                 }
             }.store(in: &cancellables)
     }
@@ -547,7 +454,7 @@ extension OcassionThemesVC {
         if  !self.offers.isEmpty {
             if let storiesIndex = getSectionIndex(for: .stories) {
                 self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forStories: exclusiveOffersResponse, data: self.smilesExplorerSections?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
-                    self?.delegate?.navigateToStoriesWebView(objStory: story)
+                   // self?.delegate?.navigateToStoriesWebView(objStory: story)
                 })
                 self.configureDataSource()
             }
@@ -571,7 +478,7 @@ extension OcassionThemesVC {
             self.configureDataSource()
             
         } else {
-            self.configureHideSection(for: .upgradeBanner, dataSource: SectionDetailDO.self)
+            self.configureHideSection(for: .topPlaceholder, dataSource: SectionDetailDO.self)
         }
         
         
@@ -592,7 +499,7 @@ extension OcassionThemesVC {
             }
         } else {
             if self.offers.isEmpty {
-                self.configureHideSection(for: .offerListing, dataSource: ExplorerOfferResponse.self)
+                self.configureHideSection(for: .topCollections, dataSource: ExplorerOfferResponse.self)
             }
         }
     }
@@ -601,16 +508,16 @@ extension OcassionThemesVC {
         self.bogooffersListing = exclusiveOffersResponse
         self.bogoOffers.append(contentsOf: exclusiveOffersResponse.offers ?? [])
         if !bogoOffers.isEmpty {
-            if let offersIndex = getSectionIndex(for: .offerListing) {
+            if let offersIndex = getSectionIndex(for: .topCollections) {
                 self.dataSource?.dataSources?[offersIndex] = TableViewDataSource.make(forBogoOffers: self.bogoOffers , data: self.smilesExplorerSections?.sectionDetails?[offersIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] isFavorite, offerId, indexPath  in
                     self?.selectedIndexPath = indexPath
-                    self?.updateOfferWishlistStatus(isFavorite: isFavorite, offerId: offerId)
+                   // self?.updateOfferWishlistStatus(isFavorite: isFavorite, offerId: offerId)
                 })
                 self.configureDataSource()
             }
         } else {
             if self.bogoOffers.isEmpty {
-                self.configureHideSection(for: .offerListing, dataSource: OfferDO.self)
+                self.configureHideSection(for: .topCollections, dataSource: OfferDO.self)
             }
         }
     }
@@ -635,7 +542,7 @@ extension OcassionThemesVC {
         }
     }
     
-    fileprivate func configureHideSection<T>(for section: SmilesExplorerSubscriptionUpgradeSectionIdentifier, dataSource: T.Type) {
+    fileprivate func configureHideSection<T>(for section: OccasionThemesSectionIdentifier, dataSource: T.Type) {
         if let index = getSectionIndex(for: section) {
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.models = []
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.isDummy = false

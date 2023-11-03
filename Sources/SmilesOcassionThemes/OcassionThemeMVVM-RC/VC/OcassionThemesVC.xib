@@ -11,8 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OcassionThemesVC" customModule="SmilesOcassionThemes">
             <connections>
-                <outlet property="tableView" destination="1Ij-2j-lAS" id="SRa-hH-cZq"/>
+                <outlet property="tableView" destination="1Ij-2j-lAS" id="gxa-kt-RW2"/>
+                <outlet property="tableViewTopConstraint" destination="qSL-Wh-DFC" id="L3Y-uP-I18"/>
                 <outlet property="topHeaderView" destination="4ag-rw-1KC" id="eL2-B9-9kS"/>
+                <outlet property="view" destination="Ed8-dm-bKg" id="yfB-Gh-QRV"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

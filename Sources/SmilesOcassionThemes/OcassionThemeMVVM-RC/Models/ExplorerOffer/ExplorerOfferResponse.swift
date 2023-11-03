@@ -9,6 +9,7 @@ import Foundation
 import SmilesUtilities
 import NetworkingLayer
 
+
 // MARK: - Welcome
 class ExplorerOfferResponse: BaseMainResponse {
     

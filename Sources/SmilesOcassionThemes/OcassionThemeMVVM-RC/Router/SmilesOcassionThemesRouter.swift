@@ -11,11 +11,13 @@ import SmilesUtilities
 import UIKit
 
 @objcMembers
-public final class SmilesExplorerRouter: NSObject {
+public final class SmilesOcassionThemesRouter: NSObject {
     
-    public static let shared = SmilesExplorerRouter()
+    public static let shared = SmilesOcassionThemesRouter()
     
     private override init() {}
+    
+   
     
 }
 
