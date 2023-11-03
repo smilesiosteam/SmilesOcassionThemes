@@ -27,6 +27,7 @@ public class OccasionThemesViewModel: NSObject {
    // private let collectionsViewModel = CollectionsViewModel()
     
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
+    private var topBrandsUseCaseInput: PassthroughSubject<TopBrandsViewModel.Input, Never> = .init()
     
     // MARK: - METHODS -
     public func logoutUser() {
@@ -55,6 +56,13 @@ extension OccasionThemesViewModel {
 //                }
                 self?.getStories(categoryId: themeid ?? 0, tag: tag.rawValue,pageNo: pageNo ?? 0)
                 
+            case .getTopBrands(let categoryID, let menuItemType):
+                self?.bind(to: self?.topBrandsViewModel ?? TopBrandsViewModel())
+                self?.topBrandsUseCaseInput.send(.getTopBrands(categoryID: categoryID, menuItemType: menuItemType))
+            case .getCollections(categoryID: let categoryID, menuItemType: let menuItemType):
+                break
+            case .getTopOffers(menuItemType: let menuItemType, bannerType: let bannerType, categoryId: let categoryId, bannerSubType: let bannerSubType):
+                break
             }
             
         }.store(in: &cancellables)
@@ -75,7 +83,21 @@ extension OccasionThemesViewModel {
                 }
             }.store(in: &cancellables)
     }
-    
+    // TopBrands ViewModel Binding
+    func bind(to topBrandsViewModel: TopBrandsViewModel) {
+        topBrandsUseCaseInput = PassthroughSubject<TopBrandsViewModel.Input, Never>()
+        let output = topBrandsViewModel.transform(input: topBrandsUseCaseInput.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .fetchTopBrandsDidSucceed(let topBrandsResponse):
+                    print(topBrandsResponse)
+                    self?.output.send(.fetchTopBrandsDidSucceed(response: topBrandsResponse))
+                case .fetchTopBrandsDidFail(let error):
+                    self?.output.send(.fetchTopBrandsDidFail(error: error))
+                }
+            }.store(in: &cancellables)
+    }
 }
 
 

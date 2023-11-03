@@ -16,7 +16,7 @@ extension OcassionThemesVC: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let secID = OccasionThemesSectionIdentifier(rawValue: self.smilesExplorerSections?.sectionDetails?[safe: indexPath.section]?.sectionIdentifier ?? "") {
+        if let secID = OccasionThemesSectionIdentifier(rawValue: self.occasionThemesSectionsData?.sectionDetails?[safe: indexPath.section]?.sectionIdentifier ?? "") {
             switch secID {
             case .freetickets:
 
@@ -51,14 +51,15 @@ extension OcassionThemesVC: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        switch self.smilesExplorerSections?.sectionDetails?[safe: indexPath.section]?.sectionIdentifier {
+        switch self.occasionThemesSectionsData?.sectionDetails?[safe: indexPath.section]?.sectionIdentifier {
         case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
             return 130
         case OccasionThemesSectionIdentifier.freetickets.rawValue:
             return 190
         case OccasionThemesSectionIdentifier.stories.rawValue:
             return UITableView.automaticDimension
-
+        case OccasionThemesSectionIdentifier.topBrands.rawValue:
+            return 124
         case OccasionThemesSectionIdentifier.topCollections.rawValue:
              return UITableView.automaticDimension
         default:
@@ -72,9 +73,9 @@ extension OcassionThemesVC: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {return nil}
-        if let sectionData = self.smilesExplorerSections?.sectionDetails?[safe: section] {
+        if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
             if sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.topPlaceholder.rawValue && sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.freetickets.rawValue && sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
-                if let sectionData = self.smilesExplorerSections?.sectionDetails?[safe: section] {
+                if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
 
                     if (sectionData.sectionIdentifier == OccasionThemesSectionIdentifier.topCollections.rawValue) && (sectionData.isFilterAllowed != 0 || sectionData.isSortAllowed != 0) {
                       //  self.input.send(.getFiltersData(filtersSavedList: self.filtersSavedList, isFilterAllowed: sectionData.isFilterAllowed, isSortAllowed: sectionData.isSortAllowed)) // Get Filters Data
@@ -98,7 +99,7 @@ extension OcassionThemesVC: UITableViewDelegate {
                             }
                         }
 
-                        if let section = self.smilesExplorerSections?.sectionDetails?[safe: section] {
+                        if let section = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
                             if section.sectionIdentifier == OccasionThemesSectionIdentifier.topCollections.rawValue {
                                 filtersCell.stackViewTopConstraint.constant = 20
 
@@ -116,7 +117,7 @@ extension OcassionThemesVC: UITableViewDelegate {
                             header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
 
 
-                            switch self.smilesExplorerSections?.sectionDetails?[safe: section]?.sectionIdentifier {
+                            switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier {
                             case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
                                 header.bgMainView.backgroundColor = .appRevampPurpleMainColor
                                 header.backgroundColor = .appRevampPurpleMainColor
@@ -126,7 +127,7 @@ extension OcassionThemesVC: UITableViewDelegate {
                                 header.backgroundColor = .appRevampPurpleMainColor
 
                             case OccasionThemesSectionIdentifier.stories.rawValue:
-                                if let _ = self.smilesExplorerSections?.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.freetickets.rawValue || $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue}) {
+                                if let _ = self.occasionThemesSectionsData?.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.freetickets.rawValue || $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue}) {
                                     header.mainView.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1)
                                     header.bgMainView.backgroundColor = .appRevampPurpleMainColor
                                     header.backgroundColor = .appRevampPurpleMainColor
@@ -148,8 +149,6 @@ extension OcassionThemesVC: UITableViewDelegate {
                                 header.mainView.backgroundColor = .white
 
                             }
-
-
                             configureHeaderForShimmer(section: section, headerView: header)
                             return header
                         }
@@ -212,7 +211,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         }
         
         
-        if let sectionData = self.smilesExplorerSections?.sectionDetails?[safe: section] {
+        if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
             switch OccasionThemesSectionIdentifier(rawValue: sectionData.sectionIdentifier ?? "") {
             case .stories:
                 if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<ExplorerOfferResponse>) {

@@ -34,7 +34,7 @@ public class OcassionThemesVC: UIViewController {
     var dataSource: SectionedTableViewDataSource?
     var sections =  [TableSectionData<OccasionThemesSectionIdentifier>]()
     //[OccasionThemesSectionData]()
-    var smilesExplorerSections: GetSectionsResponseModel?
+    var occasionThemesSectionsData: GetSectionsResponseModel?
     let themeid: Int = 1
     private let isGuestUser: Bool = false
     private var isUserSubscribed: Bool? = false
@@ -156,7 +156,7 @@ public class OcassionThemesVC: UIViewController {
         ])
         imageView.tintColor = .black
         var toptitle: String = "Smiles Tourist"
-        if let topPlaceholderSection = self.smilesExplorerSections?.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue }) {
+        if let topPlaceholderSection = self.occasionThemesSectionsData?.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue }) {
             imageView.sd_setImage(with: URL(string: topPlaceholderSection.iconUrl ?? "")) { image, _, _, _ in
                 imageView.image = image?.withRenderingMode(.alwaysTemplate)
                 toptitle = topPlaceholderSection.title ?? toptitle
@@ -318,21 +318,21 @@ extension OcassionThemesVC {
     
     private func homeAPICalls() {
         
-        if let sectionDetails = self.smilesExplorerSections?.sectionDetails, !sectionDetails.isEmpty {
+        if let sectionDetails = self.occasionThemesSectionsData?.sectionDetails, !sectionDetails.isEmpty {
             sections.removeAll()
             for (index, element) in sectionDetails.enumerated() {
                 guard let sectionIdentifier = element.sectionIdentifier, !sectionIdentifier.isEmpty else {
                     return
                 }
-                if let section = OccasionThemesSectionIdentifier(rawValue: sectionIdentifier), section != .topPlaceholder {
-                                    sections.append(TableSectionData(index: index, identifier: section))
-                }
+//                if let section = OccasionThemesSectionIdentifier(rawValue: sectionIdentifier), section != .topPlaceholder {
+//                                    sections.append(TableSectionData(index: index, identifier: section))
+//                }
                 
                 switch OccasionThemesSectionIdentifier(rawValue: sectionIdentifier) {
                     
                 case .topPlaceholder:
                     if let bannerIndex = getSectionIndex(for: .topPlaceholder) {
-                        guard let bannerSectionData = self.smilesExplorerSections?.sectionDetails?[bannerIndex] else {return}
+                        guard let bannerSectionData = self.occasionThemesSectionsData?.sectionDetails?[bannerIndex] else {return}
                         self.configureUpgardeBanner(with: bannerSectionData, index: bannerIndex)
                     }
                 case .themeItemCategories:
@@ -362,24 +362,27 @@ extension OcassionThemesVC {
                     break
                 case .topBrands:
                     
-                    if let response = ExplorerOfferResponse.fromModuleFile() {
-                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: response, data:"#FFFFFF", isDummy: true, onClick:nil)
+                    if let response = GetTopBrandsResponseModel.fromFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forBrands: response, data:"#FFFFFF", isDummy: true, topBrandsType: .foodOrder, completion: nil)
                     }
-                    break
+                    self.input.send(.getTopBrands(categoryID: self.themeid, menuItemType: nil))
                     
                 default: break
                 }
             }
         }
+        self.tableView.reloadData()
     }
     
     
     // MARK: - Section Data
     private func configureSectionsData(with sectionsResponse: GetSectionsResponseModel) {
         
-        smilesExplorerSections = sectionsResponse
+        occasionThemesSectionsData = sectionsResponse
         if let sectionDetailsArray = sectionsResponse.sectionDetails, !sectionDetailsArray.isEmpty {
+            print(sectionDetailsArray.count)
             self.dataSource = SectionedTableViewDataSource(dataSources: Array(repeating: [], count: sectionDetailsArray.count))
+            print(self.dataSource?.dataSources?.count)
         }
         
         
@@ -428,6 +431,15 @@ extension OcassionThemesVC {
                 case .fetchStoriesDidFail(let error):
                     debugPrint(error.localizedDescription)
                     self?.configureHideSection(for: .stories, dataSource: ExplorerOfferResponse.self)
+                case .fetchTopBrandsDidSucceed(response: let response):
+                    debugPrint(response)
+                    self?.configureTopBrandsData(with: response)
+                case .fetchTopBrandsDidFail(error: let error):
+                    debugPrint(error.localizedDescription)
+                case .fetchTopOffersDidSucceed(response: let response):
+                    debugPrint(response)
+                case .fetchTopOffersDidFail(error: let error):
+                    debugPrint(error.localizedDescription)
                 }
             }.store(in: &cancellables)
     }
@@ -453,7 +465,7 @@ extension OcassionThemesVC {
         self.offers.append(contentsOf: exclusiveOffersResponse.offers ?? [])
         if  !self.offers.isEmpty {
             if let storiesIndex = getSectionIndex(for: .stories) {
-                self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forStories: exclusiveOffersResponse, data: self.smilesExplorerSections?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
+                self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forStories: exclusiveOffersResponse, data: self.occasionThemesSectionsData?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
                    // self?.delegate?.navigateToStoriesWebView(objStory: story)
                 })
                 self.configureDataSource()
@@ -466,7 +478,24 @@ extension OcassionThemesVC {
         
     
     }
-    
+    fileprivate func configureTopBrandsData(with topBrandsResponse: GetTopBrandsResponseModel) {
+        if let brands = topBrandsResponse.brands, !brands.isEmpty {
+            if let topBrandsIndex = getSectionIndex(for: .topBrands) {
+                self.dataSource?.dataSources?[topBrandsIndex] = TableViewDataSource.make(forBrands: topBrandsResponse, data: self.occasionThemesSectionsData?.sectionDetails?[topBrandsIndex].backgroundColor ?? "#FFFFFF", topBrandsType: .foodOrder, completion: { [weak self] data in
+//                    let analyticsSmiles = AnalyticsSmiles(service: FirebaseAnalyticsService())
+//                    analyticsSmiles.sendAnalyticTracker(trackerData: Tracker(eventType: AnalyticsEvent.firebaseEvent(.ClickOnTopBrands).name, parameters: [:]))
+//                    
+//                    if let eventName = self?.categoryDetailsSections?.getEventName(for: SectionIdentifier.TOPBRANDS.rawValue), !eventName.isEmpty {
+//                        PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, urlScheme: data.redirectionUrl.asStringOrEmpty(), offerId: data.id, source: self?.personalizationEventSource)
+//                    }
+                   // self?.handleBannerDeepLinkRedirections(url: data.redirectionUrl.asStringOrEmpty())
+                })
+                self.configureDataSource()
+            }
+        } else {
+            self.configureHideSection(for: .topBrands, dataSource: GetTopBrandsResponseModel.self)
+        }
+    }
     
     fileprivate func  configureUpgardeBanner(with sectionsResponse: SectionDetailDO?,index: Int) {
         
@@ -491,7 +520,7 @@ extension OcassionThemesVC {
         self.offers.append(contentsOf: exclusiveOffersResponse.offers ?? [])
         if !offers.isEmpty {
             if let offersCategoryIndex = getSectionIndex(for: .stories) {
-                self.dataSource?.dataSources?[offersCategoryIndex] = TableViewDataSource.make(forOffers: self.offersListing ?? ExplorerOfferResponse(), data: self.smilesExplorerSections?.sectionDetails?[offersCategoryIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] explorerOffer in
+                self.dataSource?.dataSources?[offersCategoryIndex] = TableViewDataSource.make(forOffers: self.offersListing ?? ExplorerOfferResponse(), data: self.occasionThemesSectionsData?.sectionDetails?[offersCategoryIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] explorerOffer in
                     print(explorerOffer)
                     
                 })
@@ -509,7 +538,7 @@ extension OcassionThemesVC {
         self.bogoOffers.append(contentsOf: exclusiveOffersResponse.offers ?? [])
         if !bogoOffers.isEmpty {
             if let offersIndex = getSectionIndex(for: .topCollections) {
-                self.dataSource?.dataSources?[offersIndex] = TableViewDataSource.make(forBogoOffers: self.bogoOffers , data: self.smilesExplorerSections?.sectionDetails?[offersIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] isFavorite, offerId, indexPath  in
+                self.dataSource?.dataSources?[offersIndex] = TableViewDataSource.make(forBogoOffers: self.bogoOffers , data: self.occasionThemesSectionsData?.sectionDetails?[offersIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] isFavorite, offerId, indexPath  in
                     self?.selectedIndexPath = indexPath
                    // self?.updateOfferWishlistStatus(isFavorite: isFavorite, offerId: offerId)
                 })

@@ -113,7 +113,25 @@ extension TableViewDataSource where Model == ExplorerOfferResponse {
         }
     }
 }
-
+extension TableViewDataSource where Model == GetTopBrandsResponseModel {
+    static func make(forBrands collectionsObject: GetTopBrandsResponseModel,
+                     reuseIdentifier: String = "TopBrandsTableViewCell", data: String, isDummy: Bool = false, topBrandsType: TopBrandsTableViewCell.TopBrandsType, completion:((GetTopBrandsResponseModel.BrandDO) -> ())?) -> TableViewDataSource {
+        return TableViewDataSource(
+            models: [collectionsObject].filter({$0.brands?.count ?? 0 > 0}),
+            reuseIdentifier: reuseIdentifier,
+            data : data,
+            isDummy:isDummy
+        ) { (topBrands, cell, data, indexPath) in
+            guard let cell = cell as? TopBrandsTableViewCell else {return}
+            cell.collectionsDataTopBrand = topBrands.brands
+            cell.setBackGroundColor(color: UIColor(hexString: data))
+            cell.topBrandsType = topBrandsType
+            cell.callBack = { brand in
+                completion?(brand)
+            }
+        }
+    }
+}
 extension TableViewDataSource where Model == SectionDetailDO {
     static func make(forUpgradeBanner collectionsObject: SectionDetailDO,
                      reuseIdentifier: String = "UpgradeBannerTVC", data : String, isDummy:Bool = false, onClick:((SectionDetailDO) -> ())?) -> TableViewDataSource {
