@@ -51,7 +51,7 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         self.BGView.layer.cornerRadius = 12
         self.titleBGView.layer.cornerRadius = 16
         
-        //Localiation Setting
+        //Localization Settings
         self.validityDateLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.categoryTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.uptoLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
