@@ -56,9 +56,9 @@ extension OccasionThemesViewModel {
 //                }
                 self?.getStories(categoryId: themeid ?? 0, tag: tag.rawValue,pageNo: pageNo ?? 0)
                 
-            case .getTopBrands(let categoryID, let menuItemType):
+            case .getTopBrands(let themeid, let menuItemType):
                 self?.bind(to: self?.topBrandsViewModel ?? TopBrandsViewModel())
-                self?.topBrandsUseCaseInput.send(.getTopBrands(categoryID: categoryID, menuItemType: menuItemType))
+                self?.topBrandsUseCaseInput.send(.getTopBrands(categoryID: nil, menuItemType: menuItemType, themeId: String(themeid ?? 0)))
             case .getCollections(categoryID: let categoryID, menuItemType: let menuItemType):
                 break
             case .getTopOffers(menuItemType: let menuItemType, bannerType: let bannerType, categoryId: let categoryId, bannerSubType: let bannerSubType):

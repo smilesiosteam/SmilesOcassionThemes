@@ -365,7 +365,7 @@ extension OcassionThemesVC {
                     if let response = GetTopBrandsResponseModel.fromFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forBrands: response, data:"#FFFFFF", isDummy: true, topBrandsType: .foodOrder, completion: nil)
                     }
-                    self.input.send(.getTopBrands(categoryID: self.themeid, menuItemType: nil))
+                    self.input.send(.getTopBrands(themeId: self.themeid, menuItemType: nil))
                     
                 default: break
                 }
