@@ -11,7 +11,7 @@ import NetworkingLayer
 import SmilesUtilities
 
 protocol SmilesExplorerSubscriptionInfoServiceable {
-    func getSubscriptionInfoService(request: SmilesExplorerSubscriptionInfoRequest) -> AnyPublisher<SmilesExplorerSubscriptionInfoResponse, NetworkError>
+    func getSubscriptionInfoService(request: SubscriptionInfoRequest) -> AnyPublisher<SmilesExplorerSubscriptionInfoResponse, NetworkError>
     
 }
 
@@ -30,9 +30,9 @@ class SmilesExplorerSubscriptionInfoRepository: SmilesExplorerSubscriptionInfoSe
         
     }
     
-    func getSubscriptionInfoService(request: SmilesExplorerSubscriptionInfoRequest) -> AnyPublisher<SmilesExplorerSubscriptionInfoResponse, NetworkError> {
+    func getSubscriptionInfoService(request: SubscriptionInfoRequest) -> AnyPublisher<SmilesExplorerSubscriptionInfoResponse, NetworkError> {
         
-        let endPoint = SmilesExplorerSubscriptionInfoRequestBuilder.getSubscriptionInfo(request: request)
+        let endPoint = SubscriptionInfoRequestBuilder.getSubscriptionInfo(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl, endpoint: self.endpoint)
         return self.networkRequest.request(request)
         

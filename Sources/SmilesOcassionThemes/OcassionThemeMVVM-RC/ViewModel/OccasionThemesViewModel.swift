@@ -82,9 +82,9 @@ extension OccasionThemesViewModel {
 extension OccasionThemesViewModel {
     
     func getStories(categoryId: Int, tag: String, pageNo: Int = 1) {
-        let exclusiveOffersRequest = ExplorerGetExclusiveOfferRequest(categoryId: categoryId, tag: tag, pageNo: pageNo)
+        let exclusiveOffersRequest = GetExclusiveOfferRequest(categoryId: categoryId, tag: tag, pageNo: pageNo)
         
-        let service = SmilesExplorerGetExclusiveOfferRepository(
+        let service = GetExclusiveOfferRepository(
             networkRequest: NetworkingLayerRequestable(requestTimeOut: 60), baseUrl: AppCommonMethods.serviceBaseUrl,
             endpoint: .getExclusiveOffer
         )

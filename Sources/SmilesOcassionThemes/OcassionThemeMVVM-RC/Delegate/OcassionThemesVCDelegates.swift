@@ -215,7 +215,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         if let sectionData = self.smilesExplorerSections?.sectionDetails?[safe: section] {
             switch OccasionThemesSectionIdentifier(rawValue: sectionData.sectionIdentifier ?? "") {
             case .stories:
-                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<ExplorerOfferResponse>) {
+                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<OcassionThemesOfferResponse>) {
                     showHide(isDummy: dataSource.isDummy)
                 }
             case .topCollections:

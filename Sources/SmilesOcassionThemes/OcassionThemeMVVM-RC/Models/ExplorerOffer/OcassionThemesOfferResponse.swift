@@ -11,7 +11,7 @@ import NetworkingLayer
 
 
 // MARK: - Welcome
-class ExplorerOfferResponse: BaseMainResponse {
+class OcassionThemesOfferResponse: BaseMainResponse {
     
     var listTitle, listSubtitle: String?
     var offers: [ExplorerOffer]?

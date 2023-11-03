@@ -62,7 +62,7 @@ public class OcassionThemesVC: UIViewController {
    public var selectedSortTypeIndex: Int?
    public var didSelectFilterOrSort = false
     
-    var offersListing: ExplorerOfferResponse?
+    var offersListing: OcassionThemesOfferResponse?
     var bogooffersListing: OffersCategoryResponseModel?
     var offersPage = 1 // For offers list pagination
     var dodOffersPage = 1 // For DOD offers list pagination
@@ -344,7 +344,7 @@ extension OcassionThemesVC {
                     break
                 case .stories:
                     
-                    if let response = ExplorerOfferResponse.fromModuleFile() {
+                    if let response = OcassionThemesOfferResponse.fromModuleFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: response, data:"#FFFFFF", isDummy: true, onClick:nil)
                     }
                     
@@ -353,7 +353,7 @@ extension OcassionThemesVC {
                     break
                 case .topCollections:
                     
-                    if let response = ExplorerOfferResponse.fromModuleFile() {
+                    if let response = OcassionThemesOfferResponse.fromModuleFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: response, data:"#FFFFFF", isDummy: true, onClick:nil)
                     }
                     
@@ -362,7 +362,7 @@ extension OcassionThemesVC {
                     break
                 case .topBrands:
                     
-                    if let response = ExplorerOfferResponse.fromModuleFile() {
+                    if let response = OcassionThemesOfferResponse.fromModuleFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: response, data:"#FFFFFF", isDummy: true, onClick:nil)
                     }
                     break
@@ -427,7 +427,7 @@ extension OcassionThemesVC {
                     
                 case .fetchStoriesDidFail(let error):
                     debugPrint(error.localizedDescription)
-                    self?.configureHideSection(for: .stories, dataSource: ExplorerOfferResponse.self)
+                    self?.configureHideSection(for: .stories, dataSource: OcassionThemesOfferResponse.self)
                 }
             }.store(in: &cancellables)
     }
@@ -447,7 +447,7 @@ extension OcassionThemesVC {
         
     }
     
-    fileprivate func  configureExclusiveOffersStories(with exclusiveOffersResponse: ExplorerOfferResponse) {
+    fileprivate func  configureExclusiveOffersStories(with exclusiveOffersResponse: OcassionThemesOfferResponse) {
         
         self.offersListing = exclusiveOffersResponse
         self.offers.append(contentsOf: exclusiveOffersResponse.offers ?? [])
@@ -460,7 +460,7 @@ extension OcassionThemesVC {
             }
         } else {
             if self.offers.isEmpty {
-                self.configureHideSection(for: .stories, dataSource: ExplorerOfferResponse.self)
+                self.configureHideSection(for: .stories, dataSource: OcassionThemesOfferResponse.self)
             }
         }
         
@@ -486,12 +486,12 @@ extension OcassionThemesVC {
     }
     
     
-    fileprivate func configureExclusiveOffers(with exclusiveOffersResponse: ExplorerOfferResponse) {
+    fileprivate func configureExclusiveOffers(with exclusiveOffersResponse: OcassionThemesOfferResponse) {
         self.offersListing = exclusiveOffersResponse
         self.offers.append(contentsOf: exclusiveOffersResponse.offers ?? [])
         if !offers.isEmpty {
             if let offersCategoryIndex = getSectionIndex(for: .stories) {
-                self.dataSource?.dataSources?[offersCategoryIndex] = TableViewDataSource.make(forOffers: self.offersListing ?? ExplorerOfferResponse(), data: self.smilesExplorerSections?.sectionDetails?[offersCategoryIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] explorerOffer in
+                self.dataSource?.dataSources?[offersCategoryIndex] = TableViewDataSource.make(forOffers: self.offersListing ?? OcassionThemesOfferResponse(), data: self.smilesExplorerSections?.sectionDetails?[offersCategoryIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] explorerOffer in
                     print(explorerOffer)
                     
                 })
@@ -499,7 +499,7 @@ extension OcassionThemesVC {
             }
         } else {
             if self.offers.isEmpty {
-                self.configureHideSection(for: .topCollections, dataSource: ExplorerOfferResponse.self)
+                self.configureHideSection(for: .topCollections, dataSource: OcassionThemesOfferResponse.self)
             }
         }
     }

@@ -7,7 +7,7 @@
 
 import SmilesBaseMainRequestManager
 
-class SmilesExplorerSubscriptionInfoRequest: SmilesBaseMainRequest {
+class SubscriptionInfoRequest: SmilesBaseMainRequest {
     var packageType: String?
     
     // MARK: - Model Keys

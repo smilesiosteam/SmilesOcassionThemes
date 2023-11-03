@@ -23,7 +23,7 @@ extension OccasionThemesViewModel {
         case fetchSectionsDidSucceed(response: GetSectionsResponseModel)
         case fetchSectionsDidFail(error: Error)
         
-        case fetchStoriesDidSucceed(response: ExplorerOfferResponse)
+        case fetchStoriesDidSucceed(response: OcassionThemesOfferResponse)
         case fetchStoriesDidFail(error: Error)
         
 

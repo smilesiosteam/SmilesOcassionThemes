@@ -8,10 +8,10 @@
 
 import NetworkingLayer
 
-enum SmilesExplorerSubscriptionInfoRequestBuilder {
+enum SubscriptionInfoRequestBuilder {
     
-    case getSubscriptionInfo(request: SmilesExplorerSubscriptionInfoRequest)
-    case getExclusiceOffer(request: ExplorerGetExclusiveOfferRequest)
+    case getSubscriptionInfo(request: SubscriptionInfoRequest)
+    case getExclusiceOffer(request: GetExclusiveOfferRequest)
     
     // gave a default timeout but can be different for each.
     var requestTimeOut: Int {
