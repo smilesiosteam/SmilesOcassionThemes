@@ -133,8 +133,10 @@ public class OcassionThemesVC: UIViewController {
         self.tableView.backgroundColor = .white
         // ----- Tableview section header hide in case of tableview mode Plain ---
         let dummyViewHeight = CGFloat(150)
-        self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
-        self.tableView.contentInset = UIEdgeInsets(top: -dummyViewHeight, left: 0, bottom: 0, right: 0)
+    
+        self.tableView.tableHeaderView = OcassionThemeHeaderView()
+        self.tableView.tableHeaderView?.backgroundColor = .lightGray
+        
         
         // ----- Tableview section header hide in case of tableview mode Plain ---
     }
