@@ -10,6 +10,7 @@ import SmilesSharedServices
 import SmilesUtilities
 import SmilesOffers
 import SmilesBanners
+import SmilesStoriesManager
 
 extension OccasionThemesViewModel {
     
@@ -17,7 +18,7 @@ extension OccasionThemesViewModel {
         case getSections(themeId: Int)
         case getStories(themeid: Int?, tag: SectionTypeTag, pageNo: Int?)
         case getTopBrands(themeId: Int?, menuItemType: String?)
-        case getCollections(categoryID: Int, menuItemType: String?)
+        case getCollections(themeId: Int?, menuItemType: String?)
         case getTopOffers(menuItemType: String?, bannerType: String?, categoryId: Int?, bannerSubType: String?)
     }
     
@@ -26,7 +27,7 @@ extension OccasionThemesViewModel {
         case fetchSectionsDidSucceed(response: GetSectionsResponseModel)
         case fetchSectionsDidFail(error: Error)
         
-        case fetchStoriesDidSucceed(response: OcassionThemesOfferResponse)
+        case fetchStoriesDidSucceed(response: Stories)
         case fetchStoriesDidFail(error: Error)
         
         case fetchTopBrandsDidSucceed(response: GetTopBrandsResponseModel)

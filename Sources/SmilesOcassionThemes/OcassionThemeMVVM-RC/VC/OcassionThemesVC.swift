@@ -347,8 +347,8 @@ extension OcassionThemesVC {
                     break
                 case .stories:
                     
-                    if let response = OcassionThemesOfferResponse.fromModuleFile() {
-                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: response, data:"#FFFFFF", isDummy: true, onClick:nil)
+                    if let stories = Stories.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: stories, data:"#FFFFFF", isDummy:true, onClick: nil)
                     }
                     
                     self.input.send(.getStories(themeid: self.themeid, tag: .exclusiveDealsStories, pageNo: 1))
@@ -356,13 +356,10 @@ extension OcassionThemesVC {
                     break
                 case .topCollections:
                     
-                    if let response = OcassionThemesOfferResponse.fromModuleFile() {
-                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: response, data:"#FFFFFF", isDummy: true, onClick:nil)
+                    if let response = GetCollectionsResponseModel.fromFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forCollections: response, data:"#FFFFFF", isDummy: true, completion: nil)
                     }
-                    
-                    //self.input.send(.getExclusiveDealsStories(categoryId: self.categoryId, tag: .exclusiveDealsStories, pageNo: 1))
-                    
-                    break
+                    self.input.send(.getCollections(themeId: self.themeid, menuItemType: nil))
                 case .topBrands:
                     
                     if let response = GetTopBrandsResponseModel.fromFile() {
@@ -428,8 +425,8 @@ extension OcassionThemesVC {
                 case .fetchSectionsDidFail(error: let error):
                     debugPrint(error.localizedDescription)
                     
-                case .fetchStoriesDidSucceed(let exclusiveOffersStories):
-                    self?.configureExclusiveOffersStories(with: exclusiveOffersStories)
+                case .fetchStoriesDidSucceed(let stories):
+                    self?.configureStoriesData(with: stories)
                     
                 case .fetchStoriesDidFail(let error):
                     debugPrint(error.localizedDescription)
@@ -484,24 +481,28 @@ extension OcassionThemesVC {
             self.configureHideSection(for: .topCollections, dataSource: GetCollectionsResponseModel.self)
         }
     }
-    fileprivate func  configureExclusiveOffersStories(with exclusiveOffersResponse: OcassionThemesOfferResponse) {
-        
-        self.offersListing = exclusiveOffersResponse
-        self.offers.append(contentsOf: exclusiveOffersResponse.offers ?? [])
-        if  !self.offers.isEmpty {
+    fileprivate func configureStoriesData(with storiesResponse: Stories) {
+        if let stories = storiesResponse.stories, !stories.isEmpty {
             if let storiesIndex = getSectionIndex(for: .stories) {
-                self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forStories: exclusiveOffersResponse, data: self.occasionThemesSectionsData?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
-                   // self?.delegate?.navigateToStoriesWebView(objStory: story)
+                self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forStories: storiesResponse, data: self.occasionThemesSectionsData?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
+                    if var stories = ((self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models)?.first {
+//                        let analyticsSmiles = AnalyticsSmiles(service: FirebaseAnalyticsService())
+//                        analyticsSmiles.sendAnalyticTracker(trackerData: Tracker(eventType: AnalyticsEvent.firebaseEvent(.ClickOnStory).name, parameters: [:]))
+//                        
+//                        if let eventName = self?.foodSections?.getEventName(for: SectionIdentifier.STORIES.rawValue), !eventName.isEmpty {
+//                            PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, offerId: story.storyID ?? "", source: self?.personalizationEventSource)
+//                        }
+//                        self?.openStories(stories: stories.stories ?? [], storyIndex: stories.stories?.firstIndex(of: story) ?? 0){storyIndex,snapIndex,isFavorite in
+//                            stories.setFavourite(isFavorite: isFavorite, storyIndex: storyIndex, snapIndex: snapIndex)
+//                            (self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models = [stories]
+//                        }
+                    }
                 })
                 self.configureDataSource()
             }
         } else {
-            if self.offers.isEmpty {
-               // self.configureHideSection(for: .stories, dataSource: OcassionThemesOfferResponse.self)
-            }
+            self.configureHideSection(for: .stories, dataSource: Stories.self)
         }
-        
-    
     }
     fileprivate func configureTopBrandsData(with topBrandsResponse: GetTopBrandsResponseModel) {
         if let brands = topBrandsResponse.brands, !brands.isEmpty {

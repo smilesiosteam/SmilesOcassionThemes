@@ -51,19 +51,18 @@ extension OccasionThemesViewModel {
                 self?.sectionsUseCaseInput.send(.getSections(baseUrl: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser,themeId: themeId))
                 
             case .getStories(let themeid, let tag, let pageNo):
-//                SmilesStoriesHandler.shared.getStories(categoryId: themeid ?? 0, baseURL: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser) { storiesResponse in
-//                    self?.output.send(.fetchStoriesDidSucceed(response: storiesResponse))
-//                } failure: { error in
-//                    self?.output.send(.fetchSectionsDidFail(error: error))
-//                }
-                self?.getStories(categoryId: themeid ?? 0, tag: tag.rawValue,pageNo: pageNo ?? 0)
+                SmilesStoriesHandler.shared.getStories(categoryId: themeid ?? 0, baseURL: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser) { storiesResponse in
+                    self?.output.send(.fetchStoriesDidSucceed(response: storiesResponse))
+                } failure: { error in
+                    self?.output.send(.fetchSectionsDidFail(error: error))
+                }
                 
             case .getTopBrands(let themeid, let menuItemType):
                 self?.bind(to: self?.topBrandsViewModel ?? TopBrandsViewModel())
                 self?.topBrandsUseCaseInput.send(.getTopBrands(categoryID: nil, menuItemType: menuItemType, themeId: String(themeid ?? 0)))
-            case .getCollections(categoryID: let categoryID, menuItemType: let menuItemType):
+            case .getCollections(themeId: let themeId, menuItemType: let menuItemType):
                 self?.bind(to: self?.collectionsViewModel ?? CollectionsViewModel())
-                self?.collectionsUseCaseInput.send(.getCollections(categoryID: categoryID, menuItemType: menuItemType))
+                self?.collectionsUseCaseInput.send(.getCollections(categoryID: nil, menuItemType: menuItemType, themeId: String(themeId ?? 0)))
             case .getTopOffers(menuItemType: let menuItemType, bannerType: let bannerType, categoryId: let categoryId, bannerSubType: let bannerSubType):
                 break
             }
@@ -121,28 +120,5 @@ extension OccasionThemesViewModel {
 
 extension OccasionThemesViewModel {
     
-    func getStories(categoryId: Int, tag: String, pageNo: Int = 1) {
-        let exclusiveOffersRequest = OcassionThemesOfferRequest(categoryId: categoryId, tag: tag, pageNo: pageNo)
-        
-        let service = GetExclusiveOfferRepository(
-            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60), baseUrl: AppCommonMethods.serviceBaseUrl,
-            endpoint: .getExclusiveOffer
-        )
-        
-        service.getExclusiveOffers(request: exclusiveOffersRequest)
-            .sink { [weak self] completion in
-                debugPrint(completion)
-                switch completion {
-                case .failure(let error):
-                    self?.output.send(.fetchStoriesDidFail(error: error))
-                case .finished:
-                    debugPrint("nothing much to do here")
-                }
-            } receiveValue: { [weak self] response in
-                debugPrint("got my response here \(response)")
-                
-                self?.output.send(.fetchStoriesDidSucceed(response: response))
-            }
-        .store(in: &cancellables)
-    }
+    
 }

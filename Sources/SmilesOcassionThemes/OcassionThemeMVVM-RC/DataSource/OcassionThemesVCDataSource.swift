@@ -92,27 +92,26 @@ extension TableViewDataSource where Model == OcassionThemesOfferResponse {
         }
     }
 }
-
-extension TableViewDataSource where Model == OcassionThemesOfferResponse {
-    static func make(forStories collectionsObject: OcassionThemesOfferResponse,
-                     reuseIdentifier: String = "SmilesExplorerStoriesTVC", data : String, isDummy:Bool = false, onClick:((ExplorerOffer) -> ())?) -> TableViewDataSource {
+extension TableViewDataSource where Model == Stories {
+    static func make(forStories collectionsObject: Stories,
+                     reuseIdentifier: String = "StoriesTableViewCell", data : String, isDummy:Bool = false, onClick:((Story) -> ())?) -> TableViewDataSource {
         return TableViewDataSource(
-            models: [collectionsObject].filter({$0.offers?.count ?? 0 > 0}),
+            models: [collectionsObject].filter({$0.stories?.count ?? 0 > 0}),
             reuseIdentifier: reuseIdentifier,
             data: data,
             isDummy: isDummy
-        ) { (storiesOffer, cell, data, indexPath) in
-            guard let cell = cell as? SmilesExplorerStoriesTVC else {return}
-            cell.collectionsData = storiesOffer.offers
+        ) { (stories, cell, data, indexPath) in
+            guard let cell = cell as? StoriesTableViewCell else {return}
+            cell.collectionsData = stories.stories
             cell.setBackGroundColor(color: UIColor(hexString: data))
-
             cell.callBack = { data in
-                debugPrint(data)
+                      debugPrint(data)
                 onClick?(data)
             }
         }
     }
 }
+
 extension TableViewDataSource where Model == GetTopBrandsResponseModel {
     static func make(forBrands collectionsObject: GetTopBrandsResponseModel,
                      reuseIdentifier: String = "TopBrandsTableViewCell", data: String, isDummy: Bool = false, topBrandsType: TopBrandsTableViewCell.TopBrandsType, completion:((GetTopBrandsResponseModel.BrandDO) -> ())?) -> TableViewDataSource {
@@ -192,3 +191,5 @@ extension TableViewDataSource where Model == GetCollectionsResponseModel {
         }
     }
 }
+
+
