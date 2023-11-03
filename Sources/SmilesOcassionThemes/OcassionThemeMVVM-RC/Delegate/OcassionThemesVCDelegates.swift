@@ -81,17 +81,17 @@ extension OcassionThemesVC: UITableViewDelegate {
                     
                     let header = SmilesExplorerHeader()
                     header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
-                    switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier {
-                    case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
-                        break
-                    case OccasionThemesSectionIdentifier.stories.rawValue:
-                        break
-                    case OccasionThemesSectionIdentifier.topCollections.rawValue:
-                        break
-                    default:
-                        header.mainView.backgroundColor = .white
-                        
-                    }
+//                    switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier {
+//                    case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
+//                        break
+//                    case OccasionThemesSectionIdentifier.stories.rawValue:
+//                        break
+//                    case OccasionThemesSectionIdentifier.topCollections.rawValue:
+//                        break
+//                    default:
+//                        header.mainView.backgroundColor = .white
+//                        
+//                    }
                     configureHeaderForShimmer(section: section, headerView: header)
                     return header
                     

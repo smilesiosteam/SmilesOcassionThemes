@@ -25,7 +25,7 @@ class CollectionsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        collectionView.register(UINib(nibName: String(describing: CollectionsCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: CollectionsCollectionViewCell.self))
+        collectionView.register(UINib(nibName: String(describing: CollectionsCollectionViewCell.self), bundle: .module), forCellWithReuseIdentifier: String(describing: CollectionsCollectionViewCell.self))
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.collectionViewLayout = setupCollectionViewLayout()

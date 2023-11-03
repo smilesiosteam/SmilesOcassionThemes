@@ -15,6 +15,7 @@ struct OccasionThemesCellRegistration: CellRegisterable {
     func register(for tableView: UITableView) {
         tableView.registerCellFromNib(SmilesExplorerStoriesTVC.self, bundle: .module)
         tableView.registerCellFromNib(TopBrandsTableViewCell.self, bundle: .module)
+        tableView.registerCellFromNib(CollectionsTableViewCell.self, bundle: .module)
         
 //        tableView.registerCellFromNib(UpgradeBannerTVC.self, bundle: .module)
 //        tableView.registerCellFromNib(RestaurantsRevampTableViewCell.self, bundle: RestaurantsRevampTableViewCell.module)
