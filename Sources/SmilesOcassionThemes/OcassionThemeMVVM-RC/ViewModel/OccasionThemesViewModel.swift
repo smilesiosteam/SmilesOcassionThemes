@@ -22,12 +22,14 @@ public class OccasionThemesViewModel: NSObject {
     // MARK: - VIEWMODELS -
     public let sectionsViewModel = SectionsViewModel()
     private let topBrandsViewModel = TopBrandsViewModel()
+    private let collectionsViewModel = CollectionsViewModel()
    // private let storiesViewModel = StoriesViewModel()
     
-   // private let collectionsViewModel = CollectionsViewModel()
+    
     
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
     private var topBrandsUseCaseInput: PassthroughSubject<TopBrandsViewModel.Input, Never> = .init()
+    private var collectionsUseCaseInput: PassthroughSubject<CollectionsViewModel.Input, Never> = .init()
     
     // MARK: - METHODS -
     public func logoutUser() {
@@ -60,7 +62,8 @@ extension OccasionThemesViewModel {
                 self?.bind(to: self?.topBrandsViewModel ?? TopBrandsViewModel())
                 self?.topBrandsUseCaseInput.send(.getTopBrands(categoryID: nil, menuItemType: menuItemType, themeId: String(themeid ?? 0)))
             case .getCollections(categoryID: let categoryID, menuItemType: let menuItemType):
-                break
+                self?.bind(to: self?.collectionsViewModel ?? CollectionsViewModel())
+                self?.collectionsUseCaseInput.send(.getCollections(categoryID: categoryID, menuItemType: menuItemType))
             case .getTopOffers(menuItemType: let menuItemType, bannerType: let bannerType, categoryId: let categoryId, bannerSubType: let bannerSubType):
                 break
             }
@@ -95,6 +98,21 @@ extension OccasionThemesViewModel {
                     self?.output.send(.fetchTopBrandsDidSucceed(response: topBrandsResponse))
                 case .fetchTopBrandsDidFail(let error):
                     self?.output.send(.fetchTopBrandsDidFail(error: error))
+                }
+            }.store(in: &cancellables)
+    }
+    // Collections ViewModel Binding
+    func bind(to collectionsViewModel: CollectionsViewModel) {
+        collectionsUseCaseInput = PassthroughSubject<CollectionsViewModel.Input, Never>()
+        let output = collectionsViewModel.transform(input: collectionsUseCaseInput.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .fetchCollectionsDidSucceed(let collectionResponse):
+                    debugPrint(collectionResponse)
+                    self?.output.send(.fetchCollectionsDidSucceed(response: collectionResponse))
+                case .fetchCollectionsDidFail(let error):
+                    self?.output.send(.fetchCollectionDidFail(error: error))
                 }
             }.store(in: &cancellables)
     }

@@ -52,11 +52,15 @@ extension OcassionThemesVC: UITableViewDelegate {
         case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
             return 130
         case OccasionThemesSectionIdentifier.stories.rawValue:
-            return UITableView.automaticDimension
+            return 170
+            //UITableView.automaticDimension
         case OccasionThemesSectionIdentifier.topBrands.rawValue:
             return 124
         case OccasionThemesSectionIdentifier.topCollections.rawValue:
-             return UITableView.automaticDimension
+             return 210
+        case OccasionThemesSectionIdentifier.themeItemCategories.rawValue:
+             return 400
+            //UITableView.automaticDimension
         default:
             return UITableView.automaticDimension
         }
@@ -67,31 +71,23 @@ extension OcassionThemesVC: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {return nil}
+        
+       // if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {return nil}
+        
         if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
             
             if sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.topPlaceholder.rawValue {
                 if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
                     
-                    
                     let header = SmilesExplorerHeader()
                     header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
-                    
-                    
                     switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier {
                     case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
-                        header.bgMainView.backgroundColor = .appRevampPurpleMainColor
-                        header.backgroundColor = .appRevampPurpleMainColor
-                        
-                        
+                        break
                     case OccasionThemesSectionIdentifier.stories.rawValue:
                         break
                     case OccasionThemesSectionIdentifier.topCollections.rawValue:
-                        header.bgMainView.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1)
-                        header.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1)
-                        header.mainView.backgroundColor = .white
-                        header.mainView.addMaskedCorner(withMaskedCorner: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 20.0)
-                        
+                        break
                     default:
                         header.mainView.backgroundColor = .white
                         
@@ -104,27 +100,27 @@ extension OcassionThemesVC: UITableViewDelegate {
         }
         
         
-        return nil
+        return SmilesExplorerHeader()
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        if let offersIndex = getSectionIndex(for: .topPlaceholder) {
-            if section == offersIndex {
-                return 0
-            }
-        }
-        if let offersIndex = getSectionIndex(for: .themeItemCategories) {
-            if section == offersIndex {
-                return 0
-            }
-        }
+//        if let offersIndex = getSectionIndex(for: .topPlaceholder) {
+//            if section == offersIndex {
+//                return 0
+//            }
+//        }
+//        if let offersIndex = getSectionIndex(for: .themeItemCategories) {
+//            if section == offersIndex {
+//                return 0
+//            }
+//        }
         return CGFloat.leastNormalMagnitude
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
-            return CGFloat.leastNormalMagnitude
-        }
+//        if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
+//            return CGFloat.leastNormalMagnitude
+//        }
         return UITableView.automaticDimension
     }
     

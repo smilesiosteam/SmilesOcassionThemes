@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="CircularXXTT-Book.ttf">
+            <string>CircularXXTT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionsCollectionViewCell" id="gTV-IL-0wX" customClass="CollectionsCollectionViewCell" customModule="SmilesOcassionThemes">
+            <rect key="frame" x="0.0" y="0.0" width="98" height="195"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="98" height="195"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sCW-Mv-crt">
+                        <rect key="frame" x="0.0" y="0.0" width="98" height="195"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YBQ-HI-FtS">
+                                <rect key="frame" x="0.0" y="0.0" width="98" height="195"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JRI-og-KkV">
+                                        <rect key="frame" x="0.0" y="0.0" width="98" height="132"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="132" id="ddW-uA-zRz"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="MFC-T9-Z80">
+                                        <rect key="frame" x="0.0" y="140" width="98" height="55"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="collection name 2" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRj-gO-DVR">
+                                                <rect key="frame" x="0.0" y="0.0" width="98" height="38.666666666666664"/>
+                                                <fontDescription key="fontDescription" name="CircularXXTT-Book" family="CircularXX TT" pointSize="16"/>
+                                                <color key="textColor" red="0.23921568627450979" green="0.20000000000000001" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YBQ-HI-FtS" firstAttribute="top" secondItem="sCW-Mv-crt" secondAttribute="top" id="5XE-vx-hkd"/>
+                            <constraint firstItem="YBQ-HI-FtS" firstAttribute="leading" secondItem="sCW-Mv-crt" secondAttribute="leading" id="8wa-h8-FhO"/>
+                            <constraint firstAttribute="bottom" secondItem="YBQ-HI-FtS" secondAttribute="bottom" id="hRW-SX-1JS"/>
+                            <constraint firstAttribute="trailing" secondItem="YBQ-HI-FtS" secondAttribute="trailing" id="x7D-dv-eD6"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="sCW-Mv-crt" secondAttribute="trailing" id="ewa-2H-lcw"/>
+                <constraint firstAttribute="bottom" secondItem="sCW-Mv-crt" secondAttribute="bottom" id="r5u-YH-fdo"/>
+                <constraint firstItem="sCW-Mv-crt" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="sRf-gG-yMZ"/>
+                <constraint firstItem="sCW-Mv-crt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wRB-wY-Koa"/>
+            </constraints>
+            <size key="customSize" width="176" height="195"/>
+            <connections>
+                <outlet property="collectionName" destination="rRj-gO-DVR" id="2sH-dS-dbm"/>
+                <outlet property="image" destination="JRI-og-KkV" id="Onc-Bs-D9h"/>
+            </connections>
+            <point key="canvasLocation" x="4.615384615384615" y="50.11848341232227"/>
+        </collectionViewCell>
+    </objects>
+</document>

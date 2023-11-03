@@ -173,3 +173,22 @@ extension TableViewDataSource where Model == OfferDO {
         }
     }
 }
+
+extension TableViewDataSource where Model == GetCollectionsResponseModel {
+    static func make(forCollections collectionsObject: GetCollectionsResponseModel,
+                     reuseIdentifier: String = "CollectionsTableViewCell", data : String, isDummy:Bool = false, completion:((GetCollectionsResponseModel.CollectionDO) -> ())?) -> TableViewDataSource {
+        return TableViewDataSource(
+            models: [collectionsObject].filter{$0.collections?.count ?? 0 > 0},
+            reuseIdentifier: reuseIdentifier,
+            data:data,
+            isDummy:isDummy
+        ) { (collection, cell, data, indexPath) in
+            guard let cell = cell as? CollectionsTableViewCell else {return}
+            cell.collectionsData = collection.collections
+            cell.setBackGroundColor(color: UIColor(hexString: data))
+            cell.callBack = { collection in
+                completion?(collection)
+            }
+        }
+    }
+}

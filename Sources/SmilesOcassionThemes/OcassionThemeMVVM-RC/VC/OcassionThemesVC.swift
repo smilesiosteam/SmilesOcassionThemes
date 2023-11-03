@@ -17,6 +17,7 @@ import SmilesLoader
 import SmilesStoriesManager
 import AnalyticsSmiles
 import SmilesBanners
+import SmilesPersonalizationEvent
 
 
 
@@ -442,6 +443,11 @@ extension OcassionThemesVC {
                     debugPrint(error.localizedDescription)
                    // self?.configureHideSection(for: .stories, dataSource: OcassionThemesOfferResponse.self)
 
+                case .fetchCollectionsDidSucceed(response: let response):
+                    self?.configureCollectionsData(with: response)
+                case .fetchCollectionDidFail(error: let error):
+                    debugPrint(error.localizedDescription)
+                    self?.configureHideSection(for: .topCollections, dataSource: GetCollectionsResponseModel.self)
                 }
             }.store(in: &cancellables)
     }
@@ -460,7 +466,22 @@ extension OcassionThemesVC {
         
         
     }
-    
+    fileprivate func configureCollectionsData(with collectionsResponse: GetCollectionsResponseModel) {
+        if let collections = collectionsResponse.collections, !collections.isEmpty {
+            if let topCollectionsIndex = getSectionIndex(for: .topCollections) {
+                self.dataSource?.dataSources?[topCollectionsIndex] = TableViewDataSource.make(forCollections: collectionsResponse, data: self.occasionThemesSectionsData?.sectionDetails?[topCollectionsIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] data in
+                    
+                    if let eventName = self?.occasionThemesSectionsData?.getEventName(for: OccasionThemesSectionIdentifier.topCollections.rawValue), !eventName.isEmpty {
+                        PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, urlScheme: data.redirectionUrl.asStringOrEmpty(), offerId: data.id, source: self?.personalizationEventSource)
+                    }
+                   // self?.handleBannerDeepLinkRedirections(url: data.redirectionUrl.asStringOrEmpty())
+                })
+                self.configureDataSource()
+            }
+        } else {
+            self.configureHideSection(for: .topCollections, dataSource: GetCollectionsResponseModel.self)
+        }
+    }
     fileprivate func  configureExclusiveOffersStories(with exclusiveOffersResponse: OcassionThemesOfferResponse) {
         
         self.offersListing = exclusiveOffersResponse

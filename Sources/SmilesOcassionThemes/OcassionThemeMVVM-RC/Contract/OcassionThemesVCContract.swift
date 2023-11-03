@@ -32,8 +32,8 @@ extension OccasionThemesViewModel {
         case fetchTopBrandsDidSucceed(response: GetTopBrandsResponseModel)
         case fetchTopBrandsDidFail(error: Error)
         
-//        case fetchCollectionsDidSucceed(response: GetCollectionsResponseModel)
-//        case fetchCollectionDidFail(error: Error)
+        case fetchCollectionsDidSucceed(response: GetCollectionsResponseModel)
+        case fetchCollectionDidFail(error: Error)
         
         case fetchTopOffersDidSucceed(response: GetTopOffersResponseModel)
         case fetchTopOffersDidFail(error: Error)
