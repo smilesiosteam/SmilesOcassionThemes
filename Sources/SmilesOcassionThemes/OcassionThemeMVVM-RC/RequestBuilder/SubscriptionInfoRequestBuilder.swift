@@ -11,7 +11,7 @@ import NetworkingLayer
 enum SubscriptionInfoRequestBuilder {
     
     case getSubscriptionInfo(request: SubscriptionInfoRequest)
-    case getExclusiceOffer(request: GetExclusiveOfferRequest)
+    case getExclusiceOffer(request: OcassionThemesOfferRequest)
     
     // gave a default timeout but can be different for each.
     var requestTimeOut: Int {

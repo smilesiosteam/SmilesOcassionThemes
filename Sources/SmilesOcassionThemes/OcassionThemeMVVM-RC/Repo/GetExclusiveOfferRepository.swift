@@ -13,8 +13,8 @@ import SmilesUtilities
 import SmilesOffers
 
 protocol OcassionThemesGetExclusiveOfferServiceable {
-    func getExclusiveOffers(request: GetExclusiveOfferRequest) -> AnyPublisher<OcassionThemesOfferResponse, NetworkError>
-    func getBogoOffers(request: GetExclusiveOfferRequest) -> AnyPublisher<OffersCategoryResponseModel, NetworkError>
+    func getExclusiveOffers(request: OcassionThemesOfferRequest) -> AnyPublisher<OcassionThemesOfferResponse, NetworkError>
+    func getBogoOffers(request: OcassionThemesOfferRequest) -> AnyPublisher<OffersCategoryResponseModel, NetworkError>
     
 }
 
@@ -38,7 +38,7 @@ class GetExclusiveOfferRepository: OcassionThemesGetExclusiveOfferServiceable {
         
     }
     
-    func getExclusiveOffers(request: GetExclusiveOfferRequest) -> AnyPublisher<OcassionThemesOfferResponse, NetworkError> {
+    func getExclusiveOffers(request: OcassionThemesOfferRequest) -> AnyPublisher<OcassionThemesOfferResponse, NetworkError> {
         
         let endPoint = SubscriptionInfoRequestBuilder.getExclusiceOffer(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl, endpoint: self.endpoint)
@@ -46,7 +46,7 @@ class GetExclusiveOfferRepository: OcassionThemesGetExclusiveOfferServiceable {
         
     }
     
-    func getBogoOffers(request: GetExclusiveOfferRequest) -> AnyPublisher<OffersCategoryResponseModel, NetworkError> {
+    func getBogoOffers(request: OcassionThemesOfferRequest) -> AnyPublisher<OffersCategoryResponseModel, NetworkError> {
         let endPoint = SubscriptionInfoRequestBuilder.getExclusiceOffer(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl, endpoint: self.endpoint)
         return self.networkRequest.request(request)

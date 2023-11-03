@@ -9,7 +9,7 @@
 import Foundation
 import SmilesBaseMainRequestManager
 
-public class GetExclusiveOfferRequest: SmilesBaseMainRequest {
+public class OcassionThemesOfferRequest: SmilesBaseMainRequest {
     
     // MARK: - Model Variables
     
