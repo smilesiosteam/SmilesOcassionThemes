@@ -13,9 +13,12 @@ import SmilesBanners
 
 extension OccasionThemesViewModel {
     
-   public enum Input {
+    public enum Input {
         case getSections(themeId: Int)
         case getStories(themeid: Int?, tag: SectionTypeTag, pageNo: Int?)
+        case getTopBrands(themeId: Int?, menuItemType: String?)
+        case getCollections(categoryID: Int, menuItemType: String?)
+        case getTopOffers(menuItemType: String?, bannerType: String?, categoryId: Int?, bannerSubType: String?)
     }
     
     enum Output {
@@ -26,7 +29,14 @@ extension OccasionThemesViewModel {
         case fetchStoriesDidSucceed(response: OcassionThemesOfferResponse)
         case fetchStoriesDidFail(error: Error)
         
-
+        case fetchTopBrandsDidSucceed(response: GetTopBrandsResponseModel)
+        case fetchTopBrandsDidFail(error: Error)
+        
+        case fetchCollectionsDidSucceed(response: GetCollectionsResponseModel)
+        case fetchCollectionDidFail(error: Error)
+        
+        case fetchTopOffersDidSucceed(response: GetTopOffersResponseModel)
+        case fetchTopOffersDidFail(error: Error)
         
     }
     

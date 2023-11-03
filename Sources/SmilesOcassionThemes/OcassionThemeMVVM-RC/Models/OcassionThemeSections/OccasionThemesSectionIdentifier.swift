@@ -13,7 +13,6 @@ enum OccasionThemesSectionIdentifier: String,SectionIdentifierProtocol {
     var identifier: String { return self.rawValue}
     case topPlaceholder = "THEME_TOP_PLACEHOLDER"
     case themeItemCategories = "THEME_ITEM_CATEGORIES"
-    case freetickets = "FREE_TICKET"
     case stories = "STORIES"
     case topCollections = "TOP_COLLECTIONS"
     case topBrands = "TOP_BRANDS"
