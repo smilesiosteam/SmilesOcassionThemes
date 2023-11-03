@@ -6,20 +6,23 @@
 //
 
 import Foundation
+import SmilesUtilities
 
-enum SmilesExplorerSubscriptionUpgradeSectionIdentifier: String {
+enum OccasionThemesSectionIdentifier: String,SectionIdentifierProtocol {
     
-    case topPlaceholder = "TOP_PLACEHOLDER"
-    case upgradeBanner = "UPGRADE_BANNER"
+    var identifier: String { return self.rawValue}
+    case topPlaceholder = "THEME_TOP_PLACEHOLDER"
+    case themeItemCategories = "THEME_ITEM_CATEGORIES"
     case freetickets = "FREE_TICKET"
     case stories = "STORIES"
-    case offerListing = "OFFER_LISTING"
+    case topCollections = "TOP_COLLECTIONS"
+    case topBrands = "TOP_BRANDS"
     
 }
 
-struct SmilesExplorerSubscriptionUpgradeSectionData {
+struct OccasionThemesSectionData {
     
     let index: Int
-    let identifier: SmilesExplorerSubscriptionUpgradeSectionIdentifier
+    let identifier: OccasionThemesSectionIdentifier
     
 }

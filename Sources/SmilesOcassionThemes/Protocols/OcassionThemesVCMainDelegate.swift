@@ -8,7 +8,7 @@
 import Foundation
 import SmilesOffers
 import SmilesStoriesManager
-public enum SmilesExplorerHomeNavigationType {
+public enum OccasionThemesHomeNavigationType {
     case payment, withTextPromo, withQRPromo, freeTicket
 }
 

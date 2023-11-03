@@ -16,16 +16,17 @@ extension OcassionThemesVC: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let secID = SmilesExplorerSubscriptionUpgradeSectionIdentifier(rawValue: self.smilesExplorerSections?.sectionDetails?[safe: indexPath.section]?.sectionIdentifier ?? ""){
+        if let secID = OccasionThemesSectionIdentifier(rawValue: self.smilesExplorerSections?.sectionDetails?[safe: indexPath.section]?.sectionIdentifier ?? "") {
             switch secID {
             case .freetickets:
-               
+
                 break
-            case .upgradeBanner:
-                self.onUpgradeBannerButtonClick()
+            case .topBrands:
+                break
+               // self.onUpgradeBannerButtonClick()
             case .stories:
                 break
-            case .offerListing:
+            case .topCollections:
                 if let dataSource = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<OfferDO>)) {
                     if !dataSource.isDummy {
                         let offer = dataSource.models?[safe: indexPath.row] as? OfferDO
@@ -35,24 +36,30 @@ extension OcassionThemesVC: UITableViewDelegate {
                 break
             case .topPlaceholder:
                 break
+            case .themeItemCategories:
+                break
             }
-            
+
         }
         
         
     }
     
+    public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 160
+    }
+    
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         switch self.smilesExplorerSections?.sectionDetails?[safe: indexPath.section]?.sectionIdentifier {
-        case SmilesExplorerSubscriptionUpgradeSectionIdentifier.upgradeBanner.rawValue:
+        case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
             return 130
-        case SmilesExplorerSubscriptionUpgradeSectionIdentifier.freetickets.rawValue:
+        case OccasionThemesSectionIdentifier.freetickets.rawValue:
             return 190
-        case SmilesExplorerSubscriptionUpgradeSectionIdentifier.stories.rawValue:
+        case OccasionThemesSectionIdentifier.stories.rawValue:
             return UITableView.automaticDimension
-            
-        case SmilesExplorerSubscriptionUpgradeSectionIdentifier.offerListing.rawValue:
+
+        case OccasionThemesSectionIdentifier.topCollections.rawValue:
              return UITableView.automaticDimension
         default:
             return UITableView.automaticDimension
@@ -66,18 +73,18 @@ extension OcassionThemesVC: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {return nil}
         if let sectionData = self.smilesExplorerSections?.sectionDetails?[safe: section] {
-            if sectionData.sectionIdentifier != SmilesExplorerSubscriptionUpgradeSectionIdentifier.topPlaceholder.rawValue && sectionData.sectionIdentifier != SmilesExplorerSubscriptionUpgradeSectionIdentifier.freetickets.rawValue && sectionData.sectionIdentifier != SmilesExplorerSubscriptionUpgradeSectionIdentifier.upgradeBanner.rawValue{
+            if sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.topPlaceholder.rawValue && sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.freetickets.rawValue && sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
                 if let sectionData = self.smilesExplorerSections?.sectionDetails?[safe: section] {
-                    
-                    if (sectionData.sectionIdentifier == SmilesExplorerSubscriptionUpgradeSectionIdentifier.offerListing.rawValue) && (sectionData.isFilterAllowed != 0 || sectionData.isSortAllowed != 0) {
-                        self.input.send(.getFiltersData(filtersSavedList: self.filtersSavedList, isFilterAllowed: sectionData.isFilterAllowed, isSortAllowed: sectionData.isSortAllowed)) // Get Filters Data
+
+                    if (sectionData.sectionIdentifier == OccasionThemesSectionIdentifier.topCollections.rawValue) && (sectionData.isFilterAllowed != 0 || sectionData.isSortAllowed != 0) {
+                      //  self.input.send(.getFiltersData(filtersSavedList: self.filtersSavedList, isFilterAllowed: sectionData.isFilterAllowed, isSortAllowed: sectionData.isSortAllowed)) // Get Filters Data
                         let filtersCell = tableView.dequeueReusableCell(withIdentifier: "FiltersTableViewCell") as! FiltersTableViewCell
                         filtersCell.title.text = sectionData.title
                         filtersCell.title.setTextSpacingBy(value: -0.2)
                         filtersCell.subTitle.text = sectionData.subTitle
                         filtersCell.filtersData = self.filtersData
                         filtersCell.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
-                        
+
                         filtersCell.callBack = { [weak self] filterData in
                             if filterData.tag == RestaurantFiltersType.filters.rawValue {
                                 //self?.redirectToOffersFilters()
@@ -87,14 +94,14 @@ extension OcassionThemesVC: UITableViewDelegate {
                                 // self?.redirectToSortingVC()
                             } else {
                                 // Remove and saved filters
-                                self?.input.send(.removeAndSaveFilters(filter: filterData))
+                              //  self?.input.send(.removeAndSaveFilters(filter: filterData))
                             }
                         }
-                        
+
                         if let section = self.smilesExplorerSections?.sectionDetails?[safe: section] {
-                            if section.sectionIdentifier == SmilesExplorerSubscriptionUpgradeSectionIdentifier.offerListing.rawValue {
+                            if section.sectionIdentifier == OccasionThemesSectionIdentifier.topCollections.rawValue {
                                 filtersCell.stackViewTopConstraint.constant = 20
-                                
+
                                 filtersCell.parentView.layer.cornerRadius = 24
                                 filtersCell.parentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
                                 filtersCell.parentView.backgroundColor = .white
@@ -104,22 +111,22 @@ extension OcassionThemesVC: UITableViewDelegate {
                         self.configureHeaderForShimmer(section: section, headerView: filtersCell)
                         return filtersCell
                     }else{
-                        if sectionData.sectionIdentifier != SmilesExplorerSubscriptionUpgradeSectionIdentifier.freetickets.rawValue && sectionData.sectionIdentifier != SmilesExplorerSubscriptionUpgradeSectionIdentifier.upgradeBanner.rawValue{
+                        if sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.freetickets.rawValue && sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
                             let header = SmilesExplorerHeader()
                             header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
-                            
-                            
+
+
                             switch self.smilesExplorerSections?.sectionDetails?[safe: section]?.sectionIdentifier {
-                            case SmilesExplorerSubscriptionUpgradeSectionIdentifier.upgradeBanner.rawValue:
+                            case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
                                 header.bgMainView.backgroundColor = .appRevampPurpleMainColor
                                 header.backgroundColor = .appRevampPurpleMainColor
-                               
-                            case SmilesExplorerSubscriptionUpgradeSectionIdentifier.freetickets.rawValue:
+
+                            case OccasionThemesSectionIdentifier.freetickets.rawValue:
                                 header.bgMainView.backgroundColor = .appRevampPurpleMainColor
                                 header.backgroundColor = .appRevampPurpleMainColor
-                                
-                            case SmilesExplorerSubscriptionUpgradeSectionIdentifier.stories.rawValue:
-                                if let _ = self.smilesExplorerSections?.sectionDetails?.first(where: { $0.sectionIdentifier == SmilesExplorerSubscriptionUpgradeSectionIdentifier.freetickets.rawValue || $0.sectionIdentifier == SmilesExplorerSubscriptionUpgradeSectionIdentifier.upgradeBanner.rawValue}) {
+
+                            case OccasionThemesSectionIdentifier.stories.rawValue:
+                                if let _ = self.smilesExplorerSections?.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.freetickets.rawValue || $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue}) {
                                     header.mainView.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1)
                                     header.bgMainView.backgroundColor = .appRevampPurpleMainColor
                                     header.backgroundColor = .appRevampPurpleMainColor
@@ -128,43 +135,43 @@ extension OcassionThemesVC: UITableViewDelegate {
                                     header.bgMainView.backgroundColor = .white
                                     header.backgroundColor = .white
                                 }
-                                
+
                                 header.mainView.addMaskedCorner(withMaskedCorner: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 20.0)
-                                
-                            case SmilesExplorerSubscriptionUpgradeSectionIdentifier.offerListing.rawValue:
+
+                            case OccasionThemesSectionIdentifier.topCollections.rawValue:
                                 header.bgMainView.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1)
                                 header.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1)
                                 header.mainView.backgroundColor = .white
                                 header.mainView.addMaskedCorner(withMaskedCorner: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 20.0)
-                                 
+
                             default:
                                 header.mainView.backgroundColor = .white
-                                
+
                             }
-                            
-                            
+
+
                             configureHeaderForShimmer(section: section, headerView: header)
                             return header
                         }
-                        
-                        
-                        
+
+
+
                     }
                 }
             }
         }
-        
-        
+
+
         return nil
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        if let offersIndex = getSectionIndex(for: .upgradeBanner) {
+        if let offersIndex = getSectionIndex(for: .topPlaceholder) {
             if section == offersIndex {
                 return 0
             }
         }
-        if let offersIndex = getSectionIndex(for: .freetickets) {
+        if let offersIndex = getSectionIndex(for: .themeItemCategories) {
             if section == offersIndex {
                 return 0
             }
@@ -180,17 +187,17 @@ extension OcassionThemesVC: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let offersIndex = getSectionIndex(for: .offerListing) {
-            if indexPath.section == offersIndex {
-                let lastItem = self.bogoOffers.endIndex - 1
-                if indexPath.row == lastItem {
-                    if bogoOffers.count != (bogooffersListing?.offersCount ?? 0)  {
-                        offersPage += 1
-                        self.input.send(.getBogoOffers(categoryId: self.categoryId, tag: .exclusiveDealsBogoOffers, pageNo: offersPage))
-                    }
-                }
-            }
-        }
+//        if let offersIndex = getSectionIndex(for: .topCollections) {
+//            if indexPath.section == offersIndex {
+//                let lastItem = self.bogoOffers.endIndex - 1
+//                if indexPath.row == lastItem {
+//                    if bogoOffers.count != (bogooffersListing?.offersCount ?? 0)  {
+//                        offersPage += 1
+//                       // self.input.send(.getBogoOffers(categoryId: self.categoryId, tag: .exclusiveDealsBogoOffers, pageNo: offersPage))
+//                    }
+//                }
+//            }
+//        }
     }
     
     func configureHeaderForShimmer(section: Int, headerView: UIView) {
@@ -206,12 +213,12 @@ extension OcassionThemesVC: UITableViewDelegate {
         
         
         if let sectionData = self.smilesExplorerSections?.sectionDetails?[safe: section] {
-            switch SmilesExplorerSubscriptionUpgradeSectionIdentifier(rawValue: sectionData.sectionIdentifier ?? "") {
+            switch OccasionThemesSectionIdentifier(rawValue: sectionData.sectionIdentifier ?? "") {
             case .stories:
                 if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<ExplorerOfferResponse>) {
                     showHide(isDummy: dataSource.isDummy)
                 }
-            case .offerListing:
+            case .topCollections:
                 
                 if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<OfferDO>) {
                     showHide(isDummy: dataSource.isDummy)
@@ -225,7 +232,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         
     }
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            adjustTopHeader(scrollView)
+           // adjustTopHeader(scrollView)
     }
     
 }
