@@ -12,14 +12,14 @@ import NetworkingLayer
 import SmilesUtilities
 import SmilesOffers
 
-protocol SmilesExplorerGetExclusiveOfferServiceable {
-    func getExclusiveOffers(request: ExplorerGetExclusiveOfferRequest) -> AnyPublisher<ExplorerOfferResponse, NetworkError>
-    func getBogoOffers(request: ExplorerGetExclusiveOfferRequest) -> AnyPublisher<OffersCategoryResponseModel, NetworkError>
+protocol OcassionThemesGetExclusiveOfferServiceable {
+    func getExclusiveOffers(request: OcassionThemesOfferRequest) -> AnyPublisher<OcassionThemesOfferResponse, NetworkError>
+    func getBogoOffers(request: OcassionThemesOfferRequest) -> AnyPublisher<OffersCategoryResponseModel, NetworkError>
     
 }
 
 // GetCuisinesRepository
-class SmilesExplorerGetExclusiveOfferRepository: SmilesExplorerGetExclusiveOfferServiceable {
+class GetExclusiveOfferRepository: OcassionThemesGetExclusiveOfferServiceable {
     
     
     
@@ -38,16 +38,16 @@ class SmilesExplorerGetExclusiveOfferRepository: SmilesExplorerGetExclusiveOffer
         
     }
     
-    func getExclusiveOffers(request: ExplorerGetExclusiveOfferRequest) -> AnyPublisher<ExplorerOfferResponse, NetworkError> {
+    func getExclusiveOffers(request: OcassionThemesOfferRequest) -> AnyPublisher<OcassionThemesOfferResponse, NetworkError> {
         
-        let endPoint = SmilesExplorerSubscriptionInfoRequestBuilder.getExclusiceOffer(request: request)
+        let endPoint = SubscriptionInfoRequestBuilder.getExclusiceOffer(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl, endpoint: self.endpoint)
         return self.networkRequest.request(request)
         
     }
     
-    func getBogoOffers(request: ExplorerGetExclusiveOfferRequest) -> AnyPublisher<OffersCategoryResponseModel, NetworkError> {
-        let endPoint = SmilesExplorerSubscriptionInfoRequestBuilder.getExclusiceOffer(request: request)
+    func getBogoOffers(request: OcassionThemesOfferRequest) -> AnyPublisher<OffersCategoryResponseModel, NetworkError> {
+        let endPoint = SubscriptionInfoRequestBuilder.getExclusiceOffer(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl, endpoint: self.endpoint)
         return self.networkRequest.request(request)
     }

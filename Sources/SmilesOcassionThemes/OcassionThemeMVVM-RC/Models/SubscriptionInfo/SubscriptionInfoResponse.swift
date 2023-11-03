@@ -9,7 +9,7 @@ import Foundation
 import SmilesUtilities
 import NetworkingLayer
 
-public class SmilesExplorerSubscriptionInfoResponse: BaseMainResponse {
+public class SubscriptionInfoResponse: BaseMainResponse {
     
     var themeResources: ThemeResources?
     var isCustomerElgibile: Bool?

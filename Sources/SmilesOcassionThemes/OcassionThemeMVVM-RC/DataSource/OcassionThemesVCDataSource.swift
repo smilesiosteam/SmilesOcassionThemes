@@ -55,8 +55,8 @@ extension TableViewDataSource where Model == BOGODetailsResponseLifestyleOffer {
     }
 }
 
-extension TableViewDataSource where Model == ExplorerOfferResponse {
-    static func make(forOffers collectionsObject: ExplorerOfferResponse,
+extension TableViewDataSource where Model == OcassionThemesOfferResponse {
+    static func make(forOffers collectionsObject: OcassionThemesOfferResponse,
                      reuseIdentifier: String = "SmilesExplorerHomeTicketsTableViewCell", data: String, isDummy: Bool = false, completion:((ExplorerOffer) -> ())?) -> TableViewDataSource {
         return TableViewDataSource(
             models: [collectionsObject].filter({$0.offers?.count ?? 0 > 0}),
@@ -74,8 +74,8 @@ extension TableViewDataSource where Model == ExplorerOfferResponse {
     }
 }
 
-extension TableViewDataSource where Model == ExplorerOfferResponse {
-    static func make(forBogoHomeOffers collectionsObject: ExplorerOfferResponse,
+extension TableViewDataSource where Model == OcassionThemesOfferResponse {
+    static func make(forBogoHomeOffers collectionsObject: OcassionThemesOfferResponse,
                      reuseIdentifier: String = "SmilesExplorerHomeDealsAndOffersTVC", data: String, isDummy: Bool = false, completion:((ExplorerOffer) -> ())?) -> TableViewDataSource {
         return TableViewDataSource(
             models: [collectionsObject].filter({$0.offers?.count ?? 0 > 0}),
@@ -93,8 +93,8 @@ extension TableViewDataSource where Model == ExplorerOfferResponse {
     }
 }
 
-extension TableViewDataSource where Model == ExplorerOfferResponse {
-    static func make(forStories collectionsObject: ExplorerOfferResponse,
+extension TableViewDataSource where Model == OcassionThemesOfferResponse {
+    static func make(forStories collectionsObject: OcassionThemesOfferResponse,
                      reuseIdentifier: String = "SmilesExplorerStoriesTVC", data : String, isDummy:Bool = false, onClick:((ExplorerOffer) -> ())?) -> TableViewDataSource {
         return TableViewDataSource(
             models: [collectionsObject].filter({$0.offers?.count ?? 0 > 0}),
