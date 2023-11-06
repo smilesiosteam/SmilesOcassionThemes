@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class SmilesExplorerStoriesTVC: UITableViewCell {
+public class OccasionThemesStoriesCell: UITableViewCell {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -24,7 +24,7 @@ public class SmilesExplorerStoriesTVC: UITableViewCell {
     public override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        collectionView.register(UINib(nibName: String(describing: SmilesExplorerStoriesCollectionViewCell.self), bundle: .module), forCellWithReuseIdentifier: String(describing: SmilesExplorerStoriesCollectionViewCell.self))
+        collectionView.register(UINib(nibName: String(describing: OccasionThemeStoriesCollectionViewCell.self), bundle: .module), forCellWithReuseIdentifier: String(describing: OccasionThemeStoriesCollectionViewCell.self))
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1)
@@ -57,7 +57,7 @@ public class SmilesExplorerStoriesTVC: UITableViewCell {
     }
 }
 
-extension SmilesExplorerStoriesTVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension OccasionThemesStoriesCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionsData?.count ?? 0
     }
@@ -65,7 +65,7 @@ extension SmilesExplorerStoriesTVC: UICollectionViewDelegate, UICollectionViewDa
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let storyOffer = collectionsData?[indexPath.row] {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SmilesExplorerStoriesCollectionViewCell", for: indexPath) as? SmilesExplorerStoriesCollectionViewCell else {return UICollectionViewCell()}
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OccasionThemesStoriesCell", for: indexPath) as? OccasionThemeStoriesCollectionViewCell else {return UICollectionViewCell()}
             cell.configure(storyOffer: storyOffer)
             return cell
         }

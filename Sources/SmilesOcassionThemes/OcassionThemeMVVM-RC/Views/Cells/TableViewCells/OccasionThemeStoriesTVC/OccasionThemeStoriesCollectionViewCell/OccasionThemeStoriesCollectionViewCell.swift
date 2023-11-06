@@ -12,7 +12,7 @@ import SmilesUtilities
 import Foundation
 
 
-public class SmilesExplorerStoriesCollectionViewCell: UICollectionViewCell {
+public class OccasionThemeStoriesCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var image: UIImageView!
