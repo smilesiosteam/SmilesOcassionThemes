@@ -9,7 +9,7 @@ import SmilesUtilities
 import SmilesLanguageManager
 import UIKit
 
-class OccasionThemesHeaderView: UIView {
+class OccasionThemesTableViewHeaderView: UIView {
     
     // MARK: - OUTLETS -
     @IBOutlet weak var titleLabel: UILocalizableLabel!
@@ -30,7 +30,7 @@ class OccasionThemesHeaderView: UIView {
     }
     
     private func commonInit() {
-        Bundle.module.loadNibNamed("OccasionThemesHeaderView", owner: self, options: nil)
+        Bundle.module.loadNibNamed("OccasionThemesTableViewHeaderView", owner: self, options: nil)
         addSubview(mainView)
         mainView.frame = bounds
         mainView.bindFrameToSuperviewBounds()
