@@ -78,13 +78,15 @@ extension OcassionThemesVC: UITableViewDelegate {
 //            if sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.topPlaceholder.rawValue {
                 if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
                     
+
                     if  self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
                     let header = OcassionThemeHeaderView()
                         return header
                     
                     }
                     
-                    let header = SmilesExplorerHeader()
+
+                    let header = OccasionThemesHeaderView()
                     header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
 //                    switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier {
 //                    case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
@@ -105,7 +107,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         }
         
         
-        return SmilesExplorerHeader()
+        return OccasionThemesHeaderView()
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {

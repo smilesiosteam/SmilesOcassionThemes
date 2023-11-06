@@ -38,52 +38,14 @@ public class OcassionThemesVC: UIViewController {
     var occasionThemesSectionsData: GetSectionsResponseModel?
     public var themeid: Int = 1
     private let isGuestUser: Bool = false
-    private var isUserSubscribed: Bool? = false
-    var subscriptionType: ExplorerPackage?
-    private var voucherCode: String?
     public var delegate:SmilesOccasionThemesHomeDelegate?
-    private var selectedIndexPath: IndexPath?
-    var mutatingSectionDetails = [SectionDetailDO]()
-    private var offerFavoriteOperation = 0
-    
-    var selectedLocation: String? = nil
-    var isHeaderExpanding = false
+   
     var hasTopNotch: Bool {
         if #available(iOS 11.0, tvOS 11.0, *) {
             return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
         }
         return false
     }
-    
-    
-    //var categoryId = 0
-    public   var offersCategoryId = 0
-    
-    
-   public var selectedSortTypeIndex: Int?
-   public var didSelectFilterOrSort = false
-    
-    var offersListing: OcassionThemesOfferResponse?
-    var bogooffersListing: OffersCategoryResponseModel?
-    var offersPage = 1 // For offers list pagination
-    var dodOffersPage = 1 // For DOD offers list pagination
-    var offers = [ExplorerOffer]()
-    var bogoOffers = [OfferDO]()
-    
-    public var filtersSavedList: [RestaurantRequestWithNameFilter]?
-    public var filtersData: [FiltersCollectionViewCellRevampModel]?
-    public var savedFilters: [RestaurantRequestFilter]?
-    public var restaurantSortingResponseModel: GetSortingListResponseModel?
-    public var selectedSortingTableViewCellModel: FilterDO?
-    private var onFilterClick:(() -> Void)?
-    public var filtersList: [RestaurantRequestFilter]?
-    public var selectedSort: String?
-    private var rewardPoint: Int?
-    private var rewardPointIcon: String?
-    private var personalizationEventSource: String?
-    private var platinumLimiReached: Bool?
-    var restaurants = [Restaurant]()
-
     
     public init(delegate: SmilesOccasionThemesHomeDelegate?) {
         self.delegate = delegate
@@ -99,25 +61,11 @@ public class OcassionThemesVC: UIViewController {
         setupTableView()
         bind(to: viewModel)
         getSections()
-        
-//        selectedLocation = LocationStateSaver.getLocationInfo()?.locationId
-       
-        self.setupHeaderView(headerTitle: "")
-        
-        let imageName = AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow"
-        self.topHeaderView.setCustomImageForBackButton(imageName: imageName)
     }
     
     
     public override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
-        
-        if let currentLocationId = LocationStateSaver.getLocationInfo()?.locationId, let locationId = self.selectedLocation, currentLocationId != locationId {
-//            self.input.send(.emptyRestaurantList)
-//            self.callFoodOrderServices()
-            selectedLocation = LocationStateSaver.getLocationInfo()?.locationId
-        }
-        
     }
     // MARK: - Helping Functions
     func setupTableView() {
@@ -227,91 +175,6 @@ public class OcassionThemesVC: UIViewController {
         
 //        self.homeAPICalls()
     }
-    // MARK: - Top Header
-    private func setupHeaderView(headerTitle: String?) {
-        topHeaderView.delegate = self
-        topHeaderView.setupHeaderView(backgroundColor: .white, searchBarColor: .white, pointsViewColor: .black.withAlphaComponent(0.1), titleColor: .black, headerTitle: headerTitle.asStringOrEmpty(), showHeaderNavigaton: true, haveSearchBorder: true, shouldShowBag: false, isGuestUser: isGuestUser, showHeaderContent: isUserSubscribed ?? false, toolTipInfo: nil)
-        displayRewardPoints()
-    }
-    func displayRewardPoints() {
-        if let rewardPoints = rewardPoint {
-            self.topHeaderView.setPointsOfUser(with: rewardPoints.numberWithCommas())
-        }
-        
-        if let rewardPointsIcon = self.rewardPointIcon {
-        self.topHeaderView.setPointsIcon(with: rewardPointsIcon, shouldShowAnimation: false)
-        }
-    }
-    func adjustTopHeader(_ scrollView: UIScrollView) {
-        guard isHeaderExpanding == false else {return}
-        if let tableView = scrollView as? UITableView {
-            let items = (0..<tableView.numberOfSections).reduce(into: 0) { partialResult, sectionIndex in
-                partialResult += tableView.numberOfRows(inSection: sectionIndex)
-            }
-            if items == 0 {
-                return
-            }
-        }
-        let isAlreadyCompact = !topHeaderView.bodyViewCompact.isHidden
-        let compact = scrollView.contentOffset.y > 150
-        if compact != isAlreadyCompact {
-            isHeaderExpanding = true
-            topHeaderView.adjustUI(compact: compact,isBackgroundColorClear: true)
-            topHeaderView.view_container.backgroundColor = .white
-            UIView.animate(withDuration: 0.2) {
-                self.view.layoutIfNeeded()
-                self.isHeaderExpanding = false
-            }
-        }
-    }
-    private func updateView(index: Int) {
-
-
-        //self?.adjustTopHeader(scrollView)
-
-    }
-}
-
-
-// MARK: - APP HEADER DELEGATE -
-extension OcassionThemesVC: AppHeaderDelegate {
-    
-    public func didTapOnBackButton() {
-
-        navigationController?.popViewController()
-        
-    }
-    
-    public func didTapOnSearch() {
-        self.delegate?.navigateToGlobalSearch()
-       // self.categoryContainerCoordinator?.navigateToGlobalSearchVC()
-    }
-    
-    public func didTapOnLocation() {
-        self.delegate?.navigateToLocation()
-        //self.categoryContainerCoordinator?.navigateToUpdateLocationVC(confirmLocationRedirection: .toCategoryContainer)
-    }
-    
-    func setLocationToolTipPositionView(view: UIImageView) {
-//        self.locationToolTipPosition = view
-    }
-    
-    public func segmentLeftBtnTapped(index: Int) {
-        updateView(index: index)
-    }
-    
-    public func segmentRightBtnTapped(index: Int) {
-        updateView(index: index)
-    }
-    
-    @IBAction func upgradeTapped(_ sender: Any){
-       
-    }
-    
-    public func rewardPointsBtnTapped() {
-        self.delegate?.navigateToRewardPoint(personalizationEventSource: self.personalizationEventSource)
-       // self.categoryContainerCoordinator?.navigateToTransactionsListViewController(personalizationEventSource: self.personalizationEventSource)
-    }
 }
 
 extension OcassionThemesVC {
@@ -384,36 +247,19 @@ extension OcassionThemesVC {
         
         occasionThemesSectionsData = sectionsResponse
         if let sectionDetailsArray = sectionsResponse.sectionDetails, !sectionDetailsArray.isEmpty {
-            print(sectionDetailsArray.count)
             self.dataSource = SectionedTableViewDataSource(dataSources: Array(repeating: [], count: sectionDetailsArray.count))
-            print(self.dataSource?.dataSources?.count)
         }
-        
-        
         
         if let topPlaceholderSection = sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue }) {
-            
-                setupHeaderView(headerTitle: topPlaceholderSection.title)
-                
-                if let iconURL = topPlaceholderSection.iconUrl {
-                    self.topHeaderView.headerTitleImageView.isHidden = false
-                    self.topHeaderView.setHeaderTitleIcon(iconURL: iconURL)
-                }
-                let imageName = AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow"
-                self.topHeaderView.setCustomImageForBackButton(imageName: imageName)
-            
             self.configureDataSource()
-            homeAPICalls()
-            
         }
-        
+        homeAPICalls()
     }
     
 }
 
 
 extension OcassionThemesVC {
-    
     
     // MARK: - Section Data
     
@@ -434,18 +280,12 @@ extension OcassionThemesVC {
                     
                 case .fetchStoriesDidFail(let error):
                     debugPrint(error.localizedDescription)
-                   // self?.configureHideSection(for: .stories, dataSource: OcassionThemesOfferResponse.self)
+                    self?.configureHideSection(for: .stories, dataSource: Stories.self)
                 case .fetchTopBrandsDidSucceed(response: let response):
                     debugPrint(response)
                     self?.configureTopBrandsData(with: response)
-                case .fetchTopBrandsDidFail(error: let error):
-                    debugPrint(error.localizedDescription)
-                case .fetchTopOffersDidSucceed(response: let response):
-                    debugPrint(response)
-                case .fetchTopOffersDidFail(error: let error):
-                    debugPrint(error.localizedDescription)
-                   // self?.configureHideSection(for: .stories, dataSource: OcassionThemesOfferResponse.self)
-
+                case .fetchTopBrandsDidFail(error: _):
+                    self?.configureHideSection(for: .topBrands, dataSource: GetTopBrandsResponseModel.self)
                 case .fetchCollectionsDidSucceed(response: let response):
                     self?.configureCollectionsData(with: response)
                 case .fetchCollectionDidFail(error: let error):
@@ -481,7 +321,7 @@ extension OcassionThemesVC {
                 self.dataSource?.dataSources?[topCollectionsIndex] = TableViewDataSource.make(forCollections: collectionsResponse, data: self.occasionThemesSectionsData?.sectionDetails?[topCollectionsIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] data in
                     
                     if let eventName = self?.occasionThemesSectionsData?.getEventName(for: OccasionThemesSectionIdentifier.topCollections.rawValue), !eventName.isEmpty {
-                        PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, urlScheme: data.redirectionUrl.asStringOrEmpty(), offerId: data.id, source: self?.personalizationEventSource)
+                       // PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, urlScheme: data.redirectionUrl.asStringOrEmpty(), offerId: data.id, source: self?.personalizationEventSource)
                     }
                    // self?.handleBannerDeepLinkRedirections(url: data.redirectionUrl.asStringOrEmpty())
                 })
@@ -546,27 +386,9 @@ extension OcassionThemesVC {
         if let index = getSectionIndex(for: section) {
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.models = []
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.isDummy = false
-            self.mutatingSectionDetails.removeAll(where: { $0.sectionIdentifier == section.rawValue })
             
             self.configureDataSource()
         }
     }
 }
-
-extension OcassionThemesVC {
-    
-    func redirectToFilters() {
-        
-      
-        
-    }
-    
-    func redirectToSortingVC(){
-        
-        
-    }
-    
-    
-}
-
 

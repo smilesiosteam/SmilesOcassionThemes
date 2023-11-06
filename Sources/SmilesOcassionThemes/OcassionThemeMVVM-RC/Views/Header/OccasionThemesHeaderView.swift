@@ -9,7 +9,7 @@ import SmilesUtilities
 import SmilesLanguageManager
 import UIKit
 
-class SmilesExplorerHeader: UIView {
+class OccasionThemesHeaderView: UIView {
     
     // MARK: - OUTLETS -
     @IBOutlet weak var titleLabel: UILocalizableLabel!
@@ -30,7 +30,7 @@ class SmilesExplorerHeader: UIView {
     }
     
     private func commonInit() {
-        Bundle.module.loadNibNamed("SmilesExplorerHeader", owner: self, options: nil)
+        Bundle.module.loadNibNamed("OccasionThemesHeaderView", owner: self, options: nil)
         addSubview(mainView)
         mainView.frame = bounds
         mainView.bindFrameToSuperviewBounds()
@@ -44,16 +44,7 @@ class SmilesExplorerHeader: UIView {
     
     func setupData(title: String?, subTitle: String?, color: UIColor?,section:Int?, isPostSub:Bool = false) {
         titleLabel.localizedString = title ?? ""
-        if !isPostSub {
-            subTitleLabel.localizedString = subTitle ?? ""
-        }
-        
-        
-        
-        subTitleLabel.isHidden = subTitle == nil
-        if isPostSub {
-            subTitleLabel.isHidden = true
-        }
+        subTitleLabel.localizedString = subTitle ?? ""
         titleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         subTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
     }

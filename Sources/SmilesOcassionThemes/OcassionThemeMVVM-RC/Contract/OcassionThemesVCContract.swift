@@ -19,7 +19,6 @@ extension OccasionThemesViewModel {
         case getStories(themeid: Int?, pageNo: Int?)
         case getTopBrands(themeId: Int?, menuItemType: String?)
         case getCollections(themeId: Int?, menuItemType: String?)
-        case getTopOffers(menuItemType: String?, bannerType: String?, categoryId: Int?, bannerSubType: String?)
         case getThemeCategories(themeId: Int?)
     }
     
@@ -37,15 +36,8 @@ extension OccasionThemesViewModel {
         case fetchCollectionsDidSucceed(response: GetCollectionsResponseModel)
         case fetchCollectionDidFail(error: Error)
         
-        case fetchTopOffersDidSucceed(response: GetTopOffersResponseModel)
-        case fetchTopOffersDidFail(error: Error)
-        
         case fetchThemeCategoriesDidSucceed(response: ThemeCategoriesResponse)
         case fetchThemeCategoriesDidFail(error: Error)
-        
-        
-        
-        
-    }
+            }
     
 }

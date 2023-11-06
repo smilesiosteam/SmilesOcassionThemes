@@ -68,8 +68,6 @@ extension OccasionThemesViewModel {
             case .getThemeCategories(themeId: let themeId):
                 self?.getThemeCategories(for: themeId)
                 
-            case .getTopOffers(menuItemType: let menuItemType, bannerType: let bannerType, categoryId: let categoryId, bannerSubType: let bannerSubType):
-                break
             }
             
         }.store(in: &cancellables)
