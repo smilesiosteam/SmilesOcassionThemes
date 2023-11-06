@@ -11,22 +11,17 @@ import SmilesBaseMainRequestManager
 public class ThemeCategoriesRequest: SmilesBaseMainRequest {
     
     // MARK: - Model Variables
-    
     var themeId: Int?
-    
     
     // MARK: - Model Keys
     
     enum CodingKeys: CodingKey {
-       
         case themeId
-        
     }
     
     public init(themeId: Int?) {
         super.init()
         self.themeId = themeId
-        
     }
     
     required init(from decoder: Decoder) throws {
