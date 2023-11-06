@@ -23,7 +23,7 @@ public class OccasionThemesViewModel: NSObject {
     public let sectionsViewModel = SectionsViewModel()
     private let topBrandsViewModel = TopBrandsViewModel()
     private let collectionsViewModel = CollectionsViewModel()
-   // private let storiesViewModel = StoriesViewModel()
+   
     
     
     
@@ -50,7 +50,7 @@ extension OccasionThemesViewModel {
                 self?.bind(to: self?.sectionsViewModel ?? SectionsViewModel())
                 self?.sectionsUseCaseInput.send(.getSections(baseUrl: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser,themeId: themeId))
                 
-            case .getStories(let themeid, _, _):
+            case .getStories(let themeid, _):
                 SmilesStoriesHandler.shared.getStories(themeid: themeid , baseURL: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser) { storiesResponse in
                     self?.output.send(.fetchStoriesDidSucceed(response: storiesResponse))
                 } failure: { error in
