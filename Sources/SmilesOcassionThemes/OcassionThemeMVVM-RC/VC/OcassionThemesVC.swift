@@ -36,7 +36,7 @@ public class OcassionThemesVC: UIViewController {
     var sections =  [TableSectionData<OccasionThemesSectionIdentifier>]()
     //[OccasionThemesSectionData]()
     var occasionThemesSectionsData: GetSectionsResponseModel?
-    let themeid: Int = 1
+    public var themeid: Int = 1
     private let isGuestUser: Bool = false
     private var isUserSubscribed: Bool? = false
     var subscriptionType: ExplorerPackage?

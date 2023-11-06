@@ -50,8 +50,8 @@ extension OccasionThemesViewModel {
                 self?.bind(to: self?.sectionsViewModel ?? SectionsViewModel())
                 self?.sectionsUseCaseInput.send(.getSections(baseUrl: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser,themeId: themeId))
                 
-            case .getStories(let themeid, let tag, let pageNo):
-                SmilesStoriesHandler.shared.getStories(categoryId: themeid ?? 0, baseURL: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser) { storiesResponse in
+            case .getStories(let themeid, _, _):
+                SmilesStoriesHandler.shared.getStories(themeid: themeid , baseURL: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser) { storiesResponse in
                     self?.output.send(.fetchStoriesDidSucceed(response: storiesResponse))
                 } failure: { error in
                     self?.output.send(.fetchSectionsDidFail(error: error))
@@ -63,7 +63,7 @@ extension OccasionThemesViewModel {
             case .getCollections(themeId: let themeId, menuItemType: let menuItemType):
                 self?.bind(to: self?.collectionsViewModel ?? CollectionsViewModel())
                 self?.collectionsUseCaseInput.send(.getCollections(categoryID: nil, menuItemType: menuItemType, themeId: String(themeId ?? 0)))
-            case .getTopOffers(menuItemType: let menuItemType, bannerType: let bannerType, categoryId: let categoryId, bannerSubType: let bannerSubType):
+            case .getTopOffers(menuItemType: _, bannerType: _, categoryId: _, bannerSubType: _):
                 break
             }
             
