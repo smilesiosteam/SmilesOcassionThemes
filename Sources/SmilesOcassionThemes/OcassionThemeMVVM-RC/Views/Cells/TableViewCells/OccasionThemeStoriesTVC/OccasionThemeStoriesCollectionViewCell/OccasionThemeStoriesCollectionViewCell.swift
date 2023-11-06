@@ -53,7 +53,7 @@ public class OccasionThemeStoriesCollectionViewCell: UICollectionViewCell {
         icon.addMaskedCorner(withMaskedCorner: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], cornerRadius: icon.frame.height / 2)
     }
     
-     func configure(storyOffer: ExplorerOffer) {
+     func configure(storyOffer: OccasionThemesOffer) {
          image.setImageWithUrlString(storyOffer.imageURL.asStringOrEmpty()) { image in
             if let image = image {
                 self.image.image = image

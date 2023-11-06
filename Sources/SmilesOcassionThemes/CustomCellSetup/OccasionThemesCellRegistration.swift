@@ -17,5 +17,6 @@ struct OccasionThemesCellRegistration: CellRegisterable {
         tableView.registerCellFromNib(TopBrandsTableViewCell.self, bundle: .module)
         tableView.registerCellFromNib(CollectionsTableViewCell.self, bundle: .module)
         tableView.registerCellFromNib(StoriesTableViewCell.self,bundle: StoriesTableViewCell.module)
+        tableView.registerCellFromNib(ShopByCategoriesTVC.self,bundle: .module)
     }
 }

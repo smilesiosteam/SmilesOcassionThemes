@@ -207,14 +207,15 @@ extension OcassionThemesVC {
                     }
                 case .themeItemCategories:
                     
-                    if let response = OfferDO.fromModuleFile() {
-                       
+                    if let response = ThemeCategoriesResponse.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forItemCategories: [response], data:"#FFFFFF", isDummy:true, onClick: nil)
+                        
                     }
                     self.input.send(.getThemeCategories(themeId: 125))
                     break
                 case .stories:
                     
-                    if let stories = Stories.fromModuleFile() {
+                    if let stories =  Stories.fromModuleFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: stories, data:"#FFFFFF", isDummy:true, onClick: nil)
                     }
                     
@@ -240,7 +241,6 @@ extension OcassionThemesVC {
         }
         self.tableView.reloadData()
     }
-    
     
     // MARK: - Section Data
     private func configureSectionsData(with sectionsResponse: GetSectionsResponseModel) {

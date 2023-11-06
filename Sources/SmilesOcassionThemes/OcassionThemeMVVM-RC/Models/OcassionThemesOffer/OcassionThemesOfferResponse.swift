@@ -14,7 +14,7 @@ import NetworkingLayer
 class OcassionThemesOfferResponse: BaseMainResponse {
     
     var listTitle, listSubtitle: String?
-    var offers: [ExplorerOffer]?
+    var offers: [OccasionThemesOffer]?
     var offersCount: Int?
     
     override init() {
@@ -29,7 +29,7 @@ class OcassionThemesOfferResponse: BaseMainResponse {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         listTitle = try values.decodeIfPresent(String.self, forKey: .listTitle)
         listSubtitle = try values.decodeIfPresent(String.self, forKey: .listSubtitle)
-        offers = try values.decodeIfPresent([ExplorerOffer].self, forKey: .offers)
+        offers = try values.decodeIfPresent([OccasionThemesOffer].self, forKey: .offers)
         offersCount = try values.decodeIfPresent(Int.self, forKey: .offersCount)
         try super.init(from: decoder)
     }
@@ -37,7 +37,7 @@ class OcassionThemesOfferResponse: BaseMainResponse {
 }
 
 // MARK: - Offer
-public class ExplorerOffer: Codable {
+public class OccasionThemesOffer: Codable {
     public var offerID, offerTitle, offerDescription, pointsValue: String?
     public var dirhamValue, offerType, categoryID: String?
     public var imageURL: String?

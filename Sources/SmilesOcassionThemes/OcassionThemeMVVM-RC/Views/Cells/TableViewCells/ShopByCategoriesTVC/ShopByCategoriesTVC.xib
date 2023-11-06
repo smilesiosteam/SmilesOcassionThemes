@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ShopByCategoriesTVC" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShopByCategoriesTVC" id="KGk-i7-Jjw" customClass="ShopByCategoriesTVC" customModule="SmilesOcassionThemes">
             <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -110,7 +110,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="cardBGView" destination="WQQ-Od-JfY" id="CZM-yY-xCY"/>
+                <outlet property="cardBGView" destination="WQQ-Od-JfY" id="g9h-KV-oxR"/>
                 <outlet property="categoryDescLabel" destination="ODi-GE-VRg" id="faH-kN-VLr"/>
                 <outlet property="categoryTitleLabel" destination="HdI-wc-9Ve" id="uJr-du-yve"/>
                 <outlet property="collectionView" destination="Ikz-Q5-UxQ" id="LP2-o2-qk8"/>

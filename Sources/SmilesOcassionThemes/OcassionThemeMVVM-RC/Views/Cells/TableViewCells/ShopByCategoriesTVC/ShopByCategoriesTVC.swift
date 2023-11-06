@@ -23,6 +23,11 @@ class ShopByCategoriesTVC: UITableViewCell {
     
     // MARK: - Properties
     let n:Int = 0
+    var collectionsData: ThemeCategoriesResponse?{
+       didSet{
+           self.collectionView?.reloadData()
+       }
+   }
     
     // MARK: - SuperCell Properties
     override func awakeFromNib() {
@@ -87,7 +92,7 @@ class ShopByCategoriesTVC: UITableViewCell {
 
 extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

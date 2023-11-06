@@ -12,14 +12,14 @@ public class OccasionThemesStoriesCell: UITableViewCell {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-     var collectionsData: [ExplorerOffer]?{
+     var collectionsData: [OccasionThemesOffer]?{
         didSet{
             self.collectionView?.reloadData()
         }
     }
     
-    var callBack: ((ExplorerOffer) -> ())?
-    var StoriesCallBacK:((ExplorerOffer) -> ())?
+    var callBack: ((OccasionThemesOffer) -> ())?
+    var StoriesCallBacK:((OccasionThemesOffer) -> ())?
     
     public override func awakeFromNib() {
         super.awakeFromNib()

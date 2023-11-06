@@ -12,8 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OcassionThemesVC" customModule="SmilesOcassionThemes">
             <connections>
                 <outlet property="tableView" destination="1Ij-2j-lAS" id="gxa-kt-RW2"/>
-                <outlet property="tableViewTopConstraint" destination="qSL-Wh-DFC" id="L3Y-uP-I18"/>
-                <outlet property="topHeaderView" destination="4ag-rw-1KC" id="eL2-B9-9kS"/>
                 <outlet property="view" destination="Ed8-dm-bKg" id="yfB-Gh-QRV"/>
             </connections>
         </placeholder>
@@ -22,32 +20,18 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ag-rw-1KC" customClass="AppHeaderView" customModule="AppHeader">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="228"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" priority="250" constant="228" id="dRl-Tu-gAr"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="shimmerAnimation" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Ij-2j-lAS">
-                    <rect key="frame" x="0.0" y="212" width="393" height="640"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="7Za-dP-IiH"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.25882352939999997" green="0.29803921570000003" blue="0.59999999999999998" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="1Ij-2j-lAS" secondAttribute="bottom" id="3S2-dS-skF"/>
                 <constraint firstItem="1Ij-2j-lAS" firstAttribute="leading" secondItem="7Za-dP-IiH" secondAttribute="leading" id="5Qe-Fd-PyP"/>
-                <constraint firstItem="4ag-rw-1KC" firstAttribute="top" secondItem="Ed8-dm-bKg" secondAttribute="top" id="5Yc-Qf-Axf"/>
                 <constraint firstItem="1Ij-2j-lAS" firstAttribute="trailing" secondItem="7Za-dP-IiH" secondAttribute="trailing" id="gd4-3s-B8u"/>
-                <constraint firstItem="4ag-rw-1KC" firstAttribute="trailing" secondItem="7Za-dP-IiH" secondAttribute="trailing" id="ou4-hY-aFl"/>
-                <constraint firstItem="1Ij-2j-lAS" firstAttribute="top" secondItem="4ag-rw-1KC" secondAttribute="bottom" priority="750" constant="-16" id="qSL-Wh-DFC"/>
-                <constraint firstItem="4ag-rw-1KC" firstAttribute="leading" secondItem="7Za-dP-IiH" secondAttribute="leading" id="xNE-ny-Wxc"/>
+                <constraint firstItem="1Ij-2j-lAS" firstAttribute="top" secondItem="Ed8-dm-bKg" secondAttribute="top" id="tMv-H9-WWZ"/>
             </constraints>
             <point key="canvasLocation" x="147.32824427480915" y="55.633802816901408"/>
         </view>

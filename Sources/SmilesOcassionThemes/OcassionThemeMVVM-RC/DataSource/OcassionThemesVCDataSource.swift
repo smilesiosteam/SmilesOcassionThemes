@@ -13,6 +13,28 @@ import SmilesOffers
 import SmilesBanners
 import SmilesStoriesManager
 
+
+extension TableViewDataSource where Model == ThemeCategoriesResponse {
+    static func make(forItemCategories collectionsObject: [ThemeCategoriesResponse],
+                     reuseIdentifier: String = "ShopByCategoriesTVC", data : String, isDummy:Bool = false, onClick:((Story) -> ())?) -> TableViewDataSource {
+        return TableViewDataSource(
+            models: [collectionsObject].first!,
+            reuseIdentifier: reuseIdentifier,
+            data: data,
+            isDummy: isDummy
+        ) { (stories, cell, data, indexPath) in
+            guard let cell = cell as? ShopByCategoriesTVC else {return}
+            cell.collectionsData = stories
+            //cell.setBackGroundColor(color: UIColor(hexString: data))
+//            cell.callBack = { data in
+//                      debugPrint(data)
+//                onClick?(data)
+//            }
+        }
+    }
+}
+
+
 extension TableViewDataSource where Model == Stories {
     static func make(forStories collectionsObject: Stories,
                      reuseIdentifier: String = "StoriesTableViewCell", data : String, isDummy:Bool = false, onClick:((Story) -> ())?) -> TableViewDataSource {
