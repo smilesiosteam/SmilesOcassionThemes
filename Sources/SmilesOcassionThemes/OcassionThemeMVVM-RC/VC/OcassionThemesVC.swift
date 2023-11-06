@@ -208,7 +208,7 @@ extension OcassionThemesVC {
                 case .themeItemCategories:
                     
                     if let response = OfferDO.fromModuleFile() {
-                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forBogoOffers: [response], data:"#FFFFFF", isDummy: true, completion:nil)
+                       
                     }
                     self.input.send(.getThemeCategories(themeId: 125))
                     break
