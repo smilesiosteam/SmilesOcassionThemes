@@ -16,7 +16,7 @@ extension OccasionThemesViewModel {
     
     public enum Input {
         case getSections(themeId: Int)
-        case getStories(themeid: Int?, tag: SectionTypeTag, pageNo: Int?)
+        case getStories(themeid: Int?, pageNo: Int?)
         case getTopBrands(themeId: Int?, menuItemType: String?)
         case getCollections(themeId: Int?, menuItemType: String?)
         case getTopOffers(menuItemType: String?, bannerType: String?, categoryId: Int?, bannerSubType: String?)

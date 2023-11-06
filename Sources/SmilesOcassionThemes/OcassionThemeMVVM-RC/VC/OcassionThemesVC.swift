@@ -36,7 +36,7 @@ public class OcassionThemesVC: UIViewController {
     var sections =  [TableSectionData<OccasionThemesSectionIdentifier>]()
     //[OccasionThemesSectionData]()
     var occasionThemesSectionsData: GetSectionsResponseModel?
-    let themeid: Int = 1
+    public var themeid: Int = 1
     private let isGuestUser: Bool = false
     private var isUserSubscribed: Bool? = false
     var subscriptionType: ExplorerPackage?
@@ -340,7 +340,7 @@ extension OcassionThemesVC {
                 case .topPlaceholder:
                     if let bannerIndex = getSectionIndex(for: .topPlaceholder) {
                         guard let bannerSectionData = self.occasionThemesSectionsData?.sectionDetails?[bannerIndex] else {return}
-                        self.configureUpgardeBanner(with: bannerSectionData, index: bannerIndex)
+                      //  self.configureUpgardeBanner(with: bannerSectionData, index: bannerIndex)
                     }
                 case .themeItemCategories:
                     
@@ -355,7 +355,7 @@ extension OcassionThemesVC {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forStories: stories, data:"#FFFFFF", isDummy:true, onClick: nil)
                     }
                     
-                    self.input.send(.getStories(themeid: self.themeid, tag: .exclusiveDealsStories, pageNo: 1))
+                    self.input.send(.getStories(themeid: self.themeid, pageNo: 1))
                     
                     break
                 case .topCollections:
@@ -474,7 +474,9 @@ extension OcassionThemesVC {
         
     }
     fileprivate func configureCollectionsData(with collectionsResponse: GetCollectionsResponseModel) {
+        
         if let collections = collectionsResponse.collections, !collections.isEmpty {
+            
             if let topCollectionsIndex = getSectionIndex(for: .topCollections) {
                 self.dataSource?.dataSources?[topCollectionsIndex] = TableViewDataSource.make(forCollections: collectionsResponse, data: self.occasionThemesSectionsData?.sectionDetails?[topCollectionsIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] data in
                     
@@ -490,7 +492,9 @@ extension OcassionThemesVC {
         }
     }
     fileprivate func configureStoriesData(with storiesResponse: Stories) {
+        
         if let stories = storiesResponse.stories, !stories.isEmpty {
+            
             if let storiesIndex = getSectionIndex(for: .stories) {
                 self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forStories: storiesResponse, data: self.occasionThemesSectionsData?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
                     if var stories = ((self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models)?.first {
@@ -507,13 +511,18 @@ extension OcassionThemesVC {
                     }
                 })
                 self.configureDataSource()
+            } else {
+                print("else case")
             }
         } else {
+            print("Hide stories section is being called")
             self.configureHideSection(for: .stories, dataSource: Stories.self)
         }
     }
     fileprivate func configureTopBrandsData(with topBrandsResponse: GetTopBrandsResponseModel) {
+        
         if let brands = topBrandsResponse.brands, !brands.isEmpty {
+            
             if let topBrandsIndex = getSectionIndex(for: .topBrands) {
                 self.dataSource?.dataSources?[topBrandsIndex] = TableViewDataSource.make(forBrands: topBrandsResponse, data: self.occasionThemesSectionsData?.sectionDetails?[topBrandsIndex].backgroundColor ?? "#FFFFFF", topBrandsType: .foodOrder, completion: { [weak self] data in
 //                    let analyticsSmiles = AnalyticsSmiles(service: FirebaseAnalyticsService())
@@ -527,87 +536,13 @@ extension OcassionThemesVC {
                 self.configureDataSource()
             }
         } else {
-           // self.configureHideSection(for: .topBrands, dataSource: GetTopBrandsResponseModel.self)
-        }
-    }
-    
-    fileprivate func  configureUpgardeBanner(with sectionsResponse: SectionDetailDO?,index: Int) {
-        
-        if let bannerSectionResponse = sectionsResponse, (bannerSectionResponse.backgroundImage != nil) {
-            
-            self.dataSource?.dataSources?[index] = TableViewDataSource.make(forUpgradeBanner: bannerSectionResponse, data: "", onClick: { sections in
-                print(sections)
-            })
-            self.configureDataSource()
-            
-        } else {
-          //  self.configureHideSection(for: .topPlaceholder, dataSource: SectionDetailDO.self)
-        }
-        
-        
-        
-    }
-    
-    
-    fileprivate func configureExclusiveOffers(with exclusiveOffersResponse: OcassionThemesOfferResponse) {
-        self.offersListing = exclusiveOffersResponse
-        self.offers.append(contentsOf: exclusiveOffersResponse.offers ?? [])
-        if !offers.isEmpty {
-            if let offersCategoryIndex = getSectionIndex(for: .stories) {
-
-                self.dataSource?.dataSources?[offersCategoryIndex] = TableViewDataSource.make(forOffers: self.offersListing ?? OcassionThemesOfferResponse(), data: self.occasionThemesSectionsData?.sectionDetails?[offersCategoryIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] explorerOffer in
-
-                    print(explorerOffer)
-                    
-                })
-                self.configureDataSource()
-            }
-        } else {
-            if self.offers.isEmpty {
-                self.configureHideSection(for: .topCollections, dataSource: OcassionThemesOfferResponse.self)
-            }
-        }
-    }
-    
-    fileprivate func configureBogoOffers(with exclusiveOffersResponse: OffersCategoryResponseModel) {
-        self.bogooffersListing = exclusiveOffersResponse
-        self.bogoOffers.append(contentsOf: exclusiveOffersResponse.offers ?? [])
-        if !bogoOffers.isEmpty {
-            if let offersIndex = getSectionIndex(for: .topCollections) {
-                self.dataSource?.dataSources?[offersIndex] = TableViewDataSource.make(forBogoOffers: self.bogoOffers , data: self.occasionThemesSectionsData?.sectionDetails?[offersIndex].backgroundColor ?? "#FFFFFF", completion: { [weak self] isFavorite, offerId, indexPath  in
-                    self?.selectedIndexPath = indexPath
-                   // self?.updateOfferWishlistStatus(isFavorite: isFavorite, offerId: offerId)
-                })
-                self.configureDataSource()
-            }
-        } else {
-            if self.bogoOffers.isEmpty {
-                self.configureHideSection(for: .topCollections, dataSource: OfferDO.self)
-            }
-        }
-    }
-    
-    fileprivate func configureWishListData(with updateWishlistResponse: WishListResponseModel) {
-        var isFavoriteOffer = false
-        
-        if let favoriteIndexPath = self.selectedIndexPath {
-            if let updateWishlistStatus = updateWishlistResponse.updateWishlistStatus, updateWishlistStatus {
-                isFavoriteOffer = self.offerFavoriteOperation == 1 ? true : false
-            } else {
-                isFavoriteOffer = false
-            }
-            
-            (self.dataSource?.dataSources?[favoriteIndexPath.section] as? TableViewDataSource<OfferDO>)?.models?[favoriteIndexPath.row].isWishlisted = isFavoriteOffer
-            
-            if let cell = tableView.cellForRow(at: favoriteIndexPath) as? RestaurantsRevampTableViewCell {
-                cell.offerData?.isWishlisted = isFavoriteOffer
-                cell.showFavouriteAnimation(isRestaurant: false)
-            }
-            
+            print("Hide top brand is being called")
+            self.configureHideSection(for: .topBrands, dataSource: GetTopBrandsResponseModel.self)
         }
     }
     
     fileprivate func configureHideSection<T>(for section: OccasionThemesSectionIdentifier, dataSource: T.Type) {
+        
         if let index = getSectionIndex(for: section) {
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.models = []
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.isDummy = false
