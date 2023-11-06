@@ -23,15 +23,12 @@ public class OccasionThemesViewModel: NSObject {
     public let sectionsViewModel = SectionsViewModel()
     private let topBrandsViewModel = TopBrandsViewModel()
     private let collectionsViewModel = CollectionsViewModel()
-   // private let storiesViewModel = StoriesViewModel()
-//     private let categoriesViewModel = ThemeCategoriesViewModel()
-    
     
     
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
     private var topBrandsUseCaseInput: PassthroughSubject<TopBrandsViewModel.Input, Never> = .init()
     private var collectionsUseCaseInput: PassthroughSubject<CollectionsViewModel.Input, Never> = .init()
-//    private var categoriesUseCaseInput: PassthroughSubject<ThemeCategoriesViewModel.Input, Never> = .init()
+
     
     // MARK: - METHODS -
     public func logoutUser() {
