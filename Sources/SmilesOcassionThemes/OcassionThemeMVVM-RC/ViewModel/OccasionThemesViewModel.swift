@@ -63,8 +63,6 @@ extension OccasionThemesViewModel {
             case .getCollections(themeId: let themeId, menuItemType: let menuItemType):
                 self?.bind(to: self?.collectionsViewModel ?? CollectionsViewModel())
                 self?.collectionsUseCaseInput.send(.getCollections(categoryID: nil, menuItemType: menuItemType, themeId: String(themeId ?? 0)))
-            case .getTopOffers(menuItemType: _, bannerType: _, categoryId: _, bannerSubType: _):
-                break
             }
             
         }.store(in: &cancellables)
