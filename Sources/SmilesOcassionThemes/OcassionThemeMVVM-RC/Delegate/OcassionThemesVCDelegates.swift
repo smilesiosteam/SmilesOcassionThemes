@@ -50,7 +50,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         
         switch self.occasionThemesSectionsData?.sectionDetails?[safe: indexPath.section]?.sectionIdentifier {
         case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
-            return 130
+            return 400
         case OccasionThemesSectionIdentifier.stories.rawValue:
             return 170
             //UITableView.automaticDimension
@@ -59,8 +59,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         case OccasionThemesSectionIdentifier.topCollections.rawValue:
              return 210
         case OccasionThemesSectionIdentifier.themeItemCategories.rawValue:
-             return 400
-            //UITableView.automaticDimension
+            return 232
         default:
             return UITableView.automaticDimension
         }
@@ -76,9 +75,17 @@ extension OcassionThemesVC: UITableViewDelegate {
         
         if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
             
-            if sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.topPlaceholder.rawValue {
+//            if sectionData.sectionIdentifier != OccasionThemesSectionIdentifier.topPlaceholder.rawValue {
                 if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
                     
+
+                    if  self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
+                    let header = OcassionThemeHeaderView()
+                        return header
+                    
+                    }
+                    
+
                     let header = OccasionThemesHeaderView()
                     header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
 //                    switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier {
@@ -96,7 +103,7 @@ extension OcassionThemesVC: UITableViewDelegate {
                     return header
                     
                 }
-            }
+//            }
         }
         
         
@@ -104,11 +111,11 @@ extension OcassionThemesVC: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-//        if let offersIndex = getSectionIndex(for: .topPlaceholder) {
-//            if section == offersIndex {
-//                return 0
-//            }
-//        }
+        if let offersIndex = getSectionIndex(for: .topPlaceholder) {
+            if section == offersIndex {
+                return 232
+            }
+        }
 //        if let offersIndex = getSectionIndex(for: .themeItemCategories) {
 //            if section == offersIndex {
 //                return 0
@@ -118,9 +125,11 @@ extension OcassionThemesVC: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
-//            return CGFloat.leastNormalMagnitude
-//        }
+         if let offersIndex = getSectionIndex(for: .topPlaceholder) {
+        if section == offersIndex {
+            return 232
+        }
+    }
         return UITableView.automaticDimension
     }
     

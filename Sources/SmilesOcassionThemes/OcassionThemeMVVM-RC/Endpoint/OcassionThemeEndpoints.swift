@@ -7,17 +7,14 @@
 
 import Foundation
 
-public enum SmilesExplorerEndpoints: String, CaseIterable {
-    case subscriptionInfo
+public enum OcassionThemeEndpoints: String, CaseIterable {
     case getExclusiveOffer
     
 }
 
-extension SmilesExplorerEndpoints {
+extension OcassionThemeEndpoints {
     var serviceEndPoints: String {
         switch self {
-        case .subscriptionInfo:
-            return "explorer/subscription"
         case .getExclusiveOffer:
             return "explorer/offers"
     

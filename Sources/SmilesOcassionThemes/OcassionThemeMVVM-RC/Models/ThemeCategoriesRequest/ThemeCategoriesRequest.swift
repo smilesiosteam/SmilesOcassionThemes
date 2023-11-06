@@ -1,24 +1,27 @@
 //
-//  File.swift
-//  
+//  ThemeCategoriesResquest.swift
 //
-//  Created by Abdul Rehman Amjad on 03/07/2023.
+//
+//  Created by Habib Rehman on 06/11/2023.
 //
 
+import Foundation
 import SmilesBaseMainRequestManager
 
-class SubscriptionInfoRequest: SmilesBaseMainRequest {
-    var packageType: String?
+public class ThemeCategoriesRequest: SmilesBaseMainRequest {
+    
+    // MARK: - Model Variables
+    var themeId: Int?
     
     // MARK: - Model Keys
     
     enum CodingKeys: CodingKey {
-        case packageType
+        case themeId
     }
     
-    public init(packageType: String? = nil) {
+    public init(themeId: Int?) {
         super.init()
-        self.packageType = packageType
+        self.themeId = themeId
     }
     
     required init(from decoder: Decoder) throws {
@@ -28,7 +31,7 @@ class SubscriptionInfoRequest: SmilesBaseMainRequest {
     public override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(self.packageType, forKey: .packageType)
+        try container.encodeIfPresent(self.themeId, forKey: .themeId)
     }
-    
 }
+
