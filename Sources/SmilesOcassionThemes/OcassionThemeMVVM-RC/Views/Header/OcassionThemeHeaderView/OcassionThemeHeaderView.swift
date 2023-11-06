@@ -35,8 +35,7 @@ class OcassionThemeHeaderView: UIView {
         //XibView Setup
         Bundle.module.loadNibNamed(String(describing: OcassionThemeHeaderView.self), owner: self, options: nil)
         addSubview(mainView)
-//        mainView.frame = bounds
-//        mainView.bindFrameToSuperviewBounds()
+
         
         //Fonts Style
         themeTitleLabel.fontTextStyle = .smilesHeadline2

@@ -10,32 +10,30 @@ import Combine
 import NetworkingLayer
 import SmilesUtilities
 
-protocol SmilesExplorerSubscriptionInfoServiceable {
-    func getSubscriptionInfoService(request: SubscriptionInfoRequest) -> AnyPublisher<SubscriptionInfoResponse, NetworkError>
-    
+protocol OcassionThemesServiceable {
+    func getThemeCategoriesService(request: ThemeCategoriesRequest) -> AnyPublisher<ThemeCategoriesResponse, NetworkError>
 }
 
-// GetCuisinesRepository
-class SmilesExplorerSubscriptionInfoRepository: SmilesExplorerSubscriptionInfoServiceable {
+
+class OcassionThemesRepository: OcassionThemesServiceable {
+    
+    func getThemeCategoriesService(request: ThemeCategoriesRequest) -> AnyPublisher<ThemeCategoriesResponse, NetworkingLayer.NetworkError> {
+        let endPoint = OcassionThemesRequestBuilder.getThemeCategories(request: request)
+        let request = endPoint.createRequest(baseUrl: baseUrl)
+        return self.networkRequest.request(request)
+    }
+    
     private var networkRequest: Requestable
     private var baseUrl: String
-    private var endpoint: SmilesExplorerEndpoints
+    private var isGuestUser: Bool
     
-
-  // inject this for testability
-    init(networkRequest: Requestable, baseUrl: String,endpoint:SmilesExplorerEndpoints) {
+    
+    init(networkRequest: Requestable, baseUrl: String) {
         self.networkRequest = networkRequest
         self.baseUrl = baseUrl
-        self.endpoint = endpoint
+        self.isGuestUser = AppCommonMethods.isGuestUser
         
     }
     
-    func getSubscriptionInfoService(request: SubscriptionInfoRequest) -> AnyPublisher<SubscriptionInfoResponse, NetworkError> {
-        
-        let endPoint = SubscriptionInfoRequestBuilder.getSubscriptionInfo(request: request)
-        let request = endPoint.createRequest(baseUrl: baseUrl, endpoint: self.endpoint)
-        return self.networkRequest.request(request)
-        
-    }
     
 }

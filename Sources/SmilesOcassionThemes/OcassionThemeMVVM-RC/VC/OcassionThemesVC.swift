@@ -135,8 +135,12 @@ public class OcassionThemesVC: UIViewController {
         // ----- Tableview section header hide in case of tableview mode Plain ---
         let dummyViewHeight = CGFloat(150)
     
-        self.tableView.tableHeaderView = OcassionThemeHeaderView()
-        self.tableView.tableHeaderView?.backgroundColor = .lightGray
+//        self.tableView.tableHeaderView = OcassionThemeHeaderView()
+//        self.tableView.tableHeaderView?.backgroundColor = .lightGray
+        
+//        self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
+//        self.tableView.contentInset = UIEdgeInsets(top: -dummyViewHeight, left: 0, bottom: 0, right: 0)
+
         
         
         // ----- Tableview section header hide in case of tableview mode Plain ---
@@ -343,7 +347,7 @@ extension OcassionThemesVC {
                     if let response = OfferDO.fromModuleFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forBogoOffers: [response], data:"#FFFFFF", isDummy: true, completion:nil)
                     }
-                    //self.input.send(.getBogoOffers(categoryId: self.categoryId, tag: .exclusiveDealsBogoOffers, pageNo: 1))
+                    self.input.send(.getThemeCategories(themeId: 125))
                     break
                 case .stories:
                     
@@ -447,6 +451,10 @@ extension OcassionThemesVC {
                 case .fetchCollectionDidFail(error: let error):
                     debugPrint(error.localizedDescription)
                     self?.configureHideSection(for: .topCollections, dataSource: GetCollectionsResponseModel.self)
+                case .fetchThemeCategoriesDidSucceed(response: let response):
+                    debugPrint(response)
+                case .fetchThemeCategoriesDidFail(error: let error):
+                    debugPrint(error.localizedDescription)
                 }
             }.store(in: &cancellables)
     }
