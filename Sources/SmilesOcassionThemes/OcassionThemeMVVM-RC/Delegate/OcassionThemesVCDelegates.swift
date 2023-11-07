@@ -82,6 +82,9 @@ extension OcassionThemesVC: UITableViewDelegate {
                 if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
                     if  self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
                         let header = OcassionThemeHeaderView()
+                        header.dateLabel.text = "18th-12th Septemper"
+                        header.themeTitleLabel.text = sectionData.title
+                        header.themeDescLabel.text = sectionData.subTitle
                         return header
                     
                     } else {

@@ -23,7 +23,7 @@ import SmilesPersonalizationEvent
 
 public class OcassionThemesVC: UIViewController {
     
-    @IBOutlet weak var topHeaderView: AppHeaderView!
+    @IBOutlet weak var navBarView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     public  var input: PassthroughSubject<OccasionThemesViewModel.Input, Never> = .init()
@@ -57,7 +57,7 @@ public class OcassionThemesVC: UIViewController {
     }
     
     public override func viewDidLoad() {
-        
+        self.navBarView.isHidden = true
         setupTableView()
         bind(to: viewModel)
         getSections()
@@ -136,7 +136,6 @@ public class OcassionThemesVC: UIViewController {
         btnBack.clipsToBounds = true
         let barButton = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barButton
-        self.topHeaderView.isHidden = true
         if hasTopNotch {
             self.tableViewTopConstraint.constant = ((-212) + ((self.navigationController?.navigationBar.frame.height ?? 0.0)))
         } else{
@@ -220,8 +219,6 @@ extension OcassionThemesVC {
                     }
                     
                     self.input.send(.getStories(themeid: self.themeid, pageNo: 1))
-                    
-                    break
                 case .topCollections:
                     
                     if let response = GetCollectionsResponseModel.fromFile() {
@@ -301,18 +298,9 @@ extension OcassionThemesVC {
     
 }
 extension OcassionThemesVC {
+    
     // MARK: - SECTIONS CONFIGURATIONS -
     
-    
-    private func configureHeaderSection() {
-        
-        if let headerSectionIndex = getSectionIndex(for: .stories) {
-            dataSource?.dataSources?[headerSectionIndex] = TableViewDataSource(models: [], reuseIdentifier: "", data: "#FFFFFF", cellConfigurator: { _, _, _, _ in })
-            configureDataSource()
-        }
-        
-        
-    }
     fileprivate func configureCollectionsData(with collectionsResponse: GetCollectionsResponseModel) {
         
         if let collections = collectionsResponse.collections, !collections.isEmpty {

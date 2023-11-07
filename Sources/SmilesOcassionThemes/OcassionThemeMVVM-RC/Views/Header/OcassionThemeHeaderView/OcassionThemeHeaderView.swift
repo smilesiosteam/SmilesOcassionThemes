@@ -17,6 +17,7 @@ class OcassionThemeHeaderView: UIView {
     
     @IBOutlet weak var bgImage: UIImageView!
     @IBOutlet var mainView: UIView!
+    @IBOutlet var titeContainerView: UIView!
     
     // MARK: - METHODS -
     override init(frame: CGRect) {
@@ -38,7 +39,7 @@ class OcassionThemeHeaderView: UIView {
 
         
         //Fonts Style
-        themeTitleLabel.fontTextStyle = .smilesHeadline2
+        themeTitleLabel.fontTextStyle = .smilesHeadline3
         themeDescLabel.fontTextStyle = .smilesBody3
         dateLabel.fontTextStyle = .smilesBody3
         themeOfferLabel.fontTextStyle = .smilesBody3
@@ -56,7 +57,8 @@ class OcassionThemeHeaderView: UIView {
         self.dateLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.themeOfferLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         
-        
+        self.titeContainerView.layer.cornerRadius = 12.0
+        self.titeContainerView.clipsToBounds = true
     }
 
 }
