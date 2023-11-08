@@ -24,6 +24,7 @@ import SmilesPersonalizationEvent
 public class OcassionThemesVC: UIViewController {
     
     @IBOutlet weak var navBarView: UIView!
+    @IBOutlet weak var topBarHeight: NSLayoutConstraint!
     @IBOutlet weak var navTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
@@ -68,6 +69,7 @@ public class OcassionThemesVC: UIViewController {
     
     
     public override func viewWillAppear(_ animated: Bool) {
+        self.topBarHeight.constant = 88
         self.navigationController?.navigationBar.isHidden = true
     }
     // MARK: - Helping Functions
