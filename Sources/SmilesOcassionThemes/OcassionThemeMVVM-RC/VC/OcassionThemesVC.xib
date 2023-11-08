@@ -30,8 +30,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAF-3l-2xW">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="88"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghj-bO-HkA">
-                            <rect key="frame" x="175.66666666666666" y="53.666666666666657" width="42" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghj-bO-HkA">
+                            <rect key="frame" x="48" y="64" width="297" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -73,6 +73,9 @@
                     </constraints>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="themeSearch"/>
+                    <connections>
+                        <action selector="didPressedSearchbuttonWithSender:" destination="-1" eventType="touchUpInside" id="lSZ-9X-PJd"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="7Za-dP-IiH"/>
@@ -84,9 +87,11 @@
                 <constraint firstItem="1Ij-2j-lAS" firstAttribute="leading" secondItem="7Za-dP-IiH" secondAttribute="leading" id="5Qe-Fd-PyP"/>
                 <constraint firstItem="cOl-yi-3BS" firstAttribute="centerY" secondItem="z50-Ja-EX4" secondAttribute="centerY" id="7vN-wF-GxE"/>
                 <constraint firstItem="DAF-3l-2xW" firstAttribute="top" secondItem="Ed8-dm-bKg" secondAttribute="top" id="GnZ-gL-69d"/>
+                <constraint firstItem="ghj-bO-HkA" firstAttribute="leading" secondItem="z50-Ja-EX4" secondAttribute="trailing" constant="8" id="KkX-tL-tMa"/>
                 <constraint firstItem="z50-Ja-EX4" firstAttribute="leading" secondItem="7Za-dP-IiH" secondAttribute="leading" constant="16" id="NSh-Ux-Nfh"/>
                 <constraint firstItem="z50-Ja-EX4" firstAttribute="top" secondItem="Ed8-dm-bKg" secondAttribute="top" constant="52" id="Npz-mU-xkP"/>
                 <constraint firstItem="ghj-bO-HkA" firstAttribute="centerY" secondItem="z50-Ja-EX4" secondAttribute="centerY" id="RYP-9T-Qw7"/>
+                <constraint firstItem="cOl-yi-3BS" firstAttribute="leading" secondItem="ghj-bO-HkA" secondAttribute="trailing" constant="8" id="VHd-ct-FUa"/>
                 <constraint firstItem="1Ij-2j-lAS" firstAttribute="trailing" secondItem="7Za-dP-IiH" secondAttribute="trailing" id="gd4-3s-B8u"/>
                 <constraint firstItem="DAF-3l-2xW" firstAttribute="leading" secondItem="7Za-dP-IiH" secondAttribute="leading" id="ncM-Rm-prW"/>
                 <constraint firstItem="7Za-dP-IiH" firstAttribute="trailing" secondItem="DAF-3l-2xW" secondAttribute="trailing" id="zIG-2g-vji"/>

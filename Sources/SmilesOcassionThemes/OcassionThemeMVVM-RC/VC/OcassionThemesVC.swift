@@ -132,8 +132,14 @@ public class OcassionThemesVC: UIViewController {
             }
         }
     }
+    // MARK: - IBActions
     @IBAction func backButton(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func didPressedSearchbutton(sender: UIButton) {
+        if let delegate = delegate {
+            delegate.navigateToGlobalSearch()
+        }
     }
 }
 
