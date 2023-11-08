@@ -11,6 +11,7 @@ import SmilesUtilities
 import SmilesSharedServices
 import SmilesOffers
 import SmilesStoriesManager
+import SmilesBanners
 
 extension OcassionThemesVC: UITableViewDelegate {
     
@@ -60,7 +61,7 @@ extension OcassionThemesVC: UITableViewDelegate {
                 }
                 return 270
             }
-            return 0
+            return 124
         case OccasionThemesSectionIdentifier.topCollections.rawValue:
              return 210
         case OccasionThemesSectionIdentifier.themeItemCategories.rawValue:
@@ -111,10 +112,8 @@ extension OcassionThemesVC: UITableViewDelegate {
                         case OccasionThemesSectionIdentifier.stories.rawValue:
                             header.addMaskedCorner(withMaskedCorner: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 24.0)
                             header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
-                            //UIColor(red: 245/255, green: 247/255, blue: 249/255 , alpha: 1)
                         default:
                             header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
-                            //UIColor(red: 245/255, green: 247/255, blue: 249/255 , alpha: 1)
                             
                         }
                         self.configureHeaderForShimmer(section: section, headerView: header)
@@ -171,11 +170,11 @@ extension OcassionThemesVC: UITableViewDelegate {
                     showHide(isDummy: dataSource.isDummy)
                 }
             case .topCollections:
-                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<OfferDO>) {
+                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<GetCollectionsResponseModel>) {
                     showHide(isDummy: dataSource.isDummy)
                 }
             case .topBrands:
-                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<OfferDO>) {
+                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<GetTopBrandsResponseModel>) {
                     showHide(isDummy: dataSource.isDummy)
                 }
             default:
