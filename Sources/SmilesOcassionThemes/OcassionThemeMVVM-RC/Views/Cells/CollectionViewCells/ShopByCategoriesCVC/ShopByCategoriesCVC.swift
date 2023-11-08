@@ -62,8 +62,14 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     
     
     // MARK: - Cell Configuration
-    public func configureCellData(){
+    public func configureCellData(categories:ThemeCategoriesResponse){
         //Configure cell Data here
+        
+        self.categoryTitleLabel.text = categories.categoryName
+        self.categoryDescLabel.text = categories.subTitle
+        self.validityDateLabel.text = categories.validTill
+        self.uptoLabel.text = categories.discountText
+        
     }
 
 }

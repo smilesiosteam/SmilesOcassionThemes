@@ -22,9 +22,9 @@ extension TableViewDataSource where Model == ThemeCategoriesResponse {
             reuseIdentifier: reuseIdentifier,
             data: data,
             isDummy: isDummy
-        ) { (stories, cell, data, indexPath) in
+        ) { (categories, cell, data, indexPath) in
             guard let cell = cell as? ShopByCategoriesTVC else {return}
-            cell.collectionsData = stories
+            cell.collectionsData = categories
             //cell.setBackGroundColor(color: UIColor(hexString: data))
 //            cell.callBack = { data in
 //                      debugPrint(data)

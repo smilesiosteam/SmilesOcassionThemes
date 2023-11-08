@@ -78,7 +78,6 @@ class ShopByCategoriesTVC: UITableViewCell {
         self.collectionView.dataSource = self
         self.collectionView.register(UINib(nibName: String(describing: ShopByCategoriesCVC.self), bundle: .module), forCellWithReuseIdentifier: String(describing: ShopByCategoriesCVC.self))
         
-        
     }
     
     
@@ -91,23 +90,35 @@ class ShopByCategoriesTVC: UITableViewCell {
 
 
 extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ShopByCategoriesCVC.self), for: indexPath) as? ShopByCategoriesCVC else {return UICollectionViewCell()}
-        cell.configureCellData()
+        cell.configureCellData(categories: collectionsData ?? ThemeCategoriesResponse())
         return cell
        
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: collectionView.frame.width/2.2, height: 230)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 16
     }
     
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 
     
