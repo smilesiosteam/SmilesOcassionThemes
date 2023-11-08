@@ -10,6 +10,7 @@ import NetworkingLayer
 
 enum OcassionThemesRequestBuilder {
     case getThemeCategories(request: ThemeCategoriesRequest)
+    case getThemesDetail(request: ThemeCategoriesRequest)
     
     // gave a default timeout but can be different for each.
     var requestTimeOut: Int {
@@ -20,6 +21,8 @@ enum OcassionThemesRequestBuilder {
     var httpMethod: SmilesHTTPMethod {
         switch self {
         case .getThemeCategories:
+            return .POST
+        case.getThemesDetail:
             return .POST
         }
     }
@@ -41,6 +44,8 @@ enum OcassionThemesRequestBuilder {
             
         case .getThemeCategories(request: let request):
             return request
+        case.getThemesDetail(request: let request):
+            return request
         }
     }
     
@@ -49,6 +54,8 @@ enum OcassionThemesRequestBuilder {
         switch self {
         case .getThemeCategories:
             return  baseUrl + "theme-occasion/get-theme-categories"
+        case.getThemesDetail:
+            return baseUrl + "theme-occasion/get-theme-details"
         }
         
         

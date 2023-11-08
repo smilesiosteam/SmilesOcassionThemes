@@ -11,6 +11,7 @@ import SmilesUtilities
 import SmilesSharedServices
 import SmilesOffers
 import SmilesStoriesManager
+import SmilesBanners
 
 extension OcassionThemesVC: UITableViewDelegate {
     
@@ -54,6 +55,12 @@ extension OcassionThemesVC: UITableViewDelegate {
         case OccasionThemesSectionIdentifier.stories.rawValue:
             return 170
         case OccasionThemesSectionIdentifier.topBrands.rawValue:
+            if let brands = self.topBrands, !brands.isEmpty {
+                if brands.count == 1 {
+                    return 124
+                }
+                return 270
+            }
             return 124
         case OccasionThemesSectionIdentifier.topCollections.rawValue:
              return 210
@@ -81,16 +88,35 @@ extension OcassionThemesVC: UITableViewDelegate {
         if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
                 if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
                     if  self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
-                        let header = OcassionThemeHeaderView()
-                        header.dateLabel.text = "18th-12th Septemper"
-                        header.themeTitleLabel.text = sectionData.title
-                        header.themeDescLabel.text = sectionData.subTitle
-                        return header
+                        if let topBannerObject = topBannerObject?.themes?.first as? ThemeResponse {
+                            
+                            let header = OcassionThemeHeaderView()
+                            self.navTitle.text = topBannerObject.title
+                            header.dateLabel.text = topBannerObject.validTill
+                            header.themeTitleLabel.text = topBannerObject.title
+                            header.themeDescLabel.text = topBannerObject.header
+                            header.themeOfferLabel.text = "\(topBannerObject.discountText ?? "") \(topBannerObject.subText ?? "")"
+                            return header
+                        } else {
+                            let header = OcassionThemeHeaderView()
+                            return header
+                        }
                     
                     } else {
                         let header = OccasionThemesTableViewHeaderView()
                         header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
                         configureHeaderForShimmer(section: section, headerView: header)
+                        switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier  {
+                        case OccasionThemesSectionIdentifier.themeItemCategories.rawValue:
+                            header.mainView.backgroundColor = .white
+                        case OccasionThemesSectionIdentifier.stories.rawValue:
+                            header.addMaskedCorner(withMaskedCorner: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 24.0)
+                            header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
+                        default:
+                            header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
+                            
+                        }
+                        self.configureHeaderForShimmer(section: section, headerView: header)
                         return header
                     }
                     
@@ -122,17 +148,7 @@ extension OcassionThemesVC: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if let offersIndex = getSectionIndex(for: .topCollections) {
-//            if indexPath.section == offersIndex {
-//                let lastItem = self.bogoOffers.endIndex - 1
-//                if indexPath.row == lastItem {
-//                    if bogoOffers.count != (bogooffersListing?.offersCount ?? 0)  {
-//                        offersPage += 1
-//                       // self.input.send(.getBogoOffers(categoryId: self.categoryId, tag: .exclusiveDealsBogoOffers, pageNo: offersPage))
-//                    }
-//                }
-//            }
-//        }
+       
     }
     
     func configureHeaderForShimmer(section: Int, headerView: UIView) {
@@ -154,11 +170,11 @@ extension OcassionThemesVC: UITableViewDelegate {
                     showHide(isDummy: dataSource.isDummy)
                 }
             case .topCollections:
-                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<OfferDO>) {
+                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<GetCollectionsResponseModel>) {
                     showHide(isDummy: dataSource.isDummy)
                 }
             case .topBrands:
-                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<OfferDO>) {
+                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<GetTopBrandsResponseModel>) {
                     showHide(isDummy: dataSource.isDummy)
                 }
             default:
@@ -168,7 +184,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         
     }
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-           // adjustTopHeader(scrollView)
+        self.adjustTopHeader(scrollView)
     }
     
 }

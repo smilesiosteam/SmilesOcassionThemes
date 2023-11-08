@@ -20,6 +20,7 @@ extension OccasionThemesViewModel {
         case getTopBrands(themeId: Int?, menuItemType: String?)
         case getCollections(themeId: Int?, menuItemType: String?)
         case getThemeCategories(themeId: Int?)
+        case getThemesDetail(themeId: Int?)
     }
     
     enum Output {
@@ -38,6 +39,10 @@ extension OccasionThemesViewModel {
         
         case fetchThemeCategoriesDidSucceed(response: ThemeCategoriesResponse)
         case fetchThemeCategoriesDidFail(error: Error)
-            }
+        
+        case fetchThemeDetailDidSucceed(response: ThemeResponseModel)
+        case fetchThemeDetailDidFail(error: Error)
+        
+        }
     
 }
