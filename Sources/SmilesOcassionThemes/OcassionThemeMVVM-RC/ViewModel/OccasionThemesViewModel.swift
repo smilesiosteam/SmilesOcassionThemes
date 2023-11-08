@@ -65,6 +65,8 @@ extension OccasionThemesViewModel {
             case .getThemeCategories(themeId: let themeId):
                 self?.getThemeCategories(for: themeId)
                 
+            case .getThemesDetail(themeId: let themeId):
+                self?.getThemeDetail(for: themeId)
             }
             
         }.store(in: &cancellables)
@@ -150,6 +152,33 @@ extension OccasionThemesViewModel {
             } receiveValue: { [weak self] response in
                 debugPrint("got my response here \(response)")
                 self?.output.send(.fetchThemeCategoriesDidSucceed(response: response))
+                
+            }
+        .store(in: &cancellables)
+    }
+    
+    public func getThemeDetail(for themeId: Int? = nil) {
+        let getThemeCategoriesRequest = ThemeCategoriesRequest(
+            themeId: themeId
+        )
+        
+        let service = OcassionThemesRepository(
+            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60),
+            baseUrl: AppCommonMethods.serviceBaseUrl
+        )
+        
+        service.getThemeDetailService(request: getThemeCategoriesRequest)
+            .sink { [weak self] completion in
+                debugPrint(completion)
+                switch completion {
+                case .failure(let error):
+                    self?.output.send(.fetchThemeDetailDidFail(error: error))
+                case .finished:
+                    debugPrint("nothing much to do here")
+                }
+            } receiveValue: { [weak self] response in
+                debugPrint("got my response here \(response)")
+                self?.output.send(.fetchThemeDetailDidSucceed(response: response))
                 
             }
         .store(in: &cancellables)

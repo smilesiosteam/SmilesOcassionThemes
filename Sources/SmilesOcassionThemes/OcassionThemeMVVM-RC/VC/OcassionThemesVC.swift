@@ -24,6 +24,7 @@ import SmilesPersonalizationEvent
 public class OcassionThemesVC: UIViewController {
     
     @IBOutlet weak var navBarView: UIView!
+    @IBOutlet weak var navTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     public  var input: PassthroughSubject<OccasionThemesViewModel.Input, Never> = .init()
@@ -31,7 +32,7 @@ public class OcassionThemesVC: UIViewController {
     private lazy var viewModel: OccasionThemesViewModel = {
         return OccasionThemesViewModel()
     }()
-    
+    var topBrands: [GetTopBrandsResponseModel.BrandDO]?
     var dataSource: SectionedTableViewDataSource?
     var sections =  [TableSectionData<OccasionThemesSectionIdentifier>]()
     //[OccasionThemesSectionData]()
@@ -46,7 +47,8 @@ public class OcassionThemesVC: UIViewController {
         }
         return false
     }
-    
+    var isHeaderExpanding = false
+    var topBannerObject: ThemeResponseModel?
     public init(delegate: SmilesOccasionThemesHomeDelegate?) {
         self.delegate = delegate
         super.init(nibName: "OcassionThemesVC", bundle: Bundle.module)
@@ -57,6 +59,7 @@ public class OcassionThemesVC: UIViewController {
     }
     
     public override func viewDidLoad() {
+        self.navTitle.fontTextStyle = .smilesHeadline3
         self.navBarView.isHidden = true
         setupTableView()
         bind(to: viewModel)
@@ -80,79 +83,10 @@ public class OcassionThemesVC: UIViewController {
         let customizable: CellRegisterable? = OccasionThemesCellRegistration()
         customizable?.register(for: self.tableView)
         self.tableView.backgroundColor = .white
-        // ----- Tableview section header hide in case of tableview mode Plain ---
-        let dummyViewHeight = CGFloat(150)
-    
-//        self.tableView.tableHeaderView = OcassionThemeHeaderView()
-//        self.tableView.tableHeaderView?.backgroundColor = .lightGray
         
-//        self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
-//        self.tableView.contentInset = UIEdgeInsets(top: -dummyViewHeight, left: 0, bottom: 0, right: 0)
-
-        
-        
-        // ----- Tableview section header hide in case of tableview mode Plain ---
     }
     
     //MARK: Navigation Bar Setup
-    func setUpNavigationBar() {
-        
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        appearance.configureWithTransparentBackground()
-        self.navigationItem.standardAppearance = appearance
-        self.navigationItem.scrollEdgeAppearance = appearance
-        
-        let imageView = UIImageView()
-        NSLayoutConstraint.activate([
-            imageView.heightAnchor.constraint(equalToConstant: 24),
-            imageView.widthAnchor.constraint(equalToConstant: 24)
-        ])
-        imageView.tintColor = .black
-        var toptitle: String = "Smiles Tourist"
-        if let topPlaceholderSection = self.occasionThemesSectionsData?.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue }) {
-            imageView.sd_setImage(with: URL(string: topPlaceholderSection.iconUrl ?? "")) { image, _, _, _ in
-                imageView.image = image?.withRenderingMode(.alwaysTemplate)
-                toptitle = topPlaceholderSection.title ?? toptitle
-            }
-        }
-        
-        let locationNavBarTitle = UILabel()
-        locationNavBarTitle.text = toptitle
-        locationNavBarTitle.textColor = .black
-        locationNavBarTitle.fontTextStyle = .smilesHeadline4
-        let hStack = UIStackView(arrangedSubviews: [imageView, locationNavBarTitle])
-        hStack.spacing = 4
-        hStack.alignment = .center
-        self.navigationItem.titleView = hStack
-        
-        let btnBack: UIButton = UIButton(type: .custom)
-        btnBack.backgroundColor = UIColor.clear
-        btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow", in: .module, compatibleWith: nil), for: .normal)
-        btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
-        btnBack.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-        btnBack.layer.cornerRadius = btnBack.frame.height / 2
-        btnBack.clipsToBounds = true
-        let barButton = UIBarButtonItem(customView: btnBack)
-        self.navigationItem.leftBarButtonItem = barButton
-        if hasTopNotch {
-            self.tableViewTopConstraint.constant = ((-212) + ((self.navigationController?.navigationBar.frame.height ?? 0.0)))
-        } else{
-            self.tableViewTopConstraint.constant = ((-212) + ((self.navigationController?.navigationBar.frame.height ?? 0.0)-30.0))
-        }
-        self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
-    }
-    
-    @objc func onClickBack() {
-        
-        self.navigationController?.popViewController(animated: true)
-    }
-    @IBAction func onUpgradeBannerButtonClick() {
-       
-    }
     fileprivate func configureDataSource() {
         self.tableView.dataSource = self.dataSource
         DispatchQueue.main.async {
@@ -173,6 +107,31 @@ public class OcassionThemesVC: UIViewController {
         self.sections.removeAll()
         
 //        self.homeAPICalls()
+    }
+    func adjustTopHeader(_ scrollView: UIScrollView) {
+        guard isHeaderExpanding == false else {return}
+        if let tableView = scrollView as? UITableView {
+            let items = (0..<tableView.numberOfSections).reduce(into: 0) { partialResult, sectionIndex in
+                partialResult += tableView.numberOfRows(inSection: sectionIndex)
+            }
+            if items == 0 {
+                return
+            }
+        }
+        let isAlreadyCompact = !navBarView.isHidden
+        let compact = scrollView.contentOffset.y > 110
+        if compact != isAlreadyCompact {
+            isHeaderExpanding = true
+            self.navBarView.isHidden = !compact
+            UIView.animate(withDuration: 0.2) {
+                self.view.layoutIfNeeded()
+                self.isHeaderExpanding = false
+                //self.navBarView.isHidden = false
+            }
+        }
+    }
+    @IBAction func backButton(sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -200,17 +159,19 @@ extension OcassionThemesVC {
                 switch OccasionThemesSectionIdentifier(rawValue: sectionIdentifier) {
                     
                 case .topPlaceholder:
-                    if let bannerIndex = getSectionIndex(for: .topPlaceholder) {
-                        guard let bannerSectionData = self.occasionThemesSectionsData?.sectionDetails?[bannerIndex] else {return}
-                      //  self.configureUpgardeBanner(with: bannerSectionData, index: bannerIndex)
-                    }
+                    self.input.send(.getThemesDetail(themeId: self.themeid))
+//                    if let bannerIndex = getSectionIndex(for: .topPlaceholder) {
+//                        guard let bannerSectionData = self.occasionThemesSectionsData?.sectionDetails?[bannerIndex] else {return}
+//                       
+//                      //  self.configureUpgardeBanner(with: bannerSectionData, index: bannerIndex)
+//                    }
                 case .themeItemCategories:
                     
                     if let response = ThemeCategoriesResponse.fromModuleFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forItemCategories: [response], data:"#FFFFFF", isDummy:true, onClick: nil)
                         
                     }
-                    self.input.send(.getThemeCategories(themeId: 125))
+                    self.input.send(.getThemeCategories(themeId: self.themeid))
                     break
                 case .stories:
                     
@@ -292,6 +253,11 @@ extension OcassionThemesVC {
                     debugPrint(response)
                 case .fetchThemeCategoriesDidFail(error: let error):
                     debugPrint(error.localizedDescription)
+                case.fetchThemeDetailDidSucceed(response: let response):
+                    self?.topBannerObject = response
+                    self?.configureDataSource()
+                case.fetchThemeDetailDidFail(error: _):
+                    break
                 }
             }.store(in: &cancellables)
     }
@@ -347,8 +313,9 @@ extension OcassionThemesVC {
             self.configureHideSection(for: .stories, dataSource: Stories.self)
         }
     }
+    
     fileprivate func configureTopBrandsData(with topBrandsResponse: GetTopBrandsResponseModel) {
-        
+        self.topBrands = topBrandsResponse.brands
         if let brands = topBrandsResponse.brands, !brands.isEmpty {
             
             if let topBrandsIndex = getSectionIndex(for: .topBrands) {
