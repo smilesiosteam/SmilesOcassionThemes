@@ -17,7 +17,6 @@ import SmilesLoader
 import SmilesStoriesManager
 import AnalyticsSmiles
 import SmilesBanners
-import SmilesPersonalizationEvent
 
 public class OcassionThemesVC: UIViewController {
     
@@ -42,7 +41,7 @@ public class OcassionThemesVC: UIViewController {
     private var themeId: Int = 1
     private var delegate:SmilesOccasionThemesHomeDelegate?
     var isHeaderExpanding = false
-    var topBannerObject: ThemeResponseModel?
+    var topBannerObject: TopPlaceholderThemeResponse?
     
     // MARK: - ACTIONS -
     @IBAction func backButton(sender: UIButton) {

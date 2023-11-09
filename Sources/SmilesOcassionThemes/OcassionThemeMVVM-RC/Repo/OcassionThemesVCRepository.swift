@@ -12,12 +12,23 @@ import SmilesUtilities
 
 protocol OcassionThemesServiceable {
     func getThemeCategoriesService(request: ThemeCategoriesRequest) -> AnyPublisher<ThemeCategoriesResponse, NetworkError>
-    func getThemeDetailService(request: ThemeCategoriesRequest) -> AnyPublisher<ThemeResponseModel, NetworkError>
+    func getThemeDetailService(request: TopPlaceholderThemeRequest) -> AnyPublisher<TopPlaceholderThemeResponse, NetworkError>
 }
 
 
 class OcassionThemesRepository: OcassionThemesServiceable {
-    func getThemeDetailService(request: ThemeCategoriesRequest) -> AnyPublisher<ThemeResponseModel, NetworkingLayer.NetworkError> {
+    
+    private var networkRequest: Requestable
+    private var baseUrl: String
+    private var isGuestUser: Bool
+    
+    init(networkRequest: Requestable, baseUrl: String) {
+        self.networkRequest = networkRequest
+        self.baseUrl = baseUrl
+        self.isGuestUser = AppCommonMethods.isGuestUser
+    }
+    
+    func getThemeDetailService(request: TopPlaceholderThemeRequest) -> AnyPublisher<TopPlaceholderThemeResponse, NetworkingLayer.NetworkError> {
         let endPoint = OcassionThemesRequestBuilder.getThemesDetail(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl)
         return self.networkRequest.request(request)
@@ -29,18 +40,5 @@ class OcassionThemesRepository: OcassionThemesServiceable {
         let request = endPoint.createRequest(baseUrl: baseUrl)
         return self.networkRequest.request(request)
     }
-    
-    private var networkRequest: Requestable
-    private var baseUrl: String
-    private var isGuestUser: Bool
-    
-    
-    init(networkRequest: Requestable, baseUrl: String) {
-        self.networkRequest = networkRequest
-        self.baseUrl = baseUrl
-        self.isGuestUser = AppCommonMethods.isGuestUser
-        
-    }
-    
     
 }

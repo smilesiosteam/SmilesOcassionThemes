@@ -10,7 +10,7 @@ import NetworkingLayer
 
 enum OcassionThemesRequestBuilder {
     case getThemeCategories(request: ThemeCategoriesRequest)
-    case getThemesDetail(request: ThemeCategoriesRequest)
+    case getThemesDetail(request: TopPlaceholderThemeRequest)
     
     // gave a default timeout but can be different for each.
     var requestTimeOut: Int {

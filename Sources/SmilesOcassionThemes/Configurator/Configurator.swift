@@ -10,8 +10,8 @@ import UIKit
 
 public struct SmilesOccasionThemesfigurator {
     
-   public enum ConfiguratorType {
-       case occasionThemesVC(delegate: SmilesOccasionThemesHomeDelegate?, themeId: Int)
+    public enum ConfiguratorType {
+        case occasionThemesVC(delegate: SmilesOccasionThemesHomeDelegate?, themeId: Int)
     }
     
     public static func create(type: ConfiguratorType) -> UIViewController {

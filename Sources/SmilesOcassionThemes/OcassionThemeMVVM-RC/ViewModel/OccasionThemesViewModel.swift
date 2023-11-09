@@ -16,24 +16,17 @@ import NetworkingLayer
 public class OccasionThemesViewModel: NSObject {
     
     // MARK: - PROPERTIES -
-     var output: PassthroughSubject<Output, Never> = .init()
-     var cancellables = Set<AnyCancellable>()
+    var output: PassthroughSubject<Output, Never> = .init()
+    var cancellables = Set<AnyCancellable>()
     
     // MARK: - VIEWMODELS -
     public let sectionsViewModel = SectionsViewModel()
     private let topBrandsViewModel = TopBrandsViewModel()
     private let collectionsViewModel = CollectionsViewModel()
     
-    
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
     private var topBrandsUseCaseInput: PassthroughSubject<TopBrandsViewModel.Input, Never> = .init()
     private var collectionsUseCaseInput: PassthroughSubject<CollectionsViewModel.Input, Never> = .init()
-
-    
-    // MARK: - METHODS -
-    public func logoutUser() {
-       
-    }
     
 }
 
@@ -57,7 +50,7 @@ extension OccasionThemesViewModel {
             case .getCollections(themeId: let themeId, menuItemType: let menuItemType):
                 self?.bind(to: self?.collectionsViewModel ?? CollectionsViewModel())
                 self?.collectionsUseCaseInput.send(.getCollections(categoryID: nil, menuItemType: menuItemType, themeId: String(themeId ?? 0)))
-
+                
             case .getTopBrands(let themeid, let menuItemType):
                 self?.bind(to: self?.topBrandsViewModel ?? TopBrandsViewModel())
                 self?.topBrandsUseCaseInput.send(.getTopBrands(categoryID: nil, menuItemType: menuItemType, themeId: String(themeid ?? 0)))
@@ -122,7 +115,7 @@ extension OccasionThemesViewModel {
             }.store(in: &cancellables)
     }
     
-   
+    
     
 }
 
@@ -154,11 +147,11 @@ extension OccasionThemesViewModel {
                 self?.output.send(.fetchThemeCategoriesDidSucceed(response: response))
                 
             }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
     
     public func getThemeDetail(for themeId: Int? = nil) {
-        let getThemeCategoriesRequest = ThemeCategoriesRequest(
+        let getThemeCategoriesRequest = TopPlaceholderThemeRequest(
             themeId: themeId
         )
         
@@ -181,6 +174,6 @@ extension OccasionThemesViewModel {
                 self?.output.send(.fetchThemeDetailDidSucceed(response: response))
                 
             }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
 }

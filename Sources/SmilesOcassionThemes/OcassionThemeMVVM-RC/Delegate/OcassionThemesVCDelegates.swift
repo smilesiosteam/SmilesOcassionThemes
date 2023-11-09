@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Habib Rehman on 05/09/2023.
 //
@@ -21,14 +21,14 @@ extension OcassionThemesVC: UITableViewDelegate {
             switch secID {
             case .topBrands:
                 break
-               // self.onUpgradeBannerButtonClick()
+                // self.onUpgradeBannerButtonClick()
             case .stories:
                 break
             case .topCollections:
                 if let dataSource = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<OfferDO>)) {
                     if !dataSource.isDummy {
                         let offer = dataSource.models?[safe: indexPath.row] as? OfferDO
-                     //   self.delegate?.proceedToOfferDetails(offer: offer)
+                        //   self.delegate?.proceedToOfferDetails(offer: offer)
                     }
                 }
                 break
@@ -37,7 +37,7 @@ extension OcassionThemesVC: UITableViewDelegate {
             case .themeItemCategories:
                 break
             }
-
+            
         }
         
         
@@ -63,7 +63,7 @@ extension OcassionThemesVC: UITableViewDelegate {
             }
             return 124
         case OccasionThemesSectionIdentifier.topCollections.rawValue:
-             return 210
+            return 210
         case OccasionThemesSectionIdentifier.themeItemCategories.rawValue:
             return 400
         default:
@@ -75,7 +75,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier {
         case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
             return 40
-        
+            
         default:
             return .leastNormalMagnitude
         }
@@ -83,44 +83,36 @@ extension OcassionThemesVC: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-       // if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {return nil}
+        // if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {return nil}
         
         if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
-                if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
-                    if  self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
-                        if let topBannerObject = topBannerObject?.themes?.first as? ThemeResponse {
-                            
-                            let header = OcassionThemeHeaderView()
-                            self.navTitle.text = topBannerObject.title
-                            header.dateLabel.text = topBannerObject.validTill
-                            header.themeTitleLabel.text = topBannerObject.title
-                            header.themeDescLabel.text = topBannerObject.header
-                            header.themeOfferLabel.text = "\(topBannerObject.discountText ?? "") \(topBannerObject.subText ?? "")"
-                            return header
-                        } else {
-                            let header = OcassionThemeHeaderView()
-                            return header
-                        }
-                    
-                    } else {
-                        let header = OccasionThemesTableViewHeaderView()
-                        header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
-                        configureHeaderForShimmer(section: section, headerView: header)
-                        switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier  {
-                        case OccasionThemesSectionIdentifier.themeItemCategories.rawValue:
-                            header.mainView.backgroundColor = .white
-                        case OccasionThemesSectionIdentifier.stories.rawValue:
-                            header.addMaskedCorner(withMaskedCorner: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 24.0)
-                            header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
-                        default:
-                            header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
-                            
-                        }
-                        self.configureHeaderForShimmer(section: section, headerView: header)
-                        return header
+            if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
+                if self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
+                    let header = OcassionThemeHeaderView()
+                    if let topBannerObject = topBannerObject?.themes?.first as? TopPlaceholderTheme {
+                        self.navTitle.text = topBannerObject.title
+                        header.setupData(topBannerObject: topBannerObject)
                     }
-                    
+                    return header
+                } else {
+                    let header = OccasionThemesTableViewHeaderView()
+                    header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
+                    configureHeaderForShimmer(section: section, headerView: header)
+                    switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier  {
+                    case OccasionThemesSectionIdentifier.themeItemCategories.rawValue:
+                        header.mainView.backgroundColor = .white
+                    case OccasionThemesSectionIdentifier.stories.rawValue:
+                        header.addMaskedCorner(withMaskedCorner: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 24.0)
+                        header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
+                    default:
+                        header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
+                        
+                    }
+                    self.configureHeaderForShimmer(section: section, headerView: header)
+                    return header
                 }
+                
+            }
         }
         return OccasionThemesTableViewHeaderView()
     }
@@ -148,7 +140,7 @@ extension OcassionThemesVC: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-       
+        
     }
     
     func configureHeaderForShimmer(section: Int, headerView: UIView) {
