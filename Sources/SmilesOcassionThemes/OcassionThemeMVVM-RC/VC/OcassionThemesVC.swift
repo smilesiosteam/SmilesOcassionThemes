@@ -78,6 +78,7 @@ public class OcassionThemesVC: UIViewController {
     }
     
     // MARK: - Helping Functions
+    
     func setupTableView() {
         self.tableView.sectionFooterHeight = .leastNormalMagnitude
         if #available(iOS 15.0, *) {
