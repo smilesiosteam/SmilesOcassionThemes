@@ -13,10 +13,10 @@ import SmilesOffers
 struct OccasionThemesCellRegistration: CellRegisterable {
     
     func register(for tableView: UITableView) {
-        tableView.registerCellFromNib(OccasionThemesStoriesCell.self, bundle: .module)
         tableView.registerCellFromNib(TopBrandsTableViewCell.self, bundle: .module)
         tableView.registerCellFromNib(CollectionsTableViewCell.self, bundle: .module)
         tableView.registerCellFromNib(StoriesTableViewCell.self,bundle: StoriesTableViewCell.module)
         tableView.registerCellFromNib(ShopByCategoriesTVC.self,bundle: .module)
     }
+    
 }

@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Habib Rehman on 04/09/2023.
 //
@@ -40,9 +40,9 @@ extension OccasionThemesViewModel {
         case fetchThemeCategoriesDidSucceed(response: ItemCategoriesDetailsResponse)
         case fetchThemeCategoriesDidFail(error: Error)
         
-        case fetchThemeDetailDidSucceed(response: ThemeResponseModel)
+        case fetchThemeDetailDidSucceed(response: TopPlaceholderThemeResponse)
         case fetchThemeDetailDidFail(error: Error)
         
-        }
+    }
     
 }

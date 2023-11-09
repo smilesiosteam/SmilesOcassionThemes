@@ -7,19 +7,18 @@
 
 import Foundation
 import UIKit
-import SmilesUtilities
 
 public struct SmilesOccasionThemesfigurator {
-   public enum ConfiguratorType {
-       case occasionThemesVC(delegate: SmilesOccasionThemesHomeDelegate?)
+    
+    public enum ConfiguratorType {
+        case occasionThemesVC(delegate: SmilesOccasionThemesHomeDelegate?, themeId: Int)
     }
     
     public static func create(type: ConfiguratorType) -> UIViewController {
         switch type {
-        case .occasionThemesVC(let delegate):
-            return OcassionThemesVC(delegate: delegate!)
+        case .occasionThemesVC(let delegate, let themeId):
+            return OcassionThemesVC(delegate: delegate, themeId: themeId)
         }
-        
     }
     
 }

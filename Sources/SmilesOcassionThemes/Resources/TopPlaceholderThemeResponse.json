@@ -1,0 +1,15 @@
+{
+    "extTransactionId":"3449044975159",
+    "themes":[
+        {
+            "themeId":"125",
+            "header":"Summer Theme",
+            "title":"Beat the heat upto",
+            "discountText":"50% off",
+            "subText":"on offers",
+            "backgroundImage":"https://smilesuae.ae/images/APP/HOME_ITEM_CATEGORY/RIBBON/ENGLISH/PR_FreeDelivery.png",
+            "foregroundImage":"https://smilesuae.ae/images/APP/HOME_ITEM_CATEGORY/RIBBON/ENGLISH/PR_FreeDelivery.png",
+            "validTill":"18th - 24th September"
+        }
+    ]
+}
