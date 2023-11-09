@@ -160,11 +160,6 @@ extension OcassionThemesVC {
                 switch OccasionThemesSectionIdentifier(rawValue: sectionIdentifier) {
                 case .topPlaceholder:
                     self.input.send(.getThemesDetail(themeId: self.themeId))
-//                    if let bannerIndex = getSectionIndex(for: .topPlaceholder) {
-//                        guard let bannerSectionData = self.occasionThemesSectionsData?.sectionDetails?[bannerIndex] else {return}
-//                       
-//                      //  self.configureUpgardeBanner(with: bannerSectionData, index: bannerIndex)
-//                    }
                 case .themeItemCategories:
                     if let response = ThemeCategoriesResponse.fromModuleFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forItemCategories: [response], data:"#FFFFFF", isDummy:true, onClick: nil)

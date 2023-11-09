@@ -90,9 +90,15 @@ extension OcassionThemesVC: UITableViewDelegate {
                 if self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
                     let header = OcassionThemeHeaderView()
                     if let topBannerObject = topBannerObject?.themes?.first as? TopPlaceholderTheme {
+                        header.hideSkeleton()
                         self.navTitle.text = topBannerObject.title
                         header.setupData(topBannerObject: topBannerObject)
+                        
+                    } else {
+                        header.enableSkeleton()
+                        header.showAnimatedGradientSkeleton()
                     }
+                    self.configureHeaderForShimmer(section: section, headerView: header)
                     return header
                 } else {
                     let header = OccasionThemesTableViewHeaderView()
@@ -157,6 +163,10 @@ extension OcassionThemesVC: UITableViewDelegate {
         
         if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
             switch OccasionThemesSectionIdentifier(rawValue: sectionData.sectionIdentifier ?? "") {
+            case .topPlaceholder:
+                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<TopPlaceholderThemeResponse>) {
+                    showHide(isDummy: dataSource.isDummy)
+                }
             case .stories:
                 if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<Stories>) {
                     showHide(isDummy: dataSource.isDummy)

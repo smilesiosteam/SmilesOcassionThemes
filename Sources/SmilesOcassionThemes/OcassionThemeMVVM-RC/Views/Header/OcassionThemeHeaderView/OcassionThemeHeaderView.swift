@@ -55,13 +55,13 @@ class OcassionThemeHeaderView: UIView {
         self.themeTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.dateLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.themeOfferLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
-        
+        self.titeContainerView.isHidden = true
         self.titeContainerView.layer.cornerRadius = 12.0
         self.titeContainerView.clipsToBounds = true
     }
     
     func setupData(topBannerObject: TopPlaceholderTheme) {
-        
+        self.titeContainerView.isHidden = false
         dateLabel.text = topBannerObject.validTill
         themeHeaderLabel.text = topBannerObject.header
         themeTitleLabel.text = topBannerObject.title
