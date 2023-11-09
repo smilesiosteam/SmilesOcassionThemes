@@ -11,12 +11,13 @@ import NetworkingLayer
 import SmilesUtilities
 
 protocol OcassionThemesServiceable {
-    func getThemeCategoriesService(request: ThemeCategoriesRequest) -> AnyPublisher<ThemeCategoriesResponse, NetworkError>
+    func getThemeCategoriesService(request: ThemeCategoriesRequest) -> AnyPublisher<ItemCategoriesDetailsResponse, NetworkError>
     func getThemeDetailService(request: ThemeCategoriesRequest) -> AnyPublisher<ThemeResponseModel, NetworkError>
 }
 
 
 class OcassionThemesRepository: OcassionThemesServiceable {
+    
     func getThemeDetailService(request: ThemeCategoriesRequest) -> AnyPublisher<ThemeResponseModel, NetworkingLayer.NetworkError> {
         let endPoint = OcassionThemesRequestBuilder.getThemesDetail(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl)
@@ -24,7 +25,7 @@ class OcassionThemesRepository: OcassionThemesServiceable {
     }
     
     
-    func getThemeCategoriesService(request: ThemeCategoriesRequest) -> AnyPublisher<ThemeCategoriesResponse, NetworkingLayer.NetworkError> {
+    func getThemeCategoriesService(request: ThemeCategoriesRequest) -> AnyPublisher<ItemCategoriesDetailsResponse, NetworkingLayer.NetworkError> {
         let endPoint = OcassionThemesRequestBuilder.getThemeCategories(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl)
         return self.networkRequest.request(request)

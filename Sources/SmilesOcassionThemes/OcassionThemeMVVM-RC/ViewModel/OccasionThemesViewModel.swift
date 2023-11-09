@@ -158,7 +158,7 @@ extension OccasionThemesViewModel {
     }
     
     public func getThemeDetail(for themeId: Int? = nil) {
-        let getThemeCategoriesRequest = ThemeCategoriesRequest(
+        let getThemeDetailsRequest = ThemeCategoriesRequest(
             themeId: themeId
         )
         
@@ -167,7 +167,7 @@ extension OccasionThemesViewModel {
             baseUrl: AppCommonMethods.serviceBaseUrl
         )
         
-        service.getThemeDetailService(request: getThemeCategoriesRequest)
+        service.getThemeDetailService(request: getThemeDetailsRequest)
             .sink { [weak self] completion in
                 debugPrint(completion)
                 switch completion {

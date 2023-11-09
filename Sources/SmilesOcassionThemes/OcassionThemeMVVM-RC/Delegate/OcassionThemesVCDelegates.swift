@@ -65,7 +65,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         case OccasionThemesSectionIdentifier.topCollections.rawValue:
              return 210
         case OccasionThemesSectionIdentifier.themeItemCategories.rawValue:
-            return 400
+            return UITableView.automaticDimension
         default:
             return UITableView.automaticDimension
         }

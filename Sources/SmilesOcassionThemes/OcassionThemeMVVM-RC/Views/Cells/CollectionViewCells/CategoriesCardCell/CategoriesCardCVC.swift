@@ -1,14 +1,15 @@
 //
-//  ShopByCategoriesCVC.swift
-//  
+//  CategoriesCardCVC.swift
 //
-//  Created by Habib Rehman on 30/10/2023.
+//
+//  Created by Habib Rehman on 09/11/2023.
 //
 
 import UIKit
 import SmilesUtilities
+import SmilesFontsManager
 
-class ShopByCategoriesCVC: UICollectionViewCell {
+class CategoriesCardCVC: UICollectionViewCell {
     
     // MARK: - Outlets
     @IBOutlet weak var titleBGView: UIView!
@@ -18,9 +19,10 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     @IBOutlet weak var categoryDescLabel: UILabel!
     @IBOutlet weak var validityDateLabel: UILabel!
     
+    @IBOutlet weak var categoryCardImage: UIImageView!
     // MARK: - Properties
     
-    var categories:ThemeCategoriesResponse!{
+    var category:ThemeCategoriesResponse!{
         didSet{
             configureCellData()
         }
@@ -57,7 +59,7 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         //View's Corner Radius
         self.BGView.layer.cornerRadius = 12
         self.titleBGView.layer.cornerRadius = 16
-        
+        titleBGView.clipsToBounds = true
         //Localization Settings
         self.validityDateLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.categoryTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
@@ -71,12 +73,11 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     // MARK: - Cell Configuration
     public func configureCellData(){
         //Configure cell Data here
-        
-        self.categoryTitleLabel.text = categories.categoryName
-        self.categoryDescLabel.text = categories.subTitle
-        self.validityDateLabel.text = categories.validTill
-        self.uptoLabel.text = categories.discountText
+        self.categoryTitleLabel.text = category.categoryName
+        self.categoryDescLabel.text = category.subTitle
+        self.validityDateLabel.text = category.validTill
+        self.uptoLabel.text = category.discountText
         
     }
-
+    
 }

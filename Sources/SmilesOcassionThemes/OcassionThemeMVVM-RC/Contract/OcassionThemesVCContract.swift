@@ -37,7 +37,7 @@ extension OccasionThemesViewModel {
         case fetchCollectionsDidSucceed(response: GetCollectionsResponseModel)
         case fetchCollectionDidFail(error: Error)
         
-        case fetchThemeCategoriesDidSucceed(response: ThemeCategoriesResponse)
+        case fetchThemeCategoriesDidSucceed(response: ItemCategoriesDetailsResponse)
         case fetchThemeCategoriesDidFail(error: Error)
         
         case fetchThemeDetailDidSucceed(response: ThemeResponseModel)

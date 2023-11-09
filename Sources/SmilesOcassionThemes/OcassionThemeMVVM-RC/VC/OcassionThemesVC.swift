@@ -175,8 +175,8 @@ extension OcassionThemesVC {
 //                    }
                 case .themeItemCategories:
                     
-                    if let response = ThemeCategoriesResponse.fromModuleFile() {
-                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forItemCategories: [response], data:"#FFFFFF", isDummy:true, onClick: nil)
+                    if let response = ItemCategoriesDetailsResponse.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forItemCategories: response, data:"#FFFFFF", isDummy:true, onClick: nil)
                         
                     }
                     self.input.send(.getThemeCategories(themeId: self.themeid))
