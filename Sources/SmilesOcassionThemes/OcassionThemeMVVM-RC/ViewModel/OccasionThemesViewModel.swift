@@ -30,11 +30,6 @@ public class OccasionThemesViewModel: NSObject {
     private var collectionsUseCaseInput: PassthroughSubject<CollectionsViewModel.Input, Never> = .init()
 
     
-    // MARK: - METHODS -
-    public func logoutUser() {
-       
-    }
-    
 }
 
 // MARK: - VIEWMODELS BINDINGS -
