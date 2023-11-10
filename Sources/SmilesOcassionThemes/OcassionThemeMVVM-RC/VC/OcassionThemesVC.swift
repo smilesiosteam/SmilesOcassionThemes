@@ -25,7 +25,6 @@ public class OcassionThemesVC: UIViewController {
     @IBOutlet weak var topBarHeight: NSLayoutConstraint!
     @IBOutlet weak var navTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     
     // MARK: - PROPERTIES -
     public var input: PassthroughSubject<OccasionThemesViewModel.Input, Never> = .init()
@@ -87,7 +86,7 @@ public class OcassionThemesVC: UIViewController {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 1
         tableView.delegate = self
-        
+        tableView.contentInsetAdjustmentBehavior = .never
         let customizable: CellRegisterable? = OccasionThemesCellRegistration()
         customizable?.register(for: self.tableView)
         self.tableView.backgroundColor = .white
@@ -127,7 +126,7 @@ public class OcassionThemesVC: UIViewController {
             }
         }
         let isAlreadyCompact = !navBarView.isHidden
-        let compact = scrollView.contentOffset.y > 110
+        let compact = scrollView.contentOffset.y > 20
         if compact != isAlreadyCompact {
             isHeaderExpanding = true
             self.navBarView.isHidden = !compact

@@ -88,7 +88,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
             if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
                 if self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
-                    let header = OcassionThemeHeaderView()
+                    let header = OccasionThemeTopPlaceholderView()
                     if let topBannerObject = topBannerObject?.themes?.first as? TopPlaceholderTheme {
                         header.hideSkeleton()
                         self.navTitle.text = topBannerObject.title

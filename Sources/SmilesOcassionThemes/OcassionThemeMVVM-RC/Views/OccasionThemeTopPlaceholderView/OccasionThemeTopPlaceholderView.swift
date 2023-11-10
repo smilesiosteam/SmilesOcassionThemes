@@ -8,7 +8,7 @@
 import UIKit
 import SmilesUtilities
 
-class OcassionThemeHeaderView: UIView {
+class OccasionThemeTopPlaceholderView: UIView {
     
     // MARK: - OUTLETS -
     @IBOutlet weak var dateLabel: UILabel!
@@ -35,14 +35,14 @@ class OcassionThemeHeaderView: UIView {
     private func commonInit() {
         
         //XibView Setup
-        Bundle.module.loadNibNamed(String(describing: OcassionThemeHeaderView.self), owner: self, options: nil)
+        Bundle.module.loadNibNamed(String(describing: OccasionThemeTopPlaceholderView.self), owner: self, options: nil)
         addSubview(mainView)
-
+        mainView.frame = bounds
+        mainView.bindFrameToSuperviewBounds()
         //Fonts Style
         themeHeaderLabel.fontTextStyle = .smilesHeadline3
         themeTitleLabel.fontTextStyle = .smilesBody3
-        dateLabel.fontTextStyle = .smilesBody3
-        themeOfferLabel.fontTextStyle = .smilesBody3
+        dateLabel.fontTextStyle = .smilesBody4
         
         //Fonts Color
         themeHeaderLabel.textColor = .white
@@ -61,6 +61,7 @@ class OcassionThemeHeaderView: UIView {
     }
     
     func setupData(topBannerObject: TopPlaceholderTheme) {
+        
         self.titeContainerView.isHidden = false
         dateLabel.text = topBannerObject.validTill
         themeHeaderLabel.text = topBannerObject.header
@@ -68,9 +69,10 @@ class OcassionThemeHeaderView: UIView {
         
         let offerText = NSMutableAttributedString()
         if let discountText = topBannerObject.discountText {
-            offerText.append(discountText.getAttributedString(style: .smilesBody2, color: .black))
+            offerText.append(discountText.getAttributedString(style: .smilesHeadline3, color: .black))
         }
         if let subText = topBannerObject.subText {
+            offerText.append(NSAttributedString(string: " "))
             offerText.append(subText.getAttributedString(style: .smilesBody3, color: .black))
         }
         themeOfferLabel.attributedText = offerText
