@@ -17,6 +17,8 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     @IBOutlet weak var uptoLabel: UILabel!
     @IBOutlet weak var categoryDescLabel: UILabel!
     @IBOutlet weak var validityDateLabel: UILabel!
+    @IBOutlet weak var foregroundImage: UIImageView!
+    
     
     // MARK: - Properties
     
@@ -48,7 +50,7 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         self.validityDateLabel.textColor = UIColor.black.withAlphaComponent(0.8)
         self.categoryDescLabel.textColor = UIColor.black
         self.uptoLabel.textColor = UIColor.black
-        self.categoryTitleLabel.textColor = UIColor.black
+        self.categoryTitleLabel.textColor = UIColor.white
         
         //Views Background Colors
         self.BGView.backgroundColor = UIColor.lightGreenColor
@@ -56,7 +58,10 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         
         //View's Corner Radius
         self.BGView.layer.cornerRadius = 12
-        self.titleBGView.layer.cornerRadius = 16
+        self.BGView.clipsToBounds = true
+        self.titleBGView.layer.cornerRadius = 10
+        self.titleBGView.clipsToBounds = true
+        
         
         //Localization Settings
         self.validityDateLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
@@ -71,11 +76,14 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     // MARK: - Cell Configuration
     public func configureCellData(){
         //Configure cell Data here
-        
+        self.BGView.backgroundColor = UIColor(hexString: categories.backgroundColor ?? "")
+        self.titleBGView.backgroundColor = UIColor(hexString: categories.titleColor ?? "")
         self.categoryTitleLabel.text = categories.categoryName
         self.categoryDescLabel.text = categories.subTitle
         self.validityDateLabel.text = categories.validTill
         self.uptoLabel.text = categories.discountText
+        self.foregroundImage.setImageWithUrlString(categories.foregroundImage ?? "")
+        
         
     }
 

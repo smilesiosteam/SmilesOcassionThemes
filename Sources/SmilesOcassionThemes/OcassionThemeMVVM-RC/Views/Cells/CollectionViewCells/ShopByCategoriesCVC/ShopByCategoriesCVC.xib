@@ -27,7 +27,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEa-ll-dou">
                                         <rect key="frame" x="8" y="2" width="0.0" height="22"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -96,6 +96,7 @@
                 <outlet property="BGView" destination="6fe-3h-RX1" id="CHa-bm-spu"/>
                 <outlet property="categoryDescLabel" destination="tDB-P3-ZKv" id="1kK-f2-Czf"/>
                 <outlet property="categoryTitleLabel" destination="DEa-ll-dou" id="W8J-II-Wyq"/>
+                <outlet property="foregroundImage" destination="DCj-Pk-rak" id="W0Z-Cl-Mpd"/>
                 <outlet property="titleBGView" destination="7M1-iE-qtU" id="aoF-zU-jbV"/>
                 <outlet property="uptoLabel" destination="jgi-Ra-KyV" id="kYV-FP-RbD"/>
                 <outlet property="validityDateLabel" destination="s3Z-Ud-YAE" id="sJx-kK-ep1"/>

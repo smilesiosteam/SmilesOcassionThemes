@@ -16,10 +16,11 @@ class CategoriesCardCVC: UICollectionViewCell {
     @IBOutlet weak var categoryTitleLabel: UILabel!
     @IBOutlet weak var BGView: UIView!
     @IBOutlet weak var uptoLabel: UILabel!
-    @IBOutlet weak var categoryDescLabel: UILabel!
-    @IBOutlet weak var validityDateLabel: UILabel!
+    @IBOutlet weak var discountLabel: UILabel!
+    @IBOutlet weak var subTitleLabel: UILabel!
+    @IBOutlet weak var foregroundImage: UIImageView!
     
-    @IBOutlet weak var categoryCardImage: UIImageView!
+    
     // MARK: - Properties
     
     var category:ThemeCategoriesResponse!{
@@ -43,14 +44,14 @@ class CategoriesCardCVC: UICollectionViewCell {
         //Fonts TypoGraphy
         self.categoryTitleLabel.fontTextStyle = .smilesTitle3
         self.uptoLabel.fontTextStyle = .smilesTitle3
-        self.categoryDescLabel.fontTextStyle = .smilesTitle1
-        self.validityDateLabel.fontTextStyle = .smilesBody4
+        self.discountLabel.fontTextStyle = .smilesTitle1
+        self.subTitleLabel.fontTextStyle = .smilesTitle1
         
         //Font Colors
-        self.validityDateLabel.textColor = UIColor.black.withAlphaComponent(0.8)
-        self.categoryDescLabel.textColor = UIColor.black
+        self.subTitleLabel.textColor = UIColor.black.withAlphaComponent(0.8)
+        self.discountLabel.textColor = UIColor.black
         self.uptoLabel.textColor = UIColor.black
-        self.categoryTitleLabel.textColor = UIColor.black
+        self.categoryTitleLabel.textColor = UIColor.white
         
         //Views Background Colors
         self.BGView.backgroundColor = UIColor.lightGreenColor
@@ -58,13 +59,14 @@ class CategoriesCardCVC: UICollectionViewCell {
         
         //View's Corner Radius
         self.BGView.layer.cornerRadius = 12
-        self.titleBGView.layer.cornerRadius = 16
-        titleBGView.clipsToBounds = true
+        self.BGView.clipsToBounds = true
+        self.titleBGView.layer.cornerRadius = 10
+        self.titleBGView.clipsToBounds = true
         //Localization Settings
-        self.validityDateLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
+        self.subTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.categoryTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.uptoLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
-        self.categoryDescLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
+        self.discountLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.uptoLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         
     }
@@ -73,11 +75,14 @@ class CategoriesCardCVC: UICollectionViewCell {
     // MARK: - Cell Configuration
     public func configureCellData(){
         //Configure cell Data here
-        self.categoryTitleLabel.text = category.categoryName
-        self.categoryDescLabel.text = category.subTitle
-        self.validityDateLabel.text = category.validTill
-        self.uptoLabel.text = category.discountText
-        
+        self.BGView.backgroundColor = UIColor(hexString: category.backgroundColor ?? "")
+        self.titleBGView.backgroundColor = UIColor(hexString: category.titleColor ?? "")
+        self.categoryTitleLabel.text = category.headerText
+        self.uptoLabel.text = category.title
+        self.discountLabel.text = category.discountText
+        self.subTitleLabel.text =  category.subTitle
+        self.foregroundImage.setImageWithUrlString(category.foregroundImage ?? "")
+       
     }
     
 }

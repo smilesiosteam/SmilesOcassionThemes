@@ -26,7 +26,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODJ-ZE-OsT">
                                         <rect key="frame" x="8" y="2" width="52" height="22"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -95,12 +95,12 @@
             </constraints>
             <connections>
                 <outlet property="BGView" destination="CEz-5S-dBH" id="9jt-F9-R88"/>
-                <outlet property="categoryCardImage" destination="pkC-B1-YyV" id="4S8-fK-BaA"/>
-                <outlet property="categoryDescLabel" destination="KzF-Xy-F75" id="uJB-ds-nFR"/>
                 <outlet property="categoryTitleLabel" destination="ODJ-ZE-OsT" id="cUR-Ns-hg6"/>
+                <outlet property="discountLabel" destination="KzF-Xy-F75" id="uJB-ds-nFR"/>
+                <outlet property="foregroundImage" destination="pkC-B1-YyV" id="Wj5-LD-H9b"/>
+                <outlet property="subTitleLabel" destination="dLD-TW-noF" id="SPv-yW-KwF"/>
                 <outlet property="titleBGView" destination="eSJ-o4-htu" id="UBR-y5-hEk"/>
-                <outlet property="uptoLabel" destination="KzF-Xy-F75" id="nvW-uH-zIx"/>
-                <outlet property="validityDateLabel" destination="dLD-TW-noF" id="SPv-yW-KwF"/>
+                <outlet property="uptoLabel" destination="HKa-Mq-tJL" id="FOW-hG-UZ1"/>
             </connections>
             <point key="canvasLocation" x="139" y="20"/>
         </collectionViewCell>
