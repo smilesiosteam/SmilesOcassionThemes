@@ -136,9 +136,9 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
         }else{
             switch indexPath.section {
             case 0:
-                return CGSize(width: collectionView.frame.width-32, height: 140)
+                return CGSize(width: collectionView.frame.width-16, height: 140)
             case 1:
-                return CGSize(width: collectionView.frame.width/2.2-16, height: 230)
+                return CGSize(width: collectionView.frame.width/2.2-8, height: 230)
             default:
                 break
             }
@@ -167,18 +167,18 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
     // Cell Margin
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
             if self.isEven == true {
-                return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+                return UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
             } else {
                 switch section {
                 case 0:
-                    return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+                    return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
                 case 1:
-                    return UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+                    return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
                 default:
                     break
                 }
             }
-            return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+            return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         }
     
     
