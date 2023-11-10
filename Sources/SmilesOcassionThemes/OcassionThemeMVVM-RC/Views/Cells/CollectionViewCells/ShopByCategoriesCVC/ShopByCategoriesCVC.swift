@@ -24,6 +24,7 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     
     var categories:ThemeCategoriesResponse!{
         didSet{
+            cellUISetup()
             configureCellData()
         }
     }
@@ -33,9 +34,6 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         super.awakeFromNib()
         cellUISetup()
     }
-    
-    
-    
     
     // MARK: - cellUISetup
     private func cellUISetup(){
@@ -78,10 +76,11 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         //Configure cell Data here
         self.BGView.backgroundColor = UIColor(hexString: categories.backgroundColor ?? "")
         self.titleBGView.backgroundColor = UIColor(hexString: categories.titleColor ?? "")
-        self.categoryTitleLabel.text = categories.categoryName
-        self.categoryDescLabel.text = categories.subTitle
+        self.categoryTitleLabel.text = categories.headerText
+        self.uptoLabel.text = categories.title
+        self.categoryDescLabel.text = categories.discountText ?? "" + " " + (categories.subTitle ?? "") 
         self.validityDateLabel.text = categories.validTill
-        self.uptoLabel.text = categories.discountText
+        
         self.foregroundImage.setImageWithUrlString(categories.foregroundImage ?? "")
         
         

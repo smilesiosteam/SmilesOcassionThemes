@@ -108,8 +108,8 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
                     
                 case 1:
                     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopByCategoriesCVC", for: indexPath) as? ShopByCategoriesCVC else {return UICollectionViewCell()}
-                    if indexPath.row > 0 {
-                        cell.categories = category
+                   if let categoryObject =  collectionsData?[indexPath.row + 1] {
+                        cell.categories = categoryObject
                     }
                     return cell
                 default:
@@ -132,11 +132,11 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if self.isEven == true {
-            return CGSize(width: collectionView.frame.width/2.2, height: 230)
+            return CGSize(width: collectionView.frame.width/2.2-8, height: 230)
         }else{
             switch indexPath.section {
             case 0:
-                return CGSize(width: collectionView.frame.width-16, height: 140)
+                return CGSize(width: collectionView.frame.width-8, height: 140)
             case 1:
                 return CGSize(width: collectionView.frame.width/2.2-8, height: 230)
             default:
@@ -150,7 +150,7 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         if self.isEven == true {
-            return 16
+            return 0
         } else {
             switch section {
             case 0:
@@ -166,18 +166,18 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
     }
     // Cell Margin
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-            if self.isEven == true {
-                return UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
-            } else {
-                switch section {
-                case 0:
-                    return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-                case 1:
-                    return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-                default:
-                    break
-                }
-            }
+//            if self.isEven == true {
+//                return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+//            } else {
+//                switch section {
+//                case 0:
+//                    return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+//                case 1:
+//                    return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+//                default:
+//                    break
+//                }
+//            }
             return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         }
     

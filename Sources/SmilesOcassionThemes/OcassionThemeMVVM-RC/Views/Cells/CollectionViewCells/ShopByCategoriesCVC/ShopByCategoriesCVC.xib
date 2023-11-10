@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="164" height="230"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7M1-iE-qtU">
-                                <rect key="frame" x="16" y="16" width="16" height="26"/>
+                                <rect key="frame" x="16" y="8" width="16" height="26"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEa-ll-dou">
                                         <rect key="frame" x="8" y="2" width="0.0" height="22"/>
@@ -41,22 +41,22 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="CGl-bw-xDZ">
-                                <rect key="frame" x="24" y="50" width="124" height="70"/>
+                                <rect key="frame" x="16" y="42" width="132" height="78"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgi-Ra-KyV">
-                                        <rect key="frame" x="0.0" y="0.0" width="124" height="23.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="132" height="39"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDB-P3-ZKv">
-                                        <rect key="frame" x="0.0" y="23.333333333333329" width="124" height="23.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDB-P3-ZKv">
+                                        <rect key="frame" x="0.0" y="39" width="132" height="0.0"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3Z-Ud-YAE">
-                                        <rect key="frame" x="0.0" y="46.666666666666671" width="124" height="23.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="39" width="132" height="39"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -72,14 +72,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="CGl-bw-xDZ" firstAttribute="leading" secondItem="6fe-3h-RX1" secondAttribute="leading" constant="16" id="0oc-jX-Sb1"/>
                             <constraint firstAttribute="bottom" secondItem="DCj-Pk-rak" secondAttribute="bottom" id="Dg8-g8-KkC"/>
-                            <constraint firstItem="7M1-iE-qtU" firstAttribute="top" secondItem="6fe-3h-RX1" secondAttribute="top" constant="16" id="Dug-1A-olu"/>
+                            <constraint firstItem="7M1-iE-qtU" firstAttribute="top" secondItem="6fe-3h-RX1" secondAttribute="top" constant="8" id="Dug-1A-olu"/>
                             <constraint firstItem="DCj-Pk-rak" firstAttribute="top" secondItem="CGl-bw-xDZ" secondAttribute="bottom" constant="2" id="Fbe-SO-5yi"/>
                             <constraint firstAttribute="trailing" secondItem="DCj-Pk-rak" secondAttribute="trailing" id="H7B-Sd-5zb"/>
                             <constraint firstItem="CGl-bw-xDZ" firstAttribute="top" secondItem="DEa-ll-dou" secondAttribute="bottom" constant="10" id="Uej-a5-YuM"/>
                             <constraint firstItem="DCj-Pk-rak" firstAttribute="leading" secondItem="6fe-3h-RX1" secondAttribute="leading" id="aFK-N5-u1k"/>
                             <constraint firstItem="7M1-iE-qtU" firstAttribute="leading" secondItem="6fe-3h-RX1" secondAttribute="leading" constant="16" id="vbb-Tf-Ebq"/>
-                            <constraint firstItem="CGl-bw-xDZ" firstAttribute="leading" secondItem="DEa-ll-dou" secondAttribute="leading" id="znd-4q-TxI"/>
                             <constraint firstAttribute="trailing" secondItem="CGl-bw-xDZ" secondAttribute="trailing" constant="16" id="zvi-oT-yvJ"/>
                         </constraints>
                     </view>
@@ -94,12 +94,12 @@
             </constraints>
             <connections>
                 <outlet property="BGView" destination="6fe-3h-RX1" id="CHa-bm-spu"/>
-                <outlet property="categoryDescLabel" destination="tDB-P3-ZKv" id="1kK-f2-Czf"/>
+                <outlet property="categoryDescLabel" destination="tDB-P3-ZKv" id="2q1-G6-oF5"/>
                 <outlet property="categoryTitleLabel" destination="DEa-ll-dou" id="W8J-II-Wyq"/>
                 <outlet property="foregroundImage" destination="DCj-Pk-rak" id="W0Z-Cl-Mpd"/>
                 <outlet property="titleBGView" destination="7M1-iE-qtU" id="aoF-zU-jbV"/>
-                <outlet property="uptoLabel" destination="jgi-Ra-KyV" id="kYV-FP-RbD"/>
-                <outlet property="validityDateLabel" destination="s3Z-Ud-YAE" id="sJx-kK-ep1"/>
+                <outlet property="uptoLabel" destination="jgi-Ra-KyV" id="xA2-h0-lY0"/>
+                <outlet property="validityDateLabel" destination="s3Z-Ud-YAE" id="39k-Gk-P3s"/>
             </connections>
             <point key="canvasLocation" x="47.328244274809158" y="20.422535211267608"/>
         </collectionViewCell>
