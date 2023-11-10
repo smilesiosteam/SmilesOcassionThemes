@@ -56,6 +56,7 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         
         //View's Corner Radius
         self.BGView.layer.cornerRadius = 12
+        self.BGView.clipsToBounds = true
         self.titleBGView.layer.cornerRadius = 16
         
         //Localization Settings
