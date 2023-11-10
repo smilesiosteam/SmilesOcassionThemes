@@ -17,6 +17,8 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     @IBOutlet weak var uptoLabel: UILabel!
     @IBOutlet weak var categoryDescLabel: UILabel!
     @IBOutlet weak var validityDateLabel: UILabel!
+    @IBOutlet weak var foregroundImage: UIImageView!
+    
     
     // MARK: - Properties
     
@@ -74,11 +76,14 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     // MARK: - Cell Configuration
     public func configureCellData(){
         //Configure cell Data here
+        self.BGView.backgroundColor = UIColor(hexString: categories.backgroundColor ?? "")
         self.titleBGView.backgroundColor = UIColor(hexString: categories.titleColor ?? "")
         self.categoryTitleLabel.text = categories.categoryName
         self.categoryDescLabel.text = categories.subTitle
         self.validityDateLabel.text = categories.validTill
         self.uptoLabel.text = categories.discountText
+        self.foregroundImage.setImageWithUrlString(categories.foregroundImage ?? "")
+        
         
     }
 

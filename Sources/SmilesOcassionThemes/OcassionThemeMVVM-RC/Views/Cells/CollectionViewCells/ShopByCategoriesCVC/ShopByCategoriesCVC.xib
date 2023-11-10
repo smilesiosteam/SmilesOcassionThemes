@@ -96,6 +96,7 @@
                 <outlet property="BGView" destination="6fe-3h-RX1" id="CHa-bm-spu"/>
                 <outlet property="categoryDescLabel" destination="tDB-P3-ZKv" id="1kK-f2-Czf"/>
                 <outlet property="categoryTitleLabel" destination="DEa-ll-dou" id="W8J-II-Wyq"/>
+                <outlet property="foregroundImage" destination="DCj-Pk-rak" id="W0Z-Cl-Mpd"/>
                 <outlet property="titleBGView" destination="7M1-iE-qtU" id="aoF-zU-jbV"/>
                 <outlet property="uptoLabel" destination="jgi-Ra-KyV" id="kYV-FP-RbD"/>
                 <outlet property="validityDateLabel" destination="s3Z-Ud-YAE" id="sJx-kK-ep1"/>
