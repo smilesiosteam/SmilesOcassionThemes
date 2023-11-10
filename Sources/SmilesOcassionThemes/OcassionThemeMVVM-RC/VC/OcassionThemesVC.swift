@@ -203,7 +203,7 @@ extension OcassionThemesVC {
             self.dataSource = SectionedTableViewDataSource(dataSources: Array(repeating: [], count: sectionDetailsArray.count))
         }
         
-        if let topPlaceholderSection = sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue }) {
+        if (sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue })) != nil {
             self.configureDataSource()
         }
         homeAPICalls()
@@ -250,10 +250,10 @@ extension OcassionThemesVC {
                     
                 case .fetchThemeCategoriesDidSucceed(response: let response):
                     debugPrint(response)
-                    
+                    self?.configureItemCategoriesData(with: response)
                 case .fetchThemeCategoriesDidFail(error: let error):
                     debugPrint(error.localizedDescription)
-                    
+                    self?.configureHideSection(for: .themeItemCategories, dataSource: ItemCategoriesDetailsResponse.self)
                 case.fetchThemeDetailDidSucceed(response: let response):
                     self?.topBannerObject = response
                     self?.configureDataSource()
@@ -269,6 +269,34 @@ extension OcassionThemesVC {
 // MARK: - SECTIONS CONFIGURATIONS -
 extension OcassionThemesVC {
     
+    fileprivate func configureItemCategoriesData(with itemCategoriesResponse: ItemCategoriesDetailsResponse) {
+        
+        if let categories = itemCategoriesResponse.itemCategoriesDetails, !categories.isEmpty {
+            if let storiesIndex = getSectionIndex(for: .themeItemCategories) {
+                self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forItemCategories: itemCategoriesResponse, data: self.occasionThemesSectionsData?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
+                    if var categories = ((self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models)?.first {
+//                        let analyticsSmiles = AnalyticsSmiles(service: FirebaseAnalyticsService())
+//                        analyticsSmiles.sendAnalyticTracker(trackerData: Tracker(eventType: AnalyticsEvent.firebaseEvent(.ClickOnStory).name, parameters: [:]))
+//
+//                        if let eventName = self?.foodSections?.getEventName(for: SectionIdentifier.STORIES.rawValue), !eventName.isEmpty {
+//                            PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, offerId: story.storyID ?? "", source: self?.personalizationEventSource)
+//                        }
+//                        self?.openStories(stories: stories.stories ?? [], storyIndex: stories.stories?.firstIndex(of: story) ?? 0){storyIndex,snapIndex,isFavorite in
+//                            stories.setFavourite(isFavorite: isFavorite, storyIndex: storyIndex, snapIndex: snapIndex)
+//                            (self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models = [stories]
+//                        }
+                    }
+                })
+                self.configureDataSource()
+            } else {
+                print("else case")
+            }
+        } else {
+            print("Hide stories section is being called")
+            self.configureHideSection(for: .stories, dataSource: Stories.self)
+        }
+        
+    }
     fileprivate func configureCollectionsData(with collectionsResponse: GetCollectionsResponseModel) {
         
         if let collections = collectionsResponse.collections, !collections.isEmpty {

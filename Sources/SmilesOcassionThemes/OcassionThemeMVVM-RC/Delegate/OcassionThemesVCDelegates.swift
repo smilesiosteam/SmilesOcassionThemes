@@ -114,7 +114,7 @@ extension OcassionThemesVC: UITableViewDelegate {
                         header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
                         
                     }
-                    self.configureHeaderForShimmer(section: section, headerView: header)
+                   // self.configureHeaderForShimmer(section: section, headerView: header)
                     return header
                 }
                 
@@ -163,8 +163,8 @@ extension OcassionThemesVC: UITableViewDelegate {
         
         if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
             switch OccasionThemesSectionIdentifier(rawValue: sectionData.sectionIdentifier ?? "") {
-            case .topPlaceholder:
-                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<TopPlaceholderThemeResponse>) {
+            case .themeItemCategories:
+                if let dataSource = (self.dataSource?.dataSources?[safe: section] as? TableViewDataSource<ItemCategoriesDetailsResponse>) {
                     showHide(isDummy: dataSource.isDummy)
                 }
             case .stories:
