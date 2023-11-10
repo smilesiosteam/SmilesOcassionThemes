@@ -50,7 +50,7 @@ class CategoriesCardCVC: UICollectionViewCell {
         self.validityDateLabel.textColor = UIColor.black.withAlphaComponent(0.8)
         self.categoryDescLabel.textColor = UIColor.black
         self.uptoLabel.textColor = UIColor.black
-        self.categoryTitleLabel.textColor = UIColor.black
+        self.categoryTitleLabel.textColor = UIColor.white
         
         //Views Background Colors
         self.BGView.backgroundColor = UIColor.lightGreenColor
@@ -59,8 +59,8 @@ class CategoriesCardCVC: UICollectionViewCell {
         //View's Corner Radius
         self.BGView.layer.cornerRadius = 12
         self.BGView.clipsToBounds = true
-        self.titleBGView.layer.cornerRadius = 16
-        titleBGView.clipsToBounds = true
+        self.titleBGView.layer.cornerRadius = 10
+        self.titleBGView.clipsToBounds = true
         //Localization Settings
         self.validityDateLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         self.categoryTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
@@ -74,6 +74,7 @@ class CategoriesCardCVC: UICollectionViewCell {
     // MARK: - Cell Configuration
     public func configureCellData(){
         //Configure cell Data here
+        self.titleBGView.backgroundColor = UIColor(hexString: category.titleColor ?? "")
         self.categoryTitleLabel.text = category.categoryName
         self.categoryDescLabel.text = category.subTitle
         self.validityDateLabel.text = category.validTill

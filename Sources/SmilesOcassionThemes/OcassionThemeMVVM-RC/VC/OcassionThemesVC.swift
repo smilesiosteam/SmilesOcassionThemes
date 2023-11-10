@@ -65,6 +65,7 @@ public class OcassionThemesVC: UIViewController {
     }
     
     public override func viewDidLoad() {
+        //self.themeId = 1 // need to commit this line after testing
         self.navTitle.fontTextStyle = .smilesHeadline3
         self.navBarView.isHidden = true
         setupTableView()
@@ -157,6 +158,9 @@ extension OcassionThemesVC {
                     return
                 }
                 
+                if let section = OccasionThemesSectionIdentifier(rawValue: sectionIdentifier), section  != .topPlaceholder {
+                    sections.append(TableSectionData(index: index, identifier: section))
+                }
                 switch OccasionThemesSectionIdentifier(rawValue: sectionIdentifier) {
                 case .topPlaceholder:
                     self.input.send(.getThemesDetail(themeId: self.themeId))
