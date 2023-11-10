@@ -40,22 +40,22 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="DD7-rN-anK">
-                                <rect key="frame" x="16" y="56" width="153" height="68"/>
+                                <rect key="frame" x="16" y="54" width="153" height="72"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKa-Mq-tJL">
-                                        <rect key="frame" x="0.0" y="0.0" width="153" height="22.666666666666668"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="153" height="24"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzF-Xy-F75">
-                                        <rect key="frame" x="0.0" y="22.666666666666671" width="153" height="22.666666666666671"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzF-Xy-F75">
+                                        <rect key="frame" x="0.0" y="24" width="153" height="24"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLD-TW-noF">
-                                        <rect key="frame" x="0.0" y="45.333333333333329" width="153" height="22.666666666666671"/>
+                                        <rect key="frame" x="0.0" y="48" width="153" height="24"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -71,7 +71,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.26274509800000001" green="0.29803921570000003" blue="0.59999999999999998" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="DD7-rN-anK" secondAttribute="bottom" constant="16" id="76T-VB-ujc"/>
+                            <constraint firstAttribute="bottom" secondItem="DD7-rN-anK" secondAttribute="bottom" constant="14" id="76T-VB-ujc"/>
                             <constraint firstItem="pkC-B1-YyV" firstAttribute="top" secondItem="CEz-5S-dBH" secondAttribute="top" id="DMi-DS-puP"/>
                             <constraint firstItem="eSJ-o4-htu" firstAttribute="top" secondItem="CEz-5S-dBH" secondAttribute="top" constant="14" id="JmD-Np-OHJ"/>
                             <constraint firstAttribute="height" constant="140" id="bGv-2d-JXu"/>
@@ -79,7 +79,7 @@
                             <constraint firstItem="eSJ-o4-htu" firstAttribute="leading" secondItem="CEz-5S-dBH" secondAttribute="leading" constant="16" id="inq-iz-oSK"/>
                             <constraint firstItem="DD7-rN-anK" firstAttribute="leading" secondItem="eSJ-o4-htu" secondAttribute="leading" id="mqo-w9-ECw"/>
                             <constraint firstItem="pkC-B1-YyV" firstAttribute="leading" secondItem="DD7-rN-anK" secondAttribute="trailing" constant="4" id="scx-k0-t5h"/>
-                            <constraint firstItem="DD7-rN-anK" firstAttribute="top" secondItem="eSJ-o4-htu" secondAttribute="bottom" constant="16" id="tdt-KD-DLH"/>
+                            <constraint firstItem="DD7-rN-anK" firstAttribute="top" secondItem="eSJ-o4-htu" secondAttribute="bottom" constant="14" id="tdt-KD-DLH"/>
                             <constraint firstAttribute="bottom" secondItem="pkC-B1-YyV" secondAttribute="bottom" id="upG-5j-eFz"/>
                         </constraints>
                     </view>
@@ -96,11 +96,11 @@
             <connections>
                 <outlet property="BGView" destination="CEz-5S-dBH" id="9jt-F9-R88"/>
                 <outlet property="categoryTitleLabel" destination="ODJ-ZE-OsT" id="cUR-Ns-hg6"/>
-                <outlet property="discountLabel" destination="KzF-Xy-F75" id="uJB-ds-nFR"/>
-                <outlet property="foregroundImage" destination="pkC-B1-YyV" id="Wj5-LD-H9b"/>
-                <outlet property="subTitleLabel" destination="dLD-TW-noF" id="SPv-yW-KwF"/>
+                <outlet property="discountLabel" destination="KzF-Xy-F75" id="io2-K7-3b5"/>
+                <outlet property="foregroundImage" destination="pkC-B1-YyV" id="sgX-oC-fYe"/>
+                <outlet property="subTitleLabel" destination="dLD-TW-noF" id="WcN-8d-Goe"/>
                 <outlet property="titleBGView" destination="eSJ-o4-htu" id="UBR-y5-hEk"/>
-                <outlet property="uptoLabel" destination="HKa-Mq-tJL" id="FOW-hG-UZ1"/>
+                <outlet property="uptoLabel" destination="HKa-Mq-tJL" id="h0O-7u-xXI"/>
             </connections>
             <point key="canvasLocation" x="139" y="20"/>
         </collectionViewCell>

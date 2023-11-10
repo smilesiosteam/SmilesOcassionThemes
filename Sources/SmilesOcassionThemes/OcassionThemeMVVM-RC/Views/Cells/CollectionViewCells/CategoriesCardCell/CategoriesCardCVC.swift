@@ -35,9 +35,6 @@ class CategoriesCardCVC: UICollectionViewCell {
         cellUISetup()
     }
     
-    
-    
-    
     // MARK: - cellUISetup
     private func cellUISetup(){
         
