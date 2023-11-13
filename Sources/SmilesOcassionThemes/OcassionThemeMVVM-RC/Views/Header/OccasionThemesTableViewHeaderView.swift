@@ -35,7 +35,7 @@ class OccasionThemesTableViewHeaderView: UIView {
         mainView.frame = bounds
         mainView.bindFrameToSuperviewBounds()
         titleLabel.fontTextStyle = .smilesHeadline2
-        subTitleLabel.fontTextStyle = .smilesBody3
+        subTitleLabel.fontTextStyle = .smilesBody4
         
         titleLabel.textColor = .black
         subTitleLabel.textColor = .black.withAlphaComponent(0.8)

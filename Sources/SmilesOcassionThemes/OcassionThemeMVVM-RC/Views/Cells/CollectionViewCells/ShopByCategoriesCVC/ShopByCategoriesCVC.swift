@@ -74,8 +74,9 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     // MARK: - Cell Configuration
     public func configureCellData(){
         //Configure cell Data here
+        debugPrint("\((categories.subTitle ?? "") )")
         self.BGView.backgroundColor = UIColor(hexString: categories.backgroundColor ?? "")
-        self.titleBGView.backgroundColor = UIColor(hexString: categories.titleColor ?? "")
+        self.titleBGView.backgroundColor = UIColor(hexString: categories.headerColor ?? "")
         self.categoryTitleLabel.text = categories.headerText
         self.uptoLabel.text = categories.title
         self.categoryDescLabel.text = categories.discountText ?? "" + " " + (categories.subTitle ?? "") 

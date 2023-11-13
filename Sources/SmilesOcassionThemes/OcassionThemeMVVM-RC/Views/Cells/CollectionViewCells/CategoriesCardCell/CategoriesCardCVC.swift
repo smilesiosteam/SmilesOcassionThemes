@@ -73,7 +73,7 @@ class CategoriesCardCVC: UICollectionViewCell {
     public func configureCellData(){
         //Configure cell Data here
         self.BGView.backgroundColor = UIColor(hexString: category.backgroundColor ?? "")
-        self.titleBGView.backgroundColor = UIColor(hexString: category.titleColor ?? "")
+        self.titleBGView.backgroundColor = UIColor(hexString: category.headerColor ?? "")
         self.categoryTitleLabel.text = category.headerText
         self.uptoLabel.text = category.title
         self.discountLabel.text = category.discountText
