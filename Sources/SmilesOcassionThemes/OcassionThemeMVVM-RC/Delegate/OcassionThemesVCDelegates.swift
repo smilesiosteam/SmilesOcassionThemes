@@ -73,8 +73,7 @@ extension OcassionThemesVC: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier {
         case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
-            return 40
-            
+            return 16
         default:
             return .leastNormalMagnitude
         }
