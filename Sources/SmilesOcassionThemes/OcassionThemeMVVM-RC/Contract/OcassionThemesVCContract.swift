@@ -14,7 +14,7 @@ import SmilesStoriesManager
 
 extension OccasionThemesViewModel {
     
-    public enum Input {
+    enum Input {
         case getSections(themeId: Int)
         case getStories(themeid: Int?, pageNo: Int?)
         case getTopBrands(themeId: Int?, menuItemType: String?)

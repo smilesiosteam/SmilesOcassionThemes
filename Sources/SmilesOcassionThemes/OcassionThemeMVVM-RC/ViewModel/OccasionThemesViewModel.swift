@@ -13,14 +13,14 @@ import SmilesStoriesManager
 import NetworkingLayer
 
 
-public class OccasionThemesViewModel: NSObject {
+class OccasionThemesViewModel: NSObject {
     
     // MARK: - PROPERTIES -
     var output: PassthroughSubject<Output, Never> = .init()
     var cancellables = Set<AnyCancellable>()
     
     // MARK: - VIEWMODELS -
-    public let sectionsViewModel = SectionsViewModel()
+    private let sectionsViewModel = SectionsViewModel()
     private let topBrandsViewModel = TopBrandsViewModel()
     private let collectionsViewModel = CollectionsViewModel()
     
@@ -123,7 +123,7 @@ extension OccasionThemesViewModel {
 
 extension OccasionThemesViewModel {
     
-    public func getThemeCategories(for themeId: Int? = nil) {
+    private func getThemeCategories(for themeId: Int? = nil) {
         let getThemeCategoriesRequest = ThemeCategoriesRequest(
             themeId: themeId
         )
@@ -150,7 +150,7 @@ extension OccasionThemesViewModel {
             .store(in: &cancellables)
     }
     
-    public func getThemeDetail(for themeId: Int? = nil) {
+    private func getThemeDetail(for themeId: Int? = nil) {
         let getThemeDetailsRequest = TopPlaceholderThemeRequest(
             themeId: themeId
         )

@@ -37,7 +37,6 @@ extension OcassionThemesVC: UITableViewDelegate {
             case .themeItemCategories:
                 break
             }
-            
         }
         
         
@@ -83,17 +82,15 @@ extension OcassionThemesVC: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        // if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {return nil}
-        
         if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
             if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
                 if self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
                     let header = OccasionThemeTopPlaceholderView()
+                    header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "#FFFFFF")
                     if let topBannerObject = topBannerObject?.themes?.first as? TopPlaceholderTheme {
                         header.hideSkeleton()
                         self.navTitle.text = topBannerObject.header
                         header.setupData(topBannerObject: topBannerObject)
-                        
                     } else {
                         header.enableSkeleton()
                         header.showAnimatedGradientSkeleton()
@@ -103,24 +100,19 @@ extension OcassionThemesVC: UITableViewDelegate {
                 } else {
                     let header = OccasionThemesTableViewHeaderView()
                     header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), section: section, isPostSub: true)
+                    header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "#FFFFFF")
                     configureHeaderForShimmer(section: section, headerView: header)
-                    switch self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier  {
-                    case OccasionThemesSectionIdentifier.themeItemCategories.rawValue:
-                        header.mainView.backgroundColor = .white
-                    case OccasionThemesSectionIdentifier.stories.rawValue:
+                    if self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.stories.rawValue {
                         header.addMaskedCorner(withMaskedCorner: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 24.0)
-                        header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
-                    default:
-                        header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "")
-                        
                     }
-                   // self.configureHeaderForShimmer(section: section, headerView: header)
+                    self.configureHeaderForShimmer(section: section, headerView: header)
                     return header
                 }
                 
             }
         }
-        return OccasionThemesTableViewHeaderView()
+        return nil
+        
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {

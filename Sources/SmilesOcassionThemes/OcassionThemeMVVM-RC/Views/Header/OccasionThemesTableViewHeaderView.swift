@@ -15,7 +15,6 @@ class OccasionThemesTableViewHeaderView: UIView {
     @IBOutlet weak var titleLabel: UILocalizableLabel!
     @IBOutlet weak var subTitleLabel: UILocalizableLabel!
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var bgMainView: UIView!
     
     // MARK: - METHODS -
     override init(frame: CGRect) {

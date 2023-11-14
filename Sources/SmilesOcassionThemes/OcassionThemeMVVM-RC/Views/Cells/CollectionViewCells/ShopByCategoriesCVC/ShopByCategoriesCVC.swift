@@ -19,9 +19,7 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     @IBOutlet weak var validityDateLabel: UILabel!
     @IBOutlet weak var foregroundImage: UIImageView!
     
-    
     // MARK: - Properties
-    
     var categories:ThemeCategoriesResponse!{
         didSet{
             cellUISetup()
@@ -41,7 +39,7 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         //Fonts TypoGraphy
         self.categoryTitleLabel.fontTextStyle = .smilesTitle3
         self.uptoLabel.fontTextStyle = .smilesTitle3
-        self.categoryDescLabel.fontTextStyle = .smilesTitle2
+        self.categoryDescLabel.fontTextStyle = .smilesTitle1
         self.validityDateLabel.fontTextStyle = .smilesBody4
         
         //Font Colors
@@ -57,9 +55,8 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         //View's Corner Radius
         self.BGView.layer.cornerRadius = 12
         self.BGView.clipsToBounds = true
-        self.titleBGView.layer.cornerRadius = 10
+        self.titleBGView.layer.cornerRadius = titleBGView.frame.height / 2
         self.titleBGView.clipsToBounds = true
-        
         
         //Localization Settings
         self.validityDateLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
@@ -72,7 +69,7 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     
     
     // MARK: - Cell Configuration
-    public func configureCellData(){
+    func configureCellData(){
         //Configure cell Data here
         self.BGView.backgroundColor = UIColor(hexString: categories.backgroundColor ?? "")
         self.titleBGView.backgroundColor = UIColor(hexString: categories.headerColor ?? "")
@@ -81,7 +78,6 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         let description = "\(categories.discountText ?? "") \(categories.subTitle ?? "")"
         self.categoryDescLabel.text = description
         self.validityDateLabel.text = categories.validTill
-        
         self.foregroundImage.setImageWithUrlString(categories.foregroundImage ?? "")
         
     }

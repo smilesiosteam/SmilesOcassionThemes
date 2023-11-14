@@ -37,18 +37,18 @@ class OcassionThemesOfferResponse: BaseMainResponse {
 }
 
 // MARK: - Offer
-public class OccasionThemesOffer: Codable {
-    public var offerID, offerTitle, offerDescription, pointsValue: String?
-    public var dirhamValue, offerType, categoryID: String?
-    public var imageURL: String?
-    public var partnerName: String?
-    public var isWishlisted: Bool?
-    public var partnerImage: String?
-    public var smileyPointsURL: String?
-    public var redirectionUrL: String?
-    public var paymentMethods: [PaymentMethod]?
+class OccasionThemesOffer: Codable {
+    var offerID, offerTitle, offerDescription, pointsValue: String?
+    var dirhamValue, offerType, categoryID: String?
+    var imageURL: String?
+    var partnerName: String?
+    var isWishlisted: Bool?
+    var partnerImage: String?
+    var smileyPointsURL: String?
+    var redirectionUrL: String?
+    var paymentMethods: [PaymentMethod]?
     
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case offerID = "offerId"
         case offerTitle, offerDescription, pointsValue, dirhamValue, offerType
         case categoryID = "categoryId"
@@ -58,7 +58,7 @@ public class OccasionThemesOffer: Codable {
         case paymentMethods
     }
     
-    public required init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.offerID = try container.decodeIfPresent(String.self, forKey: .offerID)
         self.offerTitle = try container.decodeIfPresent(String.self, forKey: .offerTitle)
@@ -75,7 +75,5 @@ public class OccasionThemesOffer: Codable {
         self.redirectionUrL = try container.decodeIfPresent(String.self, forKey: .redirectionUrL)
         self.paymentMethods = try container.decodeIfPresent([PaymentMethod].self, forKey: .paymentMethods)
     }
-    
-
     
 }
