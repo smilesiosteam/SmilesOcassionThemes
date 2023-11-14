@@ -70,7 +70,7 @@ class CategoriesCardCVC: UICollectionViewCell {
     
     
     // MARK: - Cell Configuration
-    public func configureCellData(){
+    func configureCellData(){
         //Configure cell Data here
         self.BGView.backgroundColor = UIColor(hexString: category.backgroundColor ?? "")
         self.titleBGView.backgroundColor = UIColor(hexString: category.headerColor ?? "")

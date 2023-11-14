@@ -27,7 +27,7 @@ public class OcassionThemesVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - PROPERTIES -
-    public var input: PassthroughSubject<OccasionThemesViewModel.Input, Never> = .init()
+    private var input: PassthroughSubject<OccasionThemesViewModel.Input, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
     private lazy var viewModel: OccasionThemesViewModel = {
         return OccasionThemesViewModel()
@@ -46,6 +46,7 @@ public class OcassionThemesVC: UIViewController {
     @IBAction func backButton(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    
     @IBAction func didPressedSearchbutton(sender: UIButton) {
         if let delegate = delegate {
             delegate.navigateToGlobalSearch()
@@ -53,7 +54,7 @@ public class OcassionThemesVC: UIViewController {
     }
     
     // MARK: - INITIALIZER -
-    public init(delegate: SmilesOccasionThemesHomeDelegate?, themeId: Int) {
+    init(delegate: SmilesOccasionThemesHomeDelegate?, themeId: Int) {
         self.themeId = themeId
         self.delegate = delegate
         super.init(nibName: "OcassionThemesVC", bundle: Bundle.module)
@@ -300,6 +301,7 @@ extension OcassionThemesVC {
         }
         
     }
+    
     fileprivate func configureCollectionsData(with collectionsResponse: GetCollectionsResponseModel) {
         
         if let collections = collectionsResponse.collections, !collections.isEmpty {

@@ -16,14 +16,15 @@ class ItemCategoriesDetailsResponse: BaseMainResponse {
         case itemCategoriesDetails
     }
     
-    public required init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         itemCategoriesDetails = try values.decodeIfPresent([ThemeCategoriesResponse].self, forKey: .itemCategoriesDetails)
         try super.init(from: decoder)
     }
+    
 }
 
-public class ThemeCategoriesResponse: Codable {
+class ThemeCategoriesResponse: Codable {
     
     let themeId: Int?
     let categoryId: Int?
@@ -43,8 +44,6 @@ public class ThemeCategoriesResponse: Codable {
     let discountText: String?
     let subTitle: String?
     let validTill: String?
-    
-   
     
     enum CodingKeys: String, CodingKey {
         case categoryName
@@ -67,7 +66,7 @@ public class ThemeCategoriesResponse: Codable {
         case id
     }
     
-    public required init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         categoryName = try container.decodeIfPresent(String.self, forKey: .categoryName)
@@ -88,4 +87,5 @@ public class ThemeCategoriesResponse: Codable {
         headerText = try container.decodeIfPresent(String.self, forKey: .headerText)
         categoryId = try container.decodeIfPresent(Int.self, forKey: .categoryId)
     }
+    
 }

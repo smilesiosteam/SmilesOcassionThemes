@@ -8,18 +8,17 @@
 import Foundation
 import SmilesBaseMainRequestManager
 
-public class ThemeCategoriesRequest: SmilesBaseMainRequest {
+class ThemeCategoriesRequest: SmilesBaseMainRequest {
     
     // MARK: - Model Variables
     var themeId: Int?
     
     // MARK: - Model Keys
-    
     enum CodingKeys: CodingKey {
         case themeId
     }
     
-    public init(themeId: Int?) {
+    init(themeId: Int?) {
         super.init()
         self.themeId = themeId
     }
@@ -28,10 +27,11 @@ public class ThemeCategoriesRequest: SmilesBaseMainRequest {
         fatalError("init(from:) has not been implemented")
     }
     
-    public override func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(self.themeId, forKey: .themeId)
     }
+    
 }
 
