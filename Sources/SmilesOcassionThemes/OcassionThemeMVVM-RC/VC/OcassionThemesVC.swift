@@ -309,7 +309,9 @@ extension OcassionThemesVC {
                     if let eventName = self?.occasionThemesSectionsData?.getEventName(for: OccasionThemesSectionIdentifier.topCollections.rawValue), !eventName.isEmpty {
                        // PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, urlScheme: data.redirectionUrl.asStringOrEmpty(), offerId: data.id, source: self?.personalizationEventSource)
                     }
-                   // self?.handleBannerDeepLinkRedirections(url: data.redirectionUrl.asStringOrEmpty())
+                    if let delegate = self?.delegate {
+                        delegate.handleDeepLinkRedirection(redirectionUrl: data.redirectionUrl.asStringOrEmpty())
+                    }
                 })
                 self.configureDataSource()
             }
@@ -324,6 +326,7 @@ extension OcassionThemesVC {
         if let stories = storiesResponse.stories, !stories.isEmpty {
             if let storiesIndex = getSectionIndex(for: .stories) {
                 self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forStories: storiesResponse, data: self.occasionThemesSectionsData?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
+                    
                     if var stories = ((self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models)?.first {
 //                        let analyticsSmiles = AnalyticsSmiles(service: FirebaseAnalyticsService())
 //                        analyticsSmiles.sendAnalyticTracker(trackerData: Tracker(eventType: AnalyticsEvent.firebaseEvent(.ClickOnStory).name, parameters: [:]))
@@ -331,10 +334,10 @@ extension OcassionThemesVC {
 //                        if let eventName = self?.foodSections?.getEventName(for: SectionIdentifier.STORIES.rawValue), !eventName.isEmpty {
 //                            PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, offerId: story.storyID ?? "", source: self?.personalizationEventSource)
 //                        }
-//                        self?.openStories(stories: stories.stories ?? [], storyIndex: stories.stories?.firstIndex(of: story) ?? 0){storyIndex,snapIndex,isFavorite in
-//                            stories.setFavourite(isFavorite: isFavorite, storyIndex: storyIndex, snapIndex: snapIndex)
-//                            (self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models = [stories]
-//                        }
+                        self?.openStories(stories: stories.stories ?? [], storyIndex: stories.stories?.firstIndex(of: story) ?? 0){storyIndex,snapIndex,isFavorite in
+                            stories.setFavourite(isFavorite: isFavorite, storyIndex: storyIndex, snapIndex: snapIndex)
+                            (self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models = [stories]
+                        }
                     }
                 })
                 self.configureDataSource()
@@ -347,13 +350,21 @@ extension OcassionThemesVC {
         }
         
     }
-    
+    func openStories(stories: [Story], storyIndex:Int, favouriteUpdatedCallback: ((_ storyIndex:Int,_ snapIndex:Int,_ isFavourite:Bool) -> Void)? = nil) {
+        if let delegate = self.delegate {
+            delegate.navigateToStoriesDetailVC(stories: stories, storyIndex: storyIndex, favouriteUpdatedCallback: favouriteUpdatedCallback)
+        }
+        
+    }
     fileprivate func configureTopBrandsData(with topBrandsResponse: GetTopBrandsResponseModel) {
         
         self.topBrands = topBrandsResponse.brands
         if let brands = topBrandsResponse.brands, !brands.isEmpty {
             if let topBrandsIndex = getSectionIndex(for: .topBrands) {
                 self.dataSource?.dataSources?[topBrandsIndex] = TableViewDataSource.make(forBrands: topBrandsResponse, data: self.occasionThemesSectionsData?.sectionDetails?[topBrandsIndex].backgroundColor ?? "#FFFFFF", topBrandsType: .foodOrder, completion: { [weak self] data in
+                    if let delegate = self?.delegate {
+                        delegate.handleDeepLinkRedirection(redirectionUrl: data.redirectionUrl.asStringOrEmpty())
+                    }
 //                    let analyticsSmiles = AnalyticsSmiles(service: FirebaseAnalyticsService())
 //                    analyticsSmiles.sendAnalyticTracker(trackerData: Tracker(eventType: AnalyticsEvent.firebaseEvent(.ClickOnTopBrands).name, parameters: [:]))
 //                    
