@@ -41,7 +41,7 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         //Fonts TypoGraphy
         self.categoryTitleLabel.fontTextStyle = .smilesTitle3
         self.uptoLabel.fontTextStyle = .smilesTitle3
-        self.categoryDescLabel.fontTextStyle = .smilesTitle1
+        self.categoryDescLabel.fontTextStyle = .smilesTitle2
         self.validityDateLabel.fontTextStyle = .smilesBody4
         
         //Font Colors
@@ -74,16 +74,15 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     // MARK: - Cell Configuration
     public func configureCellData(){
         //Configure cell Data here
-        debugPrint("\((categories.subTitle ?? "") )")
         self.BGView.backgroundColor = UIColor(hexString: categories.backgroundColor ?? "")
         self.titleBGView.backgroundColor = UIColor(hexString: categories.headerColor ?? "")
         self.categoryTitleLabel.text = categories.headerText
         self.uptoLabel.text = categories.title
-        self.categoryDescLabel.text = categories.discountText ?? "" + " " + (categories.subTitle ?? "") 
+        let description = "\(categories.discountText ?? "") \(categories.subTitle ?? "")"
+        self.categoryDescLabel.text = description
         self.validityDateLabel.text = categories.validTill
         
         self.foregroundImage.setImageWithUrlString(categories.foregroundImage ?? "")
-        
         
     }
 
