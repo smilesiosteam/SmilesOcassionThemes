@@ -16,6 +16,7 @@ class ShopByCategoriesTVC: UITableViewCell {
     
     // MARK: - Properties
     private var numberOfItems:Int = 0
+    var callBack: ((ThemeCategoriesResponse) -> ())?
     
     // MARK: - Cell Configuration
     var collectionsData: [ThemeCategoriesResponse]?{
@@ -93,6 +94,7 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
             if isEven {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopByCategoriesCVC", for: indexPath) as? ShopByCategoriesCVC else {return UICollectionViewCell()}
                 cell.categories = category
+
                 return cell
             } else {
                 switch indexPath.section {
@@ -106,6 +108,7 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
                     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopByCategoriesCVC", for: indexPath) as? ShopByCategoriesCVC else {return UICollectionViewCell()}
                     if let categoryObject =  collectionsData?[indexPath.row + 1] {
                         cell.categories = categoryObject
+
                     }
                     return cell
                 default:
@@ -118,6 +121,10 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let category = collectionsData?[indexPath.row] {
+            self.callBack?(category)
+        }
         
     }
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,10 +30,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="164" height="230"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7M1-iE-qtU">
-                                <rect key="frame" x="14" y="16" width="16" height="26"/>
+                                <rect key="frame" x="14" y="16" width="24" height="26"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEa-ll-dou">
-                                        <rect key="frame" x="8" y="2" width="0.0" height="22"/>
+                                        <rect key="frame" x="8" y="2" width="8" height="22"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -48,6 +48,14 @@
                                     <constraint firstItem="DEa-ll-dou" firstAttribute="top" secondItem="7M1-iE-qtU" secondAttribute="top" constant="2" id="fMh-OX-QEv"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRz-o8-lcl">
+                                <rect key="frame" x="14" y="16" width="24" height="26"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="btnCategoryClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="lUD-N6-2Cs"/>
+                                </connections>
+                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="CGl-bw-xDZ">
                                 <rect key="frame" x="14" y="49.999999999999993" width="136" height="72.333333333333314"/>
                                 <subviews>
@@ -78,13 +86,17 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="CGl-bw-xDZ" firstAttribute="leading" secondItem="6fe-3h-RX1" secondAttribute="leading" constant="14" id="0oc-jX-Sb1"/>
+                            <constraint firstItem="SRz-o8-lcl" firstAttribute="trailing" secondItem="7M1-iE-qtU" secondAttribute="trailing" id="BtJ-YR-Bb5"/>
                             <constraint firstAttribute="bottom" secondItem="DCj-Pk-rak" secondAttribute="bottom" id="Dg8-g8-KkC"/>
                             <constraint firstItem="7M1-iE-qtU" firstAttribute="top" secondItem="6fe-3h-RX1" secondAttribute="top" constant="16" id="Dug-1A-olu"/>
                             <constraint firstItem="DCj-Pk-rak" firstAttribute="top" secondItem="CGl-bw-xDZ" secondAttribute="bottom" constant="2" id="Fbe-SO-5yi"/>
                             <constraint firstAttribute="trailing" secondItem="DCj-Pk-rak" secondAttribute="trailing" id="H7B-Sd-5zb"/>
+                            <constraint firstItem="SRz-o8-lcl" firstAttribute="leading" secondItem="7M1-iE-qtU" secondAttribute="leading" id="HyS-Pm-lri"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7M1-iE-qtU" secondAttribute="trailing" constant="14" id="R94-Fs-vcO"/>
+                            <constraint firstItem="SRz-o8-lcl" firstAttribute="top" secondItem="7M1-iE-qtU" secondAttribute="top" id="RYY-jv-gUz"/>
                             <constraint firstItem="CGl-bw-xDZ" firstAttribute="top" secondItem="DEa-ll-dou" secondAttribute="bottom" constant="10" id="Uej-a5-YuM"/>
                             <constraint firstItem="DCj-Pk-rak" firstAttribute="leading" secondItem="6fe-3h-RX1" secondAttribute="leading" id="aFK-N5-u1k"/>
+                            <constraint firstItem="SRz-o8-lcl" firstAttribute="bottom" secondItem="7M1-iE-qtU" secondAttribute="bottom" id="aco-7W-FDL"/>
                             <constraint firstItem="DCj-Pk-rak" firstAttribute="height" secondItem="6fe-3h-RX1" secondAttribute="height" multiplier="0.46" id="l7f-DB-Czw"/>
                             <constraint firstItem="7M1-iE-qtU" firstAttribute="leading" secondItem="6fe-3h-RX1" secondAttribute="leading" constant="14" id="vbb-Tf-Ebq"/>
                             <constraint firstAttribute="trailing" secondItem="CGl-bw-xDZ" secondAttribute="trailing" constant="14" id="zvi-oT-yvJ"/>
@@ -101,6 +113,7 @@
             </constraints>
             <connections>
                 <outlet property="BGView" destination="6fe-3h-RX1" id="CHa-bm-spu"/>
+                <outlet property="btnCategory" destination="SRz-o8-lcl" id="Op6-hV-kZA"/>
                 <outlet property="categoryDescLabel" destination="tDB-P3-ZKv" id="2q1-G6-oF5"/>
                 <outlet property="categoryTitleLabel" destination="DEa-ll-dou" id="W8J-II-Wyq"/>
                 <outlet property="foregroundImage" destination="DCj-Pk-rak" id="W0Z-Cl-Mpd"/>

@@ -15,7 +15,7 @@ import SmilesStoriesManager
 
 extension TableViewDataSource where Model == ItemCategoriesDetailsResponse {
     static func make(forItemCategories collectionsObject: ItemCategoriesDetailsResponse,
-                     reuseIdentifier: String = "ShopByCategoriesTVC", data : String, isDummy:Bool = false, onClick:((Story) -> ())?) -> TableViewDataSource {
+                     reuseIdentifier: String = "ShopByCategoriesTVC", data : String, isDummy:Bool = false, onClick:((ThemeCategoriesResponse) -> ())?) -> TableViewDataSource {
         return TableViewDataSource(
             models: [collectionsObject].filter({$0.itemCategoriesDetails?.count ?? 0 > 0}),
             reuseIdentifier: reuseIdentifier,
@@ -25,10 +25,10 @@ extension TableViewDataSource where Model == ItemCategoriesDetailsResponse {
             guard let cell = cell as? ShopByCategoriesTVC else {return}
             cell.collectionsData = categories.itemCategoriesDetails
             //cell.setBackGroundColor(color: UIColor(hexString: data))
-//            cell.callBack = { data in
-//                      debugPrint(data)
-//                onClick?(data)
-//            }
+            cell.callBack = { data in
+                debugPrint(data)
+                onClick?(data)
+            }
         }
     }
 }

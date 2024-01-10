@@ -273,22 +273,14 @@ extension OcassionThemesVC {
 // MARK: - SECTIONS CONFIGURATIONS -
 extension OcassionThemesVC {
     
+    // MARK: - configure for Theme Item Categories
     fileprivate func configureItemCategoriesData(with itemCategoriesResponse: ItemCategoriesDetailsResponse) {
         
         if let categories = itemCategoriesResponse.itemCategoriesDetails, !categories.isEmpty {
             if let storiesIndex = getSectionIndex(for: .themeItemCategories) {
-                self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forItemCategories: itemCategoriesResponse, data: self.occasionThemesSectionsData?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] story in
-                    if var categories = ((self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models)?.first {
-//                        let analyticsSmiles = AnalyticsSmiles(service: FirebaseAnalyticsService())
-//                        analyticsSmiles.sendAnalyticTracker(trackerData: Tracker(eventType: AnalyticsEvent.firebaseEvent(.ClickOnStory).name, parameters: [:]))
-//
-//                        if let eventName = self?.foodSections?.getEventName(for: SectionIdentifier.STORIES.rawValue), !eventName.isEmpty {
-//                            PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, offerId: story.storyID ?? "", source: self?.personalizationEventSource)
-//                        }
-//                        self?.openStories(stories: stories.stories ?? [], storyIndex: stories.stories?.firstIndex(of: story) ?? 0){storyIndex,snapIndex,isFavorite in
-//                            stories.setFavourite(isFavorite: isFavorite, storyIndex: storyIndex, snapIndex: snapIndex)
-//                            (self?.dataSource?.dataSources?[safe: storiesIndex] as? TableViewDataSource<Stories>)?.models = [stories]
-//                        }
+                self.dataSource?.dataSources?[storiesIndex] = TableViewDataSource.make(forItemCategories: itemCategoriesResponse, data: self.occasionThemesSectionsData?.sectionDetails?[storiesIndex].backgroundColor ?? "#FFFFFF", onClick: { [weak self] category in
+                    if let delegate = self?.delegate {
+                        delegate.handleDeepLinkRedirection(redirectionUrl: category.redirectionUrl.asStringOrEmpty())
                     }
                 })
                 self.configureDataSource()
@@ -302,6 +294,7 @@ extension OcassionThemesVC {
         
     }
     
+    // MARK: - configure for CollectionsData
     fileprivate func configureCollectionsData(with collectionsResponse: GetCollectionsResponseModel) {
         
         if let collections = collectionsResponse.collections, !collections.isEmpty {

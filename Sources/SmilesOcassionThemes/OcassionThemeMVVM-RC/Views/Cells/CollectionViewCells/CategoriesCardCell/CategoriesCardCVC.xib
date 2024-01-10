@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,23 +39,23 @@
                                     <constraint firstAttribute="height" constant="26" id="zpg-1S-uu4"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DD7-rN-anK">
-                                <rect key="frame" x="16" y="56" width="153" height="70"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="DD7-rN-anK">
+                                <rect key="frame" x="16" y="56" width="153" height="42"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Shopping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKa-Mq-tJL">
-                                        <rect key="frame" x="0.0" y="0.0" width="153" height="34"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKa-Mq-tJL">
+                                        <rect key="frame" x="0.0" y="0.0" width="153" height="14"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Shopping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzF-Xy-F75">
-                                        <rect key="frame" x="0.0" y="38" width="153" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzF-Xy-F75">
+                                        <rect key="frame" x="0.0" y="14" width="153" height="14"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Shopping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLD-TW-noF">
-                                        <rect key="frame" x="0.0" y="56" width="153" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLD-TW-noF">
+                                        <rect key="frame" x="0.0" y="28" width="153" height="14"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -71,7 +71,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.26274509800000001" green="0.29803921570000003" blue="0.59999999999999998" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="DD7-rN-anK" secondAttribute="bottom" constant="14" id="76T-VB-ujc"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="DD7-rN-anK" secondAttribute="bottom" constant="18" id="76T-VB-ujc"/>
                             <constraint firstItem="pkC-B1-YyV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eSJ-o4-htu" secondAttribute="trailing" constant="16" id="DGe-oe-O77"/>
                             <constraint firstItem="pkC-B1-YyV" firstAttribute="top" secondItem="CEz-5S-dBH" secondAttribute="top" id="DMi-DS-puP"/>
                             <constraint firstItem="eSJ-o4-htu" firstAttribute="top" secondItem="CEz-5S-dBH" secondAttribute="top" constant="16" id="JmD-Np-OHJ"/>
@@ -103,7 +103,7 @@
                 <outlet property="titleBGView" destination="eSJ-o4-htu" id="UBR-y5-hEk"/>
                 <outlet property="uptoLabel" destination="HKa-Mq-tJL" id="h0O-7u-xXI"/>
             </connections>
-            <point key="canvasLocation" x="139" y="20"/>
+            <point key="canvasLocation" x="138.1679389312977" y="19.718309859154932"/>
         </collectionViewCell>
     </objects>
 </document>

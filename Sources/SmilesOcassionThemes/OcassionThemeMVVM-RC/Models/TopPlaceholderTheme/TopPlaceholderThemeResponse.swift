@@ -34,5 +34,6 @@ struct TopPlaceholderTheme: Codable {
     var backgroundImage: String?
     var foregroundImage: String?
     var validTill: String?
+    var backgroundColor: String?
     
 }

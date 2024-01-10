@@ -35,6 +35,7 @@ extension OcassionThemesVC: UITableViewDelegate {
             case .topPlaceholder:
                 break
             case .themeItemCategories:
+                
                 break
             }
         }
@@ -52,7 +53,7 @@ extension OcassionThemesVC: UITableViewDelegate {
         case OccasionThemesSectionIdentifier.topPlaceholder.rawValue:
             return 0
         case OccasionThemesSectionIdentifier.stories.rawValue:
-            return 170
+            return 230
         case OccasionThemesSectionIdentifier.topBrands.rawValue:
             if let brands = self.topBrands, !brands.isEmpty {
                 if brands.count == 1 {
@@ -81,14 +82,16 @@ extension OcassionThemesVC: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
+        
             if let sectionData = self.occasionThemesSectionsData?.sectionDetails?[safe: section] {
+                
+                print(sectionData, "section data")
                 if self.occasionThemesSectionsData?.sectionDetails?[safe: section]?.sectionIdentifier == OccasionThemesSectionIdentifier.topPlaceholder.rawValue{
                     let header = OccasionThemeTopPlaceholderView()
-                    header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "#FFFFFF")
+//                    header.mainView.backgroundColor = UIColor(hexString: sectionData.backgroundColor ?? "#FFFFFF")
                     if let topBannerObject = topBannerObject?.themes?.first as? TopPlaceholderTheme {
                         header.hideSkeleton()
-                        self.navTitle.text = topBannerObject.header
+                        self.navTitle.text = topBannerObject.title
                         header.setupData(topBannerObject: topBannerObject)
                     } else {
                         header.enableSkeleton()
@@ -109,7 +112,7 @@ extension OcassionThemesVC: UITableViewDelegate {
                 }
                 
             }
-        }
+        
         return nil
         
     }

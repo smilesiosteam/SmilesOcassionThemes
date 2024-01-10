@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,9 +14,9 @@
                 <outlet property="dateLabel" destination="pt2-pn-jL1" id="rSU-vU-1WQ"/>
                 <outlet property="foregroundImage" destination="44z-mb-x1W" id="vw8-DR-cKv"/>
                 <outlet property="mainView" destination="4cr-Rb-EoY" id="gi7-Lt-4NW"/>
-                <outlet property="themeHeaderLabel" destination="fgM-Dd-K9f" id="8fo-K7-tsc"/>
+                <outlet property="themeHeaderLabel" destination="rFq-4k-a2k" id="VCP-AB-RAG"/>
                 <outlet property="themeOfferLabel" destination="VHh-bn-AbO" id="HY9-ns-r75"/>
-                <outlet property="themeTitleLabel" destination="rFq-4k-a2k" id="q8R-ym-Mf0"/>
+                <outlet property="themeTitleLabel" destination="fgM-Dd-K9f" id="vkN-HK-oJR"/>
                 <outlet property="titeContainerView" destination="mTq-Hh-Yhe" id="fNt-MZ-cwa"/>
             </connections>
         </placeholder>

@@ -1,6 +1,6 @@
 //
 //  ShopByCategoriesCVC.swift
-//  
+//
 //
 //  Created by Habib Rehman on 30/10/2023.
 //
@@ -18,6 +18,10 @@ class ShopByCategoriesCVC: UICollectionViewCell {
     @IBOutlet weak var categoryDescLabel: UILabel!
     @IBOutlet weak var validityDateLabel: UILabel!
     @IBOutlet weak var foregroundImage: UIImageView!
+    
+    @IBOutlet weak var btnCategory: UIButton!
+    
+    var btnCategoryTapHandler: ((ThemeCategoriesResponse) -> ())?
     
     // MARK: - Properties
     var categories:ThemeCategoriesResponse!{
@@ -81,5 +85,10 @@ class ShopByCategoriesCVC: UICollectionViewCell {
         self.foregroundImage.setImageWithUrlString(categories.foregroundImage ?? "")
         
     }
-
+    
+    @IBAction func btnCategoryClicked(_ sender: UIButton) {
+       
+    }
+    
+    
 }

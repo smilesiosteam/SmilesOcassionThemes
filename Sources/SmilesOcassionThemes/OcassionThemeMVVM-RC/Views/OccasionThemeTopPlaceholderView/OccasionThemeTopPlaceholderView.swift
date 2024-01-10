@@ -40,13 +40,13 @@ class OccasionThemeTopPlaceholderView: UIView {
         mainView.frame = bounds
         mainView.bindFrameToSuperviewBounds()
         //Fonts Style
-        themeHeaderLabel.fontTextStyle = .smilesHeadline3
-        themeTitleLabel.fontTextStyle = .smilesBody3
+        themeHeaderLabel.fontTextStyle = .smilesBody3
+        themeTitleLabel.fontTextStyle = .smilesHeadline3
         dateLabel.fontTextStyle = .smilesBody4
         
         //Fonts Color
-        themeHeaderLabel.textColor = .white
-        themeTitleLabel.textColor = .black
+        themeHeaderLabel.textColor = .black
+        themeTitleLabel.textColor = .white
         dateLabel.textColor = .white
         themeOfferLabel.textColor = .black
         
@@ -78,6 +78,7 @@ class OccasionThemeTopPlaceholderView: UIView {
         themeOfferLabel.attributedText = offerText
         backgroundImageView.setImageWithUrlString(topBannerObject.backgroundImage ?? "")
         foregroundImage.setImageWithUrlString(topBannerObject.foregroundImage ?? "")
+        self.mainView.backgroundColor = UIColor(hexString: topBannerObject.backgroundColor ?? "#ffffff")
         
     }
 

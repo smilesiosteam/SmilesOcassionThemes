@@ -20,7 +20,7 @@ class CategoriesCardCVC: UICollectionViewCell {
     @IBOutlet weak var subTitleLabel: UILabel!
     @IBOutlet weak var foregroundImage: UIImageView!
     
-    
+    var btnCategoryTapHandler: ((ThemeCategoriesResponse) -> ())?
     // MARK: - Properties
     
     var category:ThemeCategoriesResponse!{
@@ -41,8 +41,8 @@ class CategoriesCardCVC: UICollectionViewCell {
         //Fonts TypoGraphy
         self.categoryTitleLabel.fontTextStyle = .smilesTitle3
         self.uptoLabel.fontTextStyle = .smilesTitle3
-        self.discountLabel.fontTextStyle = .smilesTitle1
-        self.subTitleLabel.fontTextStyle = .smilesTitle1
+        self.discountLabel.fontTextStyle = .smilesHeadline3
+        self.subTitleLabel.fontTextStyle = .smilesHeadline3
         
         //Font Colors
         self.subTitleLabel.textColor = UIColor.black.withAlphaComponent(0.8)
