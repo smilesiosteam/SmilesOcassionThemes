@@ -360,13 +360,6 @@ extension OcassionThemesVC {
                     if let delegate = self?.delegate {
                         delegate.handleDeepLinkRedirection(redirectionUrl: data.redirectionUrl.asStringOrEmpty())
                     }
-//                    let analyticsSmiles = AnalyticsSmiles(service: FirebaseAnalyticsService())
-//                    analyticsSmiles.sendAnalyticTracker(trackerData: Tracker(eventType: AnalyticsEvent.firebaseEvent(.ClickOnTopBrands).name, parameters: [:]))
-//                    
-//                    if let eventName = self?.categoryDetailsSections?.getEventName(for: SectionIdentifier.TOPBRANDS.rawValue), !eventName.isEmpty {
-//                        PersonalizationEventHandler.shared.registerPersonalizationEvent(eventName: eventName, urlScheme: data.redirectionUrl.asStringOrEmpty(), offerId: data.id, source: self?.personalizationEventSource)
-//                    }
-                   // self?.handleBannerDeepLinkRedirections(url: data.redirectionUrl.asStringOrEmpty())
                 })
                 self.configureDataSource()
             }
