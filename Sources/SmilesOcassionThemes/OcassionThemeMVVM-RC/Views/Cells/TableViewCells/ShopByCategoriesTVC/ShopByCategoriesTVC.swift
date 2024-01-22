@@ -121,9 +121,23 @@ extension ShopByCategoriesTVC: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if let category = collectionsData?[indexPath.row] {
-            self.callBack?(category)
+        if isEven {
+            if let category = collectionsData?[indexPath.row] {
+                self.callBack?(category)
+            }
+        } else{
+            switch indexPath.section {
+            case 0:
+                if let category = collectionsData?[indexPath.section] {
+                    self.callBack?(category)
+                }
+            case 1:
+                if let category = collectionsData?[indexPath.row+1] {
+                    self.callBack?(category)
+                }
+            default:
+                break
+            }
         }
         
     }
