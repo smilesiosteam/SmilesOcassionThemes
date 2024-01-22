@@ -82,15 +82,6 @@
       }
     },
     {
-      "identity" : "smilesappheader",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/smilesiosteam/SmilesAppHeader.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "68791fe302aba9770fe725ccd907cbb537068251"
-      }
-    },
-    {
       "identity" : "smilesbanners",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesBanners.git",

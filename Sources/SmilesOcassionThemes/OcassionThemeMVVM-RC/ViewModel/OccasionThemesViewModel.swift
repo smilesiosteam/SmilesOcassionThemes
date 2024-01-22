@@ -8,7 +8,6 @@ import SmilesSharedServices
 import SmilesUtilities
 import SmilesOffers
 import SmilesBanners
-import SmilesLocationHandler
 import SmilesStoriesManager
 import NetworkingLayer
 

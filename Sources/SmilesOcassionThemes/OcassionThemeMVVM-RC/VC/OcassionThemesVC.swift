@@ -9,8 +9,6 @@
 import UIKit
 import SmilesUtilities
 import SmilesSharedServices
-import AppHeader
-import SmilesLocationHandler
 import Combine
 import SmilesOffers
 import SmilesLoader
