@@ -13,7 +13,6 @@ import Combine
 import SmilesOffers
 import SmilesLoader
 import SmilesStoriesManager
-import AnalyticsSmiles
 import SmilesBanners
 
 public class OcassionThemesVC: UIViewController {

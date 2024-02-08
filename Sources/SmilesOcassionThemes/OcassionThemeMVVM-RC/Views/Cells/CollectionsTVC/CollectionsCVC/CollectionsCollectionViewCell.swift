@@ -31,9 +31,9 @@ class CollectionsCollectionViewCell: UICollectionViewCell {
     }
 
     func configureCell(with data: GetCollectionsResponseModel.CollectionDO) {
-        image.setImageWithUrlString(data.imageUrl.asStringOrEmpty(), backgroundColor: .white) { image in
+        image.setImageWithUrlString(data.imageUrl.asStringOrEmpty(), backgroundColor: .white) { [weak self] image in
             if let image = image {
-                self.image.image = image
+                self?.image.image = image
             }
         }
         
