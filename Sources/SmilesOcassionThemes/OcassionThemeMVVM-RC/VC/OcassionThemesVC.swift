@@ -34,7 +34,7 @@ public class OcassionThemesVC: UIViewController {
     var sections = [TableSectionData<OccasionThemesSectionIdentifier>]()
     //[OccasionThemesSectionData]()
     var occasionThemesSectionsData: GetSectionsResponseModel?
-    private var themeId: Int = 1
+    private var themeId: Int?
     private var delegate:SmilesOccasionThemesHomeDelegate?
     var isHeaderExpanding = false
     var topBannerObject: TopPlaceholderThemeResponse?
@@ -143,7 +143,7 @@ public class OcassionThemesVC: UIViewController {
 extension OcassionThemesVC {
     
     private func getSections() {
-        self.input.send(.getSections(themeId: self.themeId))
+        self.input.send(.getSections(themeId: self.themeId ?? 1))
     }
     
     private func homeAPICalls() {
