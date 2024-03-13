@@ -89,6 +89,8 @@ public class OcassionThemesVC: UIViewController {
         let customizable: CellRegisterable? = OccasionThemesCellRegistration()
         customizable?.register(for: self.tableView)
         self.tableView.backgroundColor = .white
+        let inset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+        tableView.contentInset = inset
     }
     
     //MARK: Navigation Bar Setup
