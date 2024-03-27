@@ -21,12 +21,11 @@ class ShopByCategoriesTVC: UITableViewCell {
     // MARK: - Cell Configuration
     var collectionsData: [ThemeCategoriesResponse]?{
         didSet{
-            print("Coellections Count is:",collectionsData?.count ?? 0)
             self.numberOfItems = collectionsData?.count ?? 0
             self.collectionView?.reloadData()
             let height = collectionView.collectionViewLayout.collectionViewContentSize.height
             self.heightConstant.constant = height
-            
+            self.layoutIfNeeded()
         }
     }
     
@@ -57,9 +56,6 @@ class ShopByCategoriesTVC: UITableViewCell {
         self.collectionView.dataSource = self
         self.collectionView.register(UINib(nibName: String(describing: ShopByCategoriesCVC.self), bundle: .module), forCellWithReuseIdentifier: String(describing: ShopByCategoriesCVC.self))
         self.collectionView.register(UINib(nibName: String(describing: CategoriesCardCVC.self), bundle: .module), forCellWithReuseIdentifier: String(describing: CategoriesCardCVC.self))
-        let height = collectionView.collectionViewLayout.collectionViewContentSize.height
-        self.heightConstant.constant = height
-        
     }
     
 }
